@@ -1,6 +1,7 @@
 package com.cs2340group7.games;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,11 +10,10 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
-import com.cs2340group7.games.databinding.FragmentSecondBinding;
+import com.cs2340group7.games.databinding.WordleBinding;
 
-public class SecondFragment extends Fragment {
-
-    private FragmentSecondBinding binding;
+public class Wordle extends Fragment {
+    private WordleBinding binding;
 
     @Override
     public View onCreateView(
@@ -21,21 +21,14 @@ public class SecondFragment extends Fragment {
             Bundle savedInstanceState
     ) {
 
-        binding = FragmentSecondBinding.inflate(inflater, container, false);
-        return binding.getRoot();
+        binding = WordleBinding.inflate(inflater, container, false);
+        View view = binding.getRoot();
+        return view;
 
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        binding.buttonSecond.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                NavHostFragment.findNavController(SecondFragment.this)
-                        .navigate(R.id.action_SecondFragment_to_FirstFragment);
-            }
-        });
     }
 
     @Override
@@ -43,5 +36,4 @@ public class SecondFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
-
 }

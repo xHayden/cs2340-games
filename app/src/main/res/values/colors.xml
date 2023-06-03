@@ -3,4 +3,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="teal">#83C5BE</color>
+    <color name="button">#E29578</color>
+    <color name="dark_teal">#006D77</color>
+
 </resources>

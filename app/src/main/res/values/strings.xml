@@ -2,8 +2,9 @@
     <string name="app_name">games</string>
     <string name="action_settings">Settings</string>
     <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
+    <string name="game_play_screen_label">Play Game</string>
     <string name="second_fragment_label">Second Fragment</string>
+    <string name="game_configuration_label">Select your Character</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
 

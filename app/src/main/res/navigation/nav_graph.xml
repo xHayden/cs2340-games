@@ -3,26 +3,62 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/FirstFragment">
+    app:startDestination="@id/GamePlayScreen">
 
     <fragment
-        android:id="@+id/FirstFragment"
-        android:name="com.cs2340group7.games.FirstFragment"
-        android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_first">
+        android:id="@+id/GamePlayScreen"
+        android:name="com.cs2340group7.games.GamePlayScreen"
+        android:label="@string/game_play_screen_label"
+        tools:layout="@layout/game_play_screen">
 
         <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
+            android:id="@+id/action_GamePlay_to_GameConfig"
+            app:destination="@id/GameConfigurationScreen" />
     </fragment>
     <fragment
-        android:id="@+id/SecondFragment"
-        android:name="com.cs2340group7.games.SecondFragment"
-        android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_second">
-
+        android:id="@+id/GameConfigurationScreen"
+        android:name="com.cs2340group7.games.GameConfigurationScreen"
+        android:label="@string/game_configuration_label"
+        tools:layout="@layout/game_configuration">
         <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
+            android:id="@+id/action_toBlackjack"
+            app:destination="@id/Blackjack">
+            <argument
+                android:name="playerName"
+                app:argType="string"
+                android:defaultValue="Anonymous"/>
+        </action>
+        <action
+            android:id="@+id/action_toWordle"
+            app:destination="@id/Wordle">
+            <argument
+                android:name="playerName"
+                app:argType="string"
+                android:defaultValue="Anonymous" />
+        </action>
+        <action
+            android:id="@+id/action_toTicTacToe"
+            app:destination="@id/TicTacToe">
+            <argument
+                android:name="playerName"
+                app:argType="string"
+                android:defaultValue="Anonymous" />
+        </action>
     </fragment>
+    <fragment
+        android:id="@+id/Blackjack"
+        android:name="com.cs2340group7.games.Blackjack"
+        android:label="Blackjack"
+        tools:layout="@layout/blackjack"
+    />
+    <fragment
+        android:id="@+id/Wordle"
+        android:name="com.cs2340group7.games.Wordle"
+        android:label="Wordle"
+        tools:layout="@layout/wordle"/>
+    <fragment
+        android:id="@+id/TicTacToe"
+        android:name="com.cs2340group7.games.Tictactoe"
+        android:label="TicTacToe"
+        tools:layout="@layout/tictactoe"/>
 </navigation>

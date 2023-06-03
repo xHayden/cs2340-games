@@ -1,6 +1,7 @@
 package com.cs2340group7.games;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,11 +11,10 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
-import com.cs2340group7.games.databinding.FragmentFirstBinding;
+import com.cs2340group7.games.databinding.GamePlayScreenBinding;
 
-public class FirstFragment extends Fragment {
-
-    private FragmentFirstBinding binding;
+public class GamePlayScreen extends Fragment {
+    private GamePlayScreenBinding binding;
     private TextView gameName;
     private TextView description;
 
@@ -24,7 +24,7 @@ public class FirstFragment extends Fragment {
             Bundle savedInstanceState
     ) {
 
-        binding = FragmentFirstBinding.inflate(inflater, container, false);
+        binding = GamePlayScreenBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
         gameName = (TextView) view.findViewById(R.id.gameName);
         description = (TextView) view.findViewById(R.id.description);
@@ -38,10 +38,10 @@ public class FirstFragment extends Fragment {
         binding.buttonFirst.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setGameName("Test");
-                setDescription("test2");
-//                NavHostFragment.findNavController(FirstFragment.this)
-//                        .navigate(R.id.action_FirstFragment_to_SecondFragment);
+//                setGameName("Test");
+//                setDescription("test2");
+                NavHostFragment.findNavController(GamePlayScreen.this)
+                        .navigate(R.id.action_GamePlay_to_GameConfig);
             }
         });
     }
