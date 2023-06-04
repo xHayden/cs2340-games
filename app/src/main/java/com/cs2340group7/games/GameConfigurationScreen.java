@@ -1,10 +1,13 @@
 package com.cs2340group7.games;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -32,7 +35,7 @@ public class GameConfigurationScreen extends Fragment {
         binding = GameConfigurationBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
         RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
-        SelectedSpriteViewModel viewModel = new ViewModelProvider(this).get(SelectedSpriteViewModel.class);
+        SelectedSpriteViewModel viewModel = new ViewModelProvider(requireActivity()).get(SelectedSpriteViewModel.class);
 
         // Replace these with your actual drawable resources
         List<Integer> spriteList = Arrays.asList(
@@ -46,7 +49,6 @@ public class GameConfigurationScreen extends Fragment {
             @Override
             public void onSpriteClick(int spriteResId) {
                 viewModel.setSelectedSpriteResId(spriteResId);
-                Log.d("SELECTED SPRITE", Integer.toString(viewModel.getSelectedSpriteResId()));
             }
         });
         recyclerView.setAdapter(adapter);
@@ -60,10 +62,13 @@ public class GameConfigurationScreen extends Fragment {
             @Override
             public void onClick(View clickedView) {
                 playerName = view.findViewById(R.id.nameField);
+                if (playerName == null || playerName.getText() == null || playerName.getText().toString().trim().equals("")) {
+                    return;
+                }
                 Bundle bundle = new Bundle();
                 bundle.putString("playerName", playerName.getText().toString());
                 NavHostFragment.findNavController(GameConfigurationScreen.this)
-                        .navigate(R.id.action_toBlackjack);
+                        .navigate(R.id.action_toTicTacToe, bundle);
             }
         });
     }
