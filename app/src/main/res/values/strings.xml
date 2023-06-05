@@ -8,6 +8,16 @@
     <string name="next">Next</string>
     <string name="previous">Previous</string>
 
+    <string name="wordle_description">
+        An addictive word game where players must guess a hidden five-letter word within six attempts, getting feedback on correct letters and positions after each guess.
+    </string>
+    <string name="tictactoe_description">
+        A classic, quick strategy game where two players take turns marking spaces in a 3x3 grid, aiming to be the first to line up three of their marks in any direction.
+    </string>
+    <string name="blackjack_description">
+        A captivating strategic card game where players aim to reach a total of 21, or closest to it, without busting, while challenging the dealer\'s hand
+    </string>
+
     <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
         volutpat, dolor id interdum ullamcorper, risus dolor egestas lectus, sit amet mattis purus
