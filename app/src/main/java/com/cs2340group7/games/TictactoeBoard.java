@@ -62,7 +62,7 @@ public class TictactoeBoard extends View {
         if (action == MotionEvent.ACTION_DOWN) {
             int row = (int) (y / cellSize);
             int col = (int) (x / cellSize);
-            gameState[row][col] = O;
+            gameState[row][col] = 1;
 
             invalidate();
             return true;
