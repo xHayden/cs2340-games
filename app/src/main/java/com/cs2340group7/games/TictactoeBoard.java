@@ -127,5 +127,8 @@ public class TictactoeBoard extends View {
 
 
     }
+    public int[][] getGameState() {
+        return gameState;
+    }
 
 }

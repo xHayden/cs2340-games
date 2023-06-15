@@ -22,6 +22,8 @@ public class GameConfigurationScreen extends Fragment {
     private GameConfigurationBinding binding;
     private TextInputEditText playerName;
     private String playerNameTest;
+    private int gameLogoResId;
+    private String gameName;
 
     @Override
     public View onCreateView(
@@ -100,5 +102,14 @@ public class GameConfigurationScreen extends Fragment {
 
     public void setPlayerName(String playerNameTest) {
         this.playerNameTest = playerNameTest;
+    }
+    // Setter method for game logo resource ID
+    public void setGameLogoResId(int gameLogoResId) {
+        this.gameLogoResId = gameLogoResId;
+    }
+
+    // Setter method for game name
+    public void setGameName(String gameName) {
+        this.gameName = gameName;
     }
 }

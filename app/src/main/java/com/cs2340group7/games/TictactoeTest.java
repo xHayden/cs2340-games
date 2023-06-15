@@ -3,8 +3,8 @@ package com.cs2340group7.games;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-
 import org.junit.Test;
+
 
 public class TictactoeTest {
 
@@ -24,22 +24,6 @@ public class TictactoeTest {
         assertEquals(R.drawable.blobfish, selectedSpriteResId);
     }
 
-    @Test
-    public void testSelectedSpriteResId() {
-        // Test case for setting and retrieving the selected sprite resource ID
-        // ...
-
-        // Arrange
-        SelectedSpriteViewModel viewModel = new SelectedSpriteViewModel();
-        int spriteResId = R.drawable.duck;
-
-        // Act
-        viewModel.setSelectedSpriteResId(spriteResId);
-        int selectedSpriteResId = viewModel.getSelectedSpriteResId();
-
-        // Assert
-        assertEquals(spriteResId, selectedSpriteResId);
-    }
 
     @Test
     public void testPlayerNameNotNull() {
@@ -58,6 +42,7 @@ public class TictactoeTest {
         assertNotNull(retrievedPlayerName);
         assertEquals(playerName, retrievedPlayerName);
     }
+
     @Test
     public void testPlayerNameEmpty() {
         // Test case for an empty player name in the Tic Tac Toe game
@@ -76,6 +61,54 @@ public class TictactoeTest {
         assertEquals(playerName, retrievedPlayerName);
     }
 
+
+    @Test
+    public void testGameConfigurationScreenNotNull() {
+        // Test case for ensuring the GameConfigurationScreen is not null
+        // ...
+
+        // Arrange
+        GameConfigurationScreen gameConfigurationScreen = new GameConfigurationScreen();
+
+        // Act
+
+        // Assert
+        assertNotNull(gameConfigurationScreen);
+    }
+
+    @Test
+    public void testGetSelectedSpriteResId() {
+        // Test case for getting the selected sprite resource ID in the SelectedSpriteViewModel
+        // ...
+
+        // Arrange
+        int expectedResId = R.drawable.duck;
+
+        // Act
+        SelectedSpriteViewModel viewModel = new SelectedSpriteViewModel();
+        viewModel.setSelectedSpriteResId(expectedResId);
+        int actualResId = viewModel.getSelectedSpriteResId();
+
+        // Assert
+        assertEquals(expectedResId, actualResId);
+    }
+
+    @Test
+    public void testSetSelectedSpriteResId() {
+        // Test case for setting the selected sprite resource ID in the SelectedSpriteViewModel
+        // ...
+
+        // Arrange
+        int expectedResId = R.drawable.duck;
+
+        // Act
+        SelectedSpriteViewModel viewModel = new SelectedSpriteViewModel();
+        viewModel.setSelectedSpriteResId(expectedResId);
+        int actualResId = viewModel.getSelectedSpriteResId();
+
+        // Assert
+        assertEquals(expectedResId, actualResId);
+    }
 
 
 }
