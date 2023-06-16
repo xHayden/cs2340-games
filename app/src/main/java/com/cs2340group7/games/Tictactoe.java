@@ -16,6 +16,8 @@ import androidx.lifecycle.ViewModelProvider;
 import com.cs2340group7.games.databinding.GamePlayScreenBinding;
 import com.cs2340group7.games.databinding.TictactoeBinding;
 
+import org.w3c.dom.Text;
+
 public class Tictactoe extends Fragment {
     private @NonNull TictactoeBinding binding;
     private TextView gameTime;
@@ -38,6 +40,8 @@ public class Tictactoe extends Fragment {
         TextView playerName = view.findViewById(R.id.player_name);
         gameTime = view.findViewById(R.id.gameTime);
         TextView text = view.findViewById(R.id.tictactoeText);
+        TextView aiScore = view.findViewById(R.id.aiScore);
+        TextView playerScore = view.findViewById(R.id.playerScore);
 
         SelectedSpriteViewModel viewModel = new ViewModelProvider(requireActivity()).get(SelectedSpriteViewModel.class);
         int selectedSpriteResId = viewModel.getSelectedSpriteResId();
@@ -45,7 +49,7 @@ public class Tictactoe extends Fragment {
             playerName.setText(getArguments().get("playerName").toString());
             profileImage.setImageResource(selectedSpriteResId);
         }
-        tm = new TictactoeManager(gameTime, text);
+        tm = new TictactoeManager(gameTime, text, playerScore, aiScore);
     }
 
     @Override

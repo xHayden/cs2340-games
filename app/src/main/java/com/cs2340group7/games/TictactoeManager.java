@@ -9,19 +9,23 @@ import org.w3c.dom.Text;
 public class TictactoeManager {
     static char[][] board;
     static boolean playingGame;
-    static int humanScore = 0;
+    static int playerScore = 0;
+    private static TextView playerScoreUI;
     static int aiScore = 0;
+    private static TextView aiScoreUI;
     static int drawCount = 0;
     static boolean isFirstMove = true;
     static TictactoeBoard ui;
     static CountDownTimer timer;
     static TextView text;
 
-    public TictactoeManager(TextView gameTime, TextView textView) {
+    public TictactoeManager(TextView gameTime, TextView textView, TextView playerScore, TextView aiScore) {
         playingGame = true;
         createBoard();
         createTimer(gameTime);
         text = textView;
+        playerScoreUI = playerScore;
+        aiScoreUI = aiScore;
     }
 
     static void createTimer(TextView gameTime) {
@@ -167,7 +171,8 @@ public class TictactoeManager {
             text.setText("Player wins!");
             timer.cancel();
             Log.d("Tic", "The winner is: x");
-            humanScore++;
+            playerScore++;
+            playerScoreUI.setText("Player: " + playerScore);
             playingGame = false;
         } else if (checkWinner(position, 'y') == 'd') {
             // PLAYER PLAYS MOVE THAT CAUSES DRAWING MOVE
@@ -217,6 +222,7 @@ public class TictactoeManager {
             timer.cancel();
             Log.d("Tic", "The winner is: y");
             aiScore++;
+            aiScoreUI.setText("AI: " + aiScore);
             playingGame = false;
         } else {
             if (checkWinner(position, 'y') == 'd') {
