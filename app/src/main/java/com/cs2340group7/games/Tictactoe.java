@@ -37,6 +37,7 @@ public class Tictactoe extends Fragment {
         ImageView profileImage = view.findViewById(R.id.player_profile);
         TextView playerName = view.findViewById(R.id.player_name);
         gameTime = view.findViewById(R.id.gameTime);
+        TextView text = view.findViewById(R.id.tictactoeText);
 
         SelectedSpriteViewModel viewModel = new ViewModelProvider(requireActivity()).get(SelectedSpriteViewModel.class);
         int selectedSpriteResId = viewModel.getSelectedSpriteResId();
@@ -44,7 +45,7 @@ public class Tictactoe extends Fragment {
             playerName.setText(getArguments().get("playerName").toString());
             profileImage.setImageResource(selectedSpriteResId);
         }
-        tm = new TictactoeManager(gameTime);
+        tm = new TictactoeManager(gameTime, text);
     }
 
     @Override

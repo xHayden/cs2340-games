@@ -4,6 +4,8 @@ import android.os.CountDownTimer;
 import android.util.Log;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 public class TictactoeManager {
     static char[][] board;
     static boolean playingGame;
@@ -12,24 +14,26 @@ public class TictactoeManager {
     static int drawCount = 0;
     static boolean isFirstMove = true;
     static TictactoeBoard ui;
+    static CountDownTimer timer;
+    static TextView text;
 
-    public TictactoeManager(TextView gameTime) {
+    public TictactoeManager(TextView gameTime, TextView textView) {
         playingGame = true;
         createBoard();
         createTimer(gameTime);
+        text = textView;
     }
 
     static void createTimer(TextView gameTime) {
-        new CountDownTimer(10000, 1000) {
+        timer = new CountDownTimer(10500, 1000) {
             public void onTick(long millisUntilFinished) {
                 gameTime.setText("Time Left: " + millisUntilFinished / 1000);
-                // add in the method to call so that the PC makes its move and users move is skipped
             }
             public void onFinish() {
-                gameTime.setText("Your turn was skipped");
-                // add in the method to call so that the PC makes its move and users move is skipped
-
-
+                text.setText("Your turn was skipped");
+                aiMove();
+                ui.invalidate();
+                this.start();
             }
         }.start();
     }
@@ -139,7 +143,10 @@ public class TictactoeManager {
     }
 
     public static void playerMove(int position) {
+        text.setText("");
         updateWinnerAndScore(position);
+        timer.cancel();
+        timer.start();
     }
 
     private static void updateUI(int position, char player) {
@@ -157,57 +164,69 @@ public class TictactoeManager {
         if (checkWinner(position, 'x') != ' ' && checkWinner(position, 'x') != 'd') {
             // PLAYER PLAYS WINNING MOVE
             updateUI(position, 'x');
+            text.setText("Player wins!");
+            timer.cancel();
             Log.d("Tic", "The winner is: x");
             humanScore++;
             playingGame = false;
         } else if (checkWinner(position, 'y') == 'd') {
             // PLAYER PLAYS MOVE THAT CAUSES DRAWING MOVE
             updateUI(position, 'x');
+            text.setText("Draw!");
+            timer.cancel();
             Log.d("Tic", "It is a draw.");
             drawCount++;
             playingGame = false;
         } else {
             if (playingGame) {
-                //AI next move
-                position = findWinningMove('y');
-                if (position == -1) {
-                    position = findWinningMove('x');
-                    if (position == -1) {
-                        if (isPositionFree(4)) {
-                            position = 4;
-                        } else if (isPositionFree(0) && isFirstMove) {
-                            position = 0;
-                        } else if (isPositionFree(2) && isFirstMove) {
-                            position = 2;
-                        } else if (isPositionFree(6) && isFirstMove) {
-                            position = 6;
-                        } else if (isPositionFree(8) && isFirstMove) {
-                            position = 8;
-                        } else {
-                            do {
-                                position = (int) (Math.random() * 9);
-                            } while (!isPositionFree(position));
-                        }
-                    }
-                }
+                aiMove();
+            }
+        }
+    }
 
-                updateUI(position, 'y');
-                isFirstMove = false;
-                if (checkWinner(position, 'y') != ' ' && checkWinner(position, 'y') != 'd') {
-                    // AI PLAYED WINNING MOVE
-                    updateUI(position, 'y');
-                    Log.d("Tic", "The winner is: y");
-                    aiScore++;
-                    playingGame = false;
+    private static void aiMove() {
+        //AI next move
+        int position = findWinningMove('y');
+        if (position == -1) {
+            position = findWinningMove('x');
+            if (position == -1) {
+                if (isPositionFree(4)) {
+                    position = 4;
+                } else if (isPositionFree(0) && isFirstMove) {
+                    position = 0;
+                } else if (isPositionFree(2) && isFirstMove) {
+                    position = 2;
+                } else if (isPositionFree(6) && isFirstMove) {
+                    position = 6;
+                } else if (isPositionFree(8) && isFirstMove) {
+                    position = 8;
                 } else {
-                    if (checkWinner(position, 'y') == 'd') {
-                        // AI PLAYED DRAW
-                        updateUI(position, 'y');
-                        Log.d("Tic", "It is a draw.");
-                        drawCount++;
-                        playingGame = false;
-                    }
+                    do {
+                        position = (int) (Math.random() * 9);
+                    } while (!isPositionFree(position));
                 }
+            }
+        }
+
+        updateUI(position, 'y');
+        isFirstMove = false;
+        if (checkWinner(position, 'y') != ' ' && checkWinner(position, 'y') != 'd') {
+            // AI PLAYED WINNING MOVE
+            updateUI(position, 'y');
+            text.setText("The AI Wins!");
+            timer.cancel();
+            Log.d("Tic", "The winner is: y");
+            aiScore++;
+            playingGame = false;
+        } else {
+            if (checkWinner(position, 'y') == 'd') {
+                // AI PLAYED DRAW
+                updateUI(position, 'y');
+                text.setText("Draw!");
+                timer.cancel();
+                Log.d("Tic", "It is a draw.");
+                drawCount++;
+                playingGame = false;
             }
         }
     }
