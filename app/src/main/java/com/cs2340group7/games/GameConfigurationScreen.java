@@ -1,13 +1,9 @@
 package com.cs2340group7.games;
 
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
@@ -25,6 +21,9 @@ import java.util.List;
 public class GameConfigurationScreen extends Fragment {
     private GameConfigurationBinding binding;
     private TextInputEditText playerName;
+    private String playerNameTest;
+    private int gameLogoResId;
+    private String gameName;
 
     @Override
     public View onCreateView(
@@ -90,10 +89,27 @@ public class GameConfigurationScreen extends Fragment {
             }
         });
     }
+    // Getter for playerName
+    public String getPlayerName() {
+        return playerNameTest;
+    }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    public void setPlayerName(String playerNameTest) {
+        this.playerNameTest = playerNameTest;
+    }
+    // Setter method for game logo resource ID
+    public void setGameLogoResId(int gameLogoResId) {
+        this.gameLogoResId = gameLogoResId;
+    }
+
+    // Setter method for game name
+    public void setGameName(String gameName) {
+        this.gameName = gameName;
     }
 }

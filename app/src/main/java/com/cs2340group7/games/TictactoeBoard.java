@@ -64,8 +64,8 @@ public class TictactoeBoard extends View {
             int col = (int) (x / cellSize);
             if (gameState[row][col] == 0) {
                 TictactoeManager.playerMove((row * 3) + col);
-                invalidate();
             }
+            invalidate();
             return true;
         }
         return super.onTouchEvent(event);
@@ -133,6 +133,9 @@ public class TictactoeBoard extends View {
         boardDrawable.draw(canvas);
 
 
+    }
+    public int[][] getGameState() {
+        return gameState;
     }
 
 }
