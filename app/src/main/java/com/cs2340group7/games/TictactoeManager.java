@@ -2,6 +2,8 @@ package com.cs2340group7.games;
 
 import android.os.CountDownTimer;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
@@ -18,14 +20,24 @@ public class TictactoeManager {
     static TictactoeBoard ui;
     static CountDownTimer timer;
     static TextView text;
+    private static Button playAgainButton;
 
-    public TictactoeManager(TextView gameTime, TextView textView, TextView playerScore, TextView aiScore) {
+    public TictactoeManager(TextView gameTime, TextView textView, TextView playerScore, TextView aiScore, Button playAgain) {
         playingGame = true;
         createBoard();
         createTimer(gameTime);
         text = textView;
         playerScoreUI = playerScore;
         aiScoreUI = aiScore;
+        playAgainButton = playAgain;
+    }
+
+    public static void restart() {
+        playingGame = true;
+        createBoard();
+        timer.start();
+        ui.resetUI();
+        ui.invalidate();
     }
 
     static void createTimer(TextView gameTime) {
@@ -173,6 +185,7 @@ public class TictactoeManager {
             Log.d("Tic", "The winner is: x");
             playerScore++;
             playerScoreUI.setText("Player: " + playerScore);
+            playAgainButton.setVisibility(View.VISIBLE);
             playingGame = false;
         } else if (checkWinner(position, 'y') == 'd') {
             // PLAYER PLAYS MOVE THAT CAUSES DRAWING MOVE
@@ -181,6 +194,7 @@ public class TictactoeManager {
             timer.cancel();
             Log.d("Tic", "It is a draw.");
             drawCount++;
+            playAgainButton.setVisibility(View.VISIBLE);
             playingGame = false;
         } else {
             if (playingGame) {
@@ -223,6 +237,7 @@ public class TictactoeManager {
             Log.d("Tic", "The winner is: y");
             aiScore++;
             aiScoreUI.setText("AI: " + aiScore);
+            playAgainButton.setVisibility(View.VISIBLE);
             playingGame = false;
         } else {
             if (checkWinner(position, 'y') == 'd') {
@@ -232,6 +247,7 @@ public class TictactoeManager {
                 timer.cancel();
                 Log.d("Tic", "It is a draw.");
                 drawCount++;
+                playAgainButton.setVisibility(View.VISIBLE);
                 playingGame = false;
             }
         }

@@ -26,7 +26,7 @@ public class TictactoeBoard extends View {
     private static final int X = 1;
     private static final int O = 2;
 
-    private final int[][] gameState = {
+    private int[][] gameState = {
             {EMPTY, EMPTY, EMPTY},
             {EMPTY, EMPTY, EMPTY},
             {EMPTY, EMPTY, EMPTY}
@@ -75,6 +75,14 @@ public class TictactoeBoard extends View {
         int row = (int) position / 3;
         int col = position % 3;
         gameState[row][col] = state;
+    }
+
+    public void resetUI() {
+        gameState = new int[][]{
+                {EMPTY, EMPTY, EMPTY},
+                {EMPTY, EMPTY, EMPTY},
+                {EMPTY, EMPTY, EMPTY}
+        };
     }
 
     @Override

@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -42,6 +43,15 @@ public class Tictactoe extends Fragment {
         TextView text = view.findViewById(R.id.tictactoeText);
         TextView aiScore = view.findViewById(R.id.aiScore);
         TextView playerScore = view.findViewById(R.id.playerScore);
+        Button playAgainButton = view.findViewById(R.id.playAgainButton);
+
+        playAgainButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TictactoeManager.restart();
+                playAgainButton.setVisibility(View.GONE);
+            }
+        });
 
         SelectedSpriteViewModel viewModel = new ViewModelProvider(requireActivity()).get(SelectedSpriteViewModel.class);
         int selectedSpriteResId = viewModel.getSelectedSpriteResId();
@@ -49,7 +59,7 @@ public class Tictactoe extends Fragment {
             playerName.setText(getArguments().get("playerName").toString());
             profileImage.setImageResource(selectedSpriteResId);
         }
-        tm = new TictactoeManager(gameTime, text, playerScore, aiScore);
+        tm = new TictactoeManager(gameTime, text, playerScore, aiScore, playAgainButton);
     }
 
     @Override
