@@ -19,6 +19,7 @@ import com.cs2340group7.games.databinding.TictactoeBinding;
 public class Tictactoe extends Fragment {
     private @NonNull TictactoeBinding binding;
     private TextView gameTime;
+    private TictactoeManager tm;
 
     @Override
     public View onCreateView(
@@ -29,7 +30,6 @@ public class Tictactoe extends Fragment {
         binding = TictactoeBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
         return view;
-
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
@@ -44,23 +44,7 @@ public class Tictactoe extends Fragment {
             playerName.setText(getArguments().get("playerName").toString());
             profileImage.setImageResource(selectedSpriteResId);
         }
-        new CountDownTimer(10000, 1000) {
-
-            public void onTick(long millisUntilFinished) {
-                gameTime.setText("Time Left: " + millisUntilFinished / 1000);
-                // add in the method to call so that the PC makes its move and users move is skipped
-
-            }
-
-
-            public void onFinish() {
-                gameTime.setText("Your turn was skipped");
-                // add in the method to call so that the PC makes its move and users move is skipped
-
-
-            }
-        }.start();
-
+        tm = new TictactoeManager(gameTime);
     }
 
     @Override

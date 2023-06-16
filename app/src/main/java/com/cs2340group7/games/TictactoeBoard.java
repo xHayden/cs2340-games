@@ -39,7 +39,7 @@ public class TictactoeBoard extends View {
         Resources resources = context.getResources();
         xImage = ResourcesCompat.getDrawable(resources, R.drawable.x_sprite, null);
         oImage = ResourcesCompat.getDrawable(resources, R.drawable.o_sprite, null);
-
+        TictactoeManager.setBoardUI(this);
     }
 
     @Override
@@ -62,12 +62,19 @@ public class TictactoeBoard extends View {
         if (action == MotionEvent.ACTION_DOWN) {
             int row = (int) (y / cellSize);
             int col = (int) (x / cellSize);
-            gameState[row][col] = O;
-
-            invalidate();
+            if (gameState[row][col] == 0) {
+                TictactoeManager.playerMove((row * 3) + col);
+                invalidate();
+            }
             return true;
         }
         return super.onTouchEvent(event);
+    }
+
+    public void updateCell(int position, int state) {
+        int row = (int) position / 3;
+        int col = position % 3;
+        gameState[row][col] = state;
     }
 
     @Override
