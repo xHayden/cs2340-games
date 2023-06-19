@@ -6,8 +6,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 public class TictactoeManager {
     static char[][] board;
     static boolean playingGame;
@@ -32,12 +30,21 @@ public class TictactoeManager {
         playAgainButton = playAgain;
     }
 
-    public static void restart() {
+    public static void startNoUI() {
         playingGame = true;
         createBoard();
+    }
+
+    public static void restart() {
+        restartNoUI();
         timer.start();
         ui.resetUI();
         ui.invalidate();
+    }
+
+    public static void restartNoUI() {
+        playingGame = true;
+        createBoard();
     }
 
     static void createTimer(TextView gameTime) {

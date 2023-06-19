@@ -1,12 +1,14 @@
 package com.cs2340group7.games;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 
 
 public class TictactoeTest {
+    char[][] emptyBoard = {{' ', ' ', ' '}, {' ', ' ', ' '}, {' ', ' ', ' '}};
 
     @Test
     public void testPlayerIconDisplay() {
@@ -110,5 +112,40 @@ public class TictactoeTest {
         assertEquals(expectedResId, actualResId);
     }
 
+    @Test
+    public void testBoardReset() {
+        TictactoeManager.startNoUI();
+        //    Asserts that the board is not null
+        assertNotNull(TictactoeManager.board);
+        //    Asserts that there’s an empty board at the start of the game
+        assertEquals(TictactoeManager.board, emptyBoard);
+        //    Asserts that if a move is played, the board is no longer an empty board
+        TictactoeManager.putAtSpot(0, 'x');
+        assertNotEquals(TictactoeManager.board, emptyBoard);
+        //    Restarts game
+        TictactoeManager.restartNoUI();
+        //    Asserts that empty board is equal to the reset board
+        assertEquals(TictactoeManager.board, emptyBoard);
+    }
 
+    @Test
+    public void testPutAtSpot() {
+        TictactoeManager.startNoUI();
+        //    Asserts that the board is not null
+        assertNotNull(TictactoeManager.board);
+        //    Asserts that there’s an empty board at the start of the game
+        assertEquals(TictactoeManager.board, emptyBoard);
+        //    Asserts that putAtSpot(0, ‘x’) updates the board with the correct nested structure
+        TictactoeManager.putAtSpot(0, 'x');
+        assertEquals(TictactoeManager.board, new char[][]{{'x', ' ', ' '}, {' ', ' ', ' '}, {' ', ' ', ' '}});
+        //    Asserts that putAtSpot(0, ‘y’) updates the board with the correct nested structure
+        TictactoeManager.putAtSpot(0, 'y');
+        assertEquals(TictactoeManager.board, new char[][]{{'y', ' ', ' '}, {' ', ' ', ' '}, {' ', ' ', ' '}});
+        //    Asserts that putAtSpot(5, ‘x’) updates the board with the correct nested structure
+        TictactoeManager.putAtSpot(5, 'x');
+        assertEquals(TictactoeManager.board, new char[][]{{'y', ' ', ' '}, {' ', ' ', ' '}, {' ', 'x', ' '}});
+        //    Asserts that putAtSpot(5, ‘y’) updates the board with the correct nested structure
+        TictactoeManager.putAtSpot(5, 'y');
+        assertEquals(TictactoeManager.board, new char[][]{{'y', ' ', ' '}, {' ', ' ', ' '}, {' ', 'y', ' '}});
+    }
 }
