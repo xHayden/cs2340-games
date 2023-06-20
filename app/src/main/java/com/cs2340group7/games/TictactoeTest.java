@@ -148,4 +148,25 @@ public class TictactoeTest {
         TictactoeManager.putAtSpot(5, 'y');
         assertEquals(TictactoeManager.board, new char[][]{{'y', ' ', ' '}, {' ', ' ', ' '}, {' ', 'y', ' '}});
     }
+
+    @Test
+    public void testCheckWinner() {
+        TictactoeManager.startNoUI();
+
+        TictactoeManager.putAtSpot(0, 'x');
+        TictactoeManager.putAtSpot(1, 'x');
+
+
+        assertEquals(TictactoeManager.findWinningMove('x'), 2);
+    }
+
+    @Test
+    public void testCheckPositionOverride() {
+        TictactoeManager.startNoUI();
+
+        TictactoeManager.putAtSpot(0, 'x');
+        TictactoeManager.putAtSpot(0, 'y');
+
+        assertEquals(TictactoeManager.board[0][0], 'y');
+    }
 }
