@@ -1,17 +1,17 @@
 package com.cs2340group7.games;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.fragment.NavHostFragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.cs2340group7.games.databinding.WordleBinding;
 
@@ -41,6 +41,15 @@ public class Wordle extends Fragment {
             playerName.setText(getArguments().get("playerName").toString());
             profileImage.setImageResource(selectedSpriteResId);
         }
+
+        WordleController wc = WordleController.getInstance();
+        ProgressBar healthBar = view.findViewById(R.id.healthBar);
+        RecyclerView tiles = view.findViewById(R.id.wordleTiles);
+        TextView scoreboard = view.findViewById(R.id.score);
+        wc.setHealthBar(healthBar);
+        wc.setTiles(tiles);
+        // wc.setKeyboard(keyboard); to be implemented how you see fit
+        wc.setScoreboard(scoreboard);
     }
 
     @Override
