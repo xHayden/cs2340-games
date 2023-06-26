@@ -1,10 +1,10 @@
 package com.cs2340group7.games;
 
-import android.annotation.SuppressLint;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
+
 public class WordleController {
     // When using WordleController, get it with
     // WorldeController wordleController = WordleController.getInstance();
@@ -40,5 +40,12 @@ public class WordleController {
     public void setScoreboard(TextView scoreboardUI) {
         this.scoreboardUI = scoreboardUI;
         this.scoreboard = new WordleScoreboard(scoreboardUI);
+    }
+
+    public void setKeyboard(WordleKeyboard keyboard) {
+        this.keyboard = keyboard;
+    }
+
+    public void onKeyPress(String key) {
     }
 }

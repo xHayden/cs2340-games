@@ -72,13 +72,14 @@
 
     </LinearLayout>
 
-    <androidx.gridlayout.widget.GridLayout
-        android:id="@+id/keyboard"
+    <LinearLayout
+        android:id="@+id/keyboardContainer"
         android:layout_width="match_parent"
         android:layout_height="200dp"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-    </androidx.gridlayout.widget.GridLayout>
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

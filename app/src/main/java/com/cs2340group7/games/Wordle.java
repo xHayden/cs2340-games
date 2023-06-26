@@ -1,10 +1,12 @@
 package com.cs2340group7.games;
 
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -17,6 +19,8 @@ import com.cs2340group7.games.databinding.WordleBinding;
 
 public class Wordle extends Fragment {
     private WordleBinding binding;
+    private LinearLayout keyboardContainer;
+
 
     @Override
     public View onCreateView(
@@ -48,8 +52,10 @@ public class Wordle extends Fragment {
         TextView scoreboard = view.findViewById(R.id.score);
         wc.setHealthBar(healthBar);
         wc.setTiles(tiles);
-        // wc.setKeyboard(keyboard); to be implemented how you see fit
         wc.setScoreboard(scoreboard);
+
+        WordleKeyboard keyboard = new WordleKeyboard(requireContext(), keyboardContainer);
+        LinearLayout keyboardContainer = view.findViewById(R.id.keyboardContainer);
     }
 
     @Override
