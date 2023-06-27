@@ -1,85 +1,230 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+tools:context=".Wordle">
+
+<LinearLayout
+    android:id="@+id/linearLayout3"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".Wordle">
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
 
     <LinearLayout
-        android:id="@+id/linearLayout3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/player_profile"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            app:srcCompat="@drawable/duck" />
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:padding="4dp">
 
-            <ImageView
-                android:id="@+id/player_profile"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                app:srcCompat="@drawable/duck" />
-
-            <LinearLayout
+            <TextView
+                android:id="@+id/player_name"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:orientation="vertical"
-                android:padding="4dp">
+                android:layout_height="wrap_content"
+                android:text="Player Name" />
 
-                <TextView
-                    android:id="@+id/player_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Player Name" />
-
-                <ProgressBar
-                    android:id="@+id/healthBar"
-                    style="?android:attr/progressBarStyleHorizontal"
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/scoreboardLayout"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical|end"
-                android:orientation="horizontal"
-                android:padding="24dp">
-
-                <TextView
-                    android:id="@+id/score"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Score: 0" />
-            </LinearLayout>
+            <ProgressBar
+                android:id="@+id/healthBar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content" />
 
         </LinearLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/wordleTiles"
+        <LinearLayout
+            android:id="@+id/scoreboardLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            android:gravity="center_vertical|end"
+            android:orientation="horizontal"
+            android:padding="24dp">
 
-        </androidx.recyclerview.widget.RecyclerView>
+            <TextView
+                android:id="@+id/score"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Score: 0" />
+        </LinearLayout>
 
     </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/wordleTiles"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+</LinearLayout>
+
+<LinearLayout
+    android:id="@+id/keyboardContainer"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/wordleTiles">
+
+    <!-- Custom keyboard layout here -->
 
     <LinearLayout
-        android:id="@+id/keyboardContainer"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/key_1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="q" />
+
+        <Button
+            android:id="@+id/key_2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="w" />
+
+        <Button
+            android:id="@+id/key_3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="e" />
+
+        <Button
+            android:id="@+id/key_4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="r" />
+
+        <Button
+            android:id="@+id/key_5"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="t" />
+        <Button
+            android:id="@+id/key_6"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="y" />
+
+
+        <!-- Add more buttons as needed -->
 
     </LinearLayout>
 
+</LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+
+<!--    <?xml version="1.0" encoding="utf-8"?>-->
+<!--<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--xmlns:tools="http://schemas.android.com/tools"-->
+<!--android:layout_width="match_parent"-->
+<!--android:layout_height="match_parent"-->
+<!--tools:context=".Wordle">-->
+
+<!--<LinearLayout-->
+<!--    android:id="@+id/linearLayout3"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="wrap_content"-->
+<!--    android:orientation="vertical"-->
+<!--    app:layout_constraintStart_toStartOf="parent"-->
+<!--    app:layout_constraintTop_toTopOf="parent">-->
+
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="horizontal">-->
+
+<!--        <ImageView-->
+<!--            android:id="@+id/player_profile"-->
+<!--            android:layout_width="80dp"-->
+<!--            android:layout_height="80dp"-->
+<!--            app:srcCompat="@drawable/duck" />-->
+
+<!--        <LinearLayout-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:gravity="center_vertical"-->
+<!--            android:orientation="vertical"-->
+<!--            android:padding="4dp">-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/player_name"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Player Name" />-->
+
+<!--            <ProgressBar-->
+<!--                android:id="@+id/healthBar"-->
+<!--                style="?android:attr/progressBarStyleHorizontal"-->
+<!--                android:layout_width="100dp"-->
+<!--                android:layout_height="wrap_content" />-->
+
+<!--        </LinearLayout>-->
+
+<!--        <LinearLayout-->
+<!--            android:id="@+id/scoreboardLayout"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:gravity="center_vertical|end"-->
+<!--            android:orientation="horizontal"-->
+<!--            android:padding="24dp">-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/score"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Score: 0" />-->
+<!--        </LinearLayout>-->
+
+<!--    </LinearLayout>-->
+
+<!--    <androidx.recyclerview.widget.RecyclerView-->
+<!--        android:id="@+id/wordleTiles"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content">-->
+
+<!--    </androidx.recyclerview.widget.RecyclerView>-->
+
+<!--</LinearLayout>-->
+
+<!--<LinearLayout-->
+<!--    android:id="@+id/keyboardContainer"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="200dp"-->
+<!--    android:orientation="vertical"-->
+<!--    app:layout_constraintBottom_toBottomOf="parent"-->
+<!--    app:layout_constraintStart_toStartOf="parent">-->
+
+<!--</LinearLayout>-->
+
+<!--</androidx.constraintlayout.widget.ConstraintLayout>-->

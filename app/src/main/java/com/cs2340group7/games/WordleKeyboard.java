@@ -2,7 +2,6 @@ package com.cs2340group7.games;
 
 import android.content.Context;
 import android.view.Gravity;
-import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
@@ -52,12 +51,9 @@ public class WordleKeyboard {
     private void setKeyListeners() {
         for (int i = 0; i < keys.length; i++) {
             final int index = i;
-            keys[i].setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    String key = keys[index].getText().toString();
-                    WordleController.getInstance().onKeyPress(key);
-                }
+            keys[i].setOnClickListener(v -> {
+                String key = keys[index].getText().toString();
+                WordleController.getInstance().onKeyPress(key);
             });
         }
     }

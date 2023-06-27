@@ -54,8 +54,7 @@ public class Wordle extends Fragment {
         wc.setTiles(tiles);
         wc.setScoreboard(scoreboard);
 
-        WordleKeyboard keyboard = new WordleKeyboard(requireContext(), keyboardContainer);
-        LinearLayout keyboardContainer = view.findViewById(R.id.keyboardContainer);
+
     }
 
     @Override
