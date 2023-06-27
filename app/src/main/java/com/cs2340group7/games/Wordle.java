@@ -50,11 +50,12 @@ public class Wordle extends Fragment {
         ProgressBar healthBar = view.findViewById(R.id.healthBar);
         RecyclerView tiles = view.findViewById(R.id.wordleTiles);
         TextView scoreboard = view.findViewById(R.id.score);
+        LinearLayout keyboardContainer = view.findViewById(R.id.keyboardContainer);
+        WordleKeyboard wordleKeyboard = new WordleKeyboard(getContext(), keyboardContainer);
         wc.setHealthBar(healthBar);
         wc.setTiles(tiles);
         wc.setScoreboard(scoreboard);
-
-
+        wc.setKeyboard(wordleKeyboard);
     }
 
     @Override

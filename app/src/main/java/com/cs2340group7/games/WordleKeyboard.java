@@ -1,6 +1,7 @@
 package com.cs2340group7.games;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.Gravity;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -19,7 +20,12 @@ public class WordleKeyboard {
                 {"", "ENTER", "DELETE"}
         };
 
-        keys = new Button[keyLabels.length * keyLabels[0].length];
+        int labelsCounter = 0;
+        for (int i = 0; i < keyLabels.length; i++) {
+            labelsCounter += keyLabels[i].length;
+        }
+        keys = new Button[labelsCounter];
+        int currKey = 0;
 
         // Create and add the keys to the keyboard layout
         for (int i = 0; i < keyLabels.length; i++) {
@@ -28,24 +34,38 @@ public class WordleKeyboard {
             rowLayout.setGravity(Gravity.CENTER);
 
             for (int j = 0; j < keyLabels[i].length; j++) {
-                keys[i * keyLabels[i].length + j] = new Button(context);
-                keys[i * keyLabels[i].length + j].setText(keyLabels[i][j]);
+                keys[currKey] = new Button(context);
+                keys[currKey].setText(keyLabels[i][j]);
 
-                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                        LinearLayout.LayoutParams.WRAP_CONTENT,
-                        LinearLayout.LayoutParams.WRAP_CONTENT
-                );
-                params.setMargins(10, 10, 10, 10);
+                // Determine the layout parameters based on the text of the button
+                LinearLayout.LayoutParams params;
+                if (keyLabels[i][j].length() > 1) {  // If the button text is more than 1 character long
+                    params = new LinearLayout.LayoutParams(
+                            LinearLayout.LayoutParams.WRAP_CONTENT,
+                            LinearLayout.LayoutParams.WRAP_CONTENT
+                    );
+                    params.weight = 2; // Increase the weight for longer text
+                } else {
+                    params = new LinearLayout.LayoutParams(
+                            LinearLayout.LayoutParams.WRAP_CONTENT,
+                            LinearLayout.LayoutParams.WRAP_CONTENT
+                    );
+                    params.weight = 1; // Smaller weight for single character
+                }
 
-                keys[i * keyLabels[i].length + j].setLayoutParams(params);
-                rowLayout.addView(keys[i * keyLabels[i].length + j]);
+                params.setMargins(0, 2, 0, 2);
+                keys[currKey].setLayoutParams(params);
+                rowLayout.addView(keys[currKey]);
+                currKey++;
             }
+
 
             keyboardContainer.addView(rowLayout);
         }
 
         // Add click listeners to the keys
         setKeyListeners();
+
     }
 
     private void setKeyListeners() {
