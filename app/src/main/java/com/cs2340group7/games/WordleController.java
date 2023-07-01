@@ -54,10 +54,6 @@ public class WordleController {
         tiles.update(key);
     }
 
-    public void updateTiles(Character[] inputs) {
-
-    }
-
     public int[] checkWord(Character[] word) {
         for (int i = 0; i < word.length; i++) {
             // check word logic here
