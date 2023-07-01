@@ -57,4 +57,11 @@ public class WordleController {
     public void updateTiles(Character[] inputs) {
 
     }
+
+    public int[] checkWord(Character[] word) {
+        for (int i = 0; i < word.length; i++) {
+            // check word logic here
+        }
+        return new int[]{0, 1, 2, 2, 0}; // dummy data atm
+    }
 }

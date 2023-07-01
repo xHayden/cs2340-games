@@ -1,36 +1,19 @@
 package com.cs2340group7.games;
 
-import android.text.Editable;
-import android.util.Log;
-import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Stack;
-
-import androidx.recyclerview.widget.RecyclerView;
-
-import org.w3c.dom.Text;
 
 public class WordleTiles {
     private LinearLayout ui;
     private Stack<Character> tiles;
+    private int rowsCompleted = 0;
     public WordleTiles(LinearLayout ui) {
         this.ui = ui;
-        tiles = new Stack<Character>();
-    }
-
-    public void setClickEvents() {
-        for (int i = 0; i < ui.getChildCount(); i++) {
-            TextView textBox = (TextView) ui.getChildAt(i);
-            textBox.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                }
-            });
-        }
+        tiles = new Stack<>();
     }
 
     public void update(String key) {
@@ -38,23 +21,35 @@ public class WordleTiles {
             return;
         }
 
-        int row = (tiles.size() / 5);
-
         switch (key){
             case "ENTER":
-                if (tiles.size() % 5 == 0) {
-                    break;
-                } //breaks if row is completed
+                if (tiles.size() % 5 == 0 && rowsCompleted * 5 != tiles.size()) {
+                    Character[] guess = new Character[5];
+                    for (int i = 0; i < 5; i++) {
+                        guess[i] = tiles.get((rowsCompleted * 5) + i);
+                    }
+                    int[] answers = WordleController.getInstance().checkWord(guess);
+                    Integer[] answerColors = new Integer[5];
+                    HashMap<Integer, Integer> colorsMap = new HashMap<Integer, Integer>() {{
+                        put(0, R.drawable.single_tile);
+                        put(1, R.drawable.wrong_pos_tile);
+                        put(2, R.drawable.correct_tile);
+                    }};
+                    for (int i = 0; i < answers.length; i++) {
+                        answerColors[i] = colorsMap.get(answers[i]);
+                    }
+                    changeRowTiles(rowsCompleted, answerColors);
+                    rowsCompleted++;
+                }
             case "DELETE":
-                if (!(tiles.size() == row * 5)) {
+                if (tiles.size() > rowsCompleted * 5) {
                     tiles.pop();
                 } // does not pop if the row is already complete
-                Log.d("deleteT",key.toString());
                 break;
             default:
-                if (!(tiles.size() > (row + 1) * 5)) {
+                if ((rowsCompleted + 1) * 5 > tiles.size()) {
                     tiles.push(key.charAt(0));
-                } //have logic and then move to next row
+                }
                 break;
         }
         Character[] tilesArray = tiles.toArray(new Character[tiles.size()]);
@@ -65,8 +60,6 @@ public class WordleTiles {
         }
         for (int i = 0; i < tiles.size(); i++) {
             TextView textBox = textView.get(i);
-            Log.d("update",textBox.toString());
-            Log.d("notworking",tilesArray[i].toString());
             textBox.setText(tilesArray[i].toString());
         }
     }
@@ -79,5 +72,18 @@ public class WordleTiles {
             }
         }
         return textViews;
+    }
+
+    public void changeRowTiles(int rowNum, Integer[] tiles) {
+        if (tiles.length != 5) {
+            throw new IllegalArgumentException("Need to specify 5 colors");
+        }
+        LinearLayout row = (LinearLayout) ui.getChildAt(rowNum);
+        for (int i = 0; i < row.getChildCount(); i++) {
+            if (tiles[i] != null) {
+                TextView tile = (TextView) row.getChildAt(i);
+                tile.setBackgroundResource(tiles[i]);
+            }
+        }
     }
 }
