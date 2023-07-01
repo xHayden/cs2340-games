@@ -17,7 +17,7 @@ public class WordleTiles {
     }
 
     public void update(String key) {
-        if (tiles.size() >= getAllChildren().size()) {
+        if (tiles.size() > getAllChildren().size()) {
             return;
         }
 
