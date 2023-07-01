@@ -1,9 +1,13 @@
 package com.cs2340group7.games;
 
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.Stack;
 
 public class WordleController {
     // When using WordleController, get it with
@@ -14,7 +18,7 @@ public class WordleController {
     private WordleKeyboard keyboard;
     private WordleHealthBar healthBar;
     private ProgressBar healthBarUI;
-    private RecyclerView tilesUI;
+    private LinearLayout tilesUI;
     private TextView scoreboardUI;
 
     private WordleController() {
@@ -32,7 +36,7 @@ public class WordleController {
         this.healthBar = new WordleHealthBar(healthBarUI);
     }
 
-    public void setTiles(RecyclerView tilesUI) {
+    public void setTiles(LinearLayout tilesUI) {
         this.tilesUI = tilesUI;
         this.tiles = new WordleTiles(tilesUI);
     }
@@ -47,5 +51,10 @@ public class WordleController {
     }
 
     public void onKeyPress(String key) {
+        tiles.update(key);
+    }
+
+    public void updateTiles(Character[] inputs) {
+
     }
 }

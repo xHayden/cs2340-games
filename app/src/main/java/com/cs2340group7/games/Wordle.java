@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -48,7 +49,8 @@ public class Wordle extends Fragment {
 
         WordleController wc = WordleController.getInstance();
         ProgressBar healthBar = view.findViewById(R.id.healthBar);
-        RecyclerView tiles = view.findViewById(R.id.wordleTiles);
+//        RecyclerView tiles = view.findViewById(R.id.wordleTiles);
+        LinearLayout tiles = view.findViewById(R.id.wordleTiles);
         TextView scoreboard = view.findViewById(R.id.score);
         LinearLayout keyboardContainer = view.findViewById(R.id.keyboardContainer);
         WordleKeyboard wordleKeyboard = new WordleKeyboard(getContext(), keyboardContainer);
