@@ -1,9 +1,13 @@
 package com.cs2340group7.games;
 
+
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Stack;
 
@@ -24,6 +28,7 @@ public class WordleTiles {
         switch (key){
             case "ENTER":
                 if (tiles.size() % 5 == 0 && rowsCompleted * 5 != tiles.size()) {
+                    WordleController.getInstance().attempts++;
                     Character[] guess = new Character[5];
                     for (int i = 0; i < 5; i++) {
                         guess[i] = tiles.get((rowsCompleted * 5) + i);
@@ -34,12 +39,39 @@ public class WordleTiles {
                         put(0, R.drawable.single_tile);
                         put(1, R.drawable.wrong_pos_tile);
                         put(2, R.drawable.correct_tile);
+                        //put(3, R.drawable.wrong_tile);
                     }};
                     for (int i = 0; i < answers.length; i++) {
                         answerColors[i] = colorsMap.get(answers[i]);
                     }
                     changeRowTiles(rowsCompleted, answerColors);
                     rowsCompleted++;
+                    if (Arrays.equals(answers, new int[]{2, 2, 2, 2, 2})) {
+                        Toast.makeText(ui.getContext(), String.format("You won in %d %s!", rowsCompleted, rowsCompleted == 1 ? "attempt" : "attempts"), Toast.LENGTH_LONG).show();
+                        switch(rowsCompleted) {
+                            case (6):
+                                WordleController.getInstance().wonInSix++;
+                                break;
+                            case (5):
+                                WordleController.getInstance().wonInFive++;
+                                break;
+                            case (4):
+                                WordleController.getInstance().wonInFour++;
+                                break;
+                            case (3):
+                                WordleController.getInstance().wonInThree++;
+                                break;
+                            case (2):
+                                WordleController.getInstance().wonInTwo++;
+                                break;
+                            case (1):
+                                WordleController.getInstance().wonInOne++;
+                                break;
+                        }
+                    } else if (rowsCompleted == 6) {
+                        WordleController.getInstance().fails++;
+                        Toast.makeText(ui.getContext(), String.format("You lost, the word was %s.", key), Toast.LENGTH_LONG).show();
+                    }
                 }
             case "DELETE":
                 if (tiles.size() > rowsCompleted * 5) {
@@ -52,6 +84,7 @@ public class WordleTiles {
                 }
                 break;
         }
+
         Character[] tilesArray = tiles.toArray(new Character[tiles.size()]);
         ArrayList<TextView> textView = getAllChildren();
         for(int i = 0; i < textView.size(); i++) {

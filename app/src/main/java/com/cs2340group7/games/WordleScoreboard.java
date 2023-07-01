@@ -5,6 +5,7 @@ import android.widget.TextView;
 
 public class WordleScoreboard {
     private TextView ui;
+    static int attempts;
     public WordleScoreboard(TextView ui) {
         this.ui = ui;
     }
