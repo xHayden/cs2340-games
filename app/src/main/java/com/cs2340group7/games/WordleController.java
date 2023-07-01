@@ -1,5 +1,7 @@
 package com.cs2340group7.games;
 
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -22,6 +24,7 @@ import java.util.Stack;
     private ProgressBar healthBarUI;
     private LinearLayout tilesUI;
     private TextView scoreboardUI;
+    private Button playAgainButton;
     Random rand = new Random();
     String key = WordleWordBank.wordleBank[rand.nextInt(WordleWordBank.wordleBank.length)];
 
@@ -68,9 +71,20 @@ import java.util.Stack;
         tiles.update(key);
     }
 
+    public void setPlayAgainButton(Button playAgainButton) {
+        this.playAgainButton = playAgainButton;
+        playAgainButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tiles.resetGame();
+                playAgainButton.setVisibility(View.GONE);
+            }
+        });
+    }
+
     public int[] checkWord(Character[] answer) {
         char[] arrayKey = key.toCharArray();
-        int[] color = new int[]{0, 0, 0, 0, 0};
+        int[] color = new int[]{3, 3, 3, 3, 3};
         boolean[] keyUsed = new boolean[5];
         boolean[] answerUsed = new boolean[5];
 
@@ -97,5 +111,13 @@ import java.util.Stack;
         }
 
         return color;
+    }
+
+    public void displayPlayAgain() {
+        playAgainButton.setVisibility(View.VISIBLE);
+    }
+
+    public void increaseScore() {
+        scoreboard.increase();
     }
 }

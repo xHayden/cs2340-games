@@ -5,7 +5,7 @@ import android.widget.TextView;
 
 public class WordleScoreboard {
     private TextView ui;
-    static int attempts;
+    int score;
     public WordleScoreboard(TextView ui) {
         this.ui = ui;
     }
@@ -13,4 +13,5 @@ public class WordleScoreboard {
     public void update(int score) {
         ui.setText(String.format("Score: %d", score));
     }
+    public void increase() { score++; update(score); }
 }

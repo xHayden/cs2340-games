@@ -6,6 +6,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -15,16 +16,22 @@ public class WordleTiles {
     private LinearLayout ui;
     private Stack<Character> tiles;
     private int rowsCompleted = 0;
+    private HashMap<Integer, Integer> colorsMap;
     public WordleTiles(LinearLayout ui) {
         this.ui = ui;
         tiles = new Stack<>();
+        colorsMap = new HashMap<Integer, Integer>() {{
+            put(0, R.drawable.single_tile);
+            put(1, R.drawable.wrong_pos_tile);
+            put(2, R.drawable.correct_tile);
+            put(3, R.drawable.wrong_tile);
+        }};
     }
 
     public void update(String key) {
         if (tiles.size() > getAllChildren().size()) {
             return;
         }
-
         switch (key){
             case "ENTER":
                 if (tiles.size() % 5 == 0 && rowsCompleted * 5 != tiles.size()) {
@@ -35,12 +42,6 @@ public class WordleTiles {
                     }
                     int[] answers = WordleController.getInstance().checkWord(guess);
                     Integer[] answerColors = new Integer[5];
-                    HashMap<Integer, Integer> colorsMap = new HashMap<Integer, Integer>() {{
-                        put(0, R.drawable.single_tile);
-                        put(1, R.drawable.wrong_pos_tile);
-                        put(2, R.drawable.correct_tile);
-                        //put(3, R.drawable.wrong_tile);
-                    }};
                     for (int i = 0; i < answers.length; i++) {
                         answerColors[i] = colorsMap.get(answers[i]);
                     }
@@ -48,6 +49,8 @@ public class WordleTiles {
                     rowsCompleted++;
                     if (Arrays.equals(answers, new int[]{2, 2, 2, 2, 2})) {
                         Toast.makeText(ui.getContext(), String.format("You won in %d %s!", rowsCompleted, rowsCompleted == 1 ? "attempt" : "attempts"), Toast.LENGTH_LONG).show();
+                        WordleController.getInstance().increaseScore();
+                        WordleController.getInstance().displayPlayAgain();
                         switch(rowsCompleted) {
                             case (6):
                                 WordleController.getInstance().wonInSix++;
@@ -71,6 +74,7 @@ public class WordleTiles {
                     } else if (rowsCompleted == 6) {
                         WordleController.getInstance().fails++;
                         Toast.makeText(ui.getContext(), String.format("You lost, the word was %s.", key), Toast.LENGTH_LONG).show();
+                        WordleController.getInstance().displayPlayAgain();
                     }
                 }
             case "DELETE":
@@ -87,6 +91,9 @@ public class WordleTiles {
 
         Character[] tilesArray = tiles.toArray(new Character[tiles.size()]);
         ArrayList<TextView> textView = getAllChildren();
+        if (tiles.size() > textView.size()) {
+            return;
+        }
         for(int i = 0; i < textView.size(); i++) {
             textView.get(i).setText("");
         }
@@ -117,5 +124,15 @@ public class WordleTiles {
                 tile.setBackgroundResource(tiles[i]);
             }
         }
+    }
+
+    public void resetGame() {
+        ArrayList<TextView> tileUI = getAllChildren();
+        for (int i = 0; i < tileUI.size(); i++) {
+            tileUI.get(i).setText("");
+            tileUI.get(i).setBackgroundResource(colorsMap.get(0));
+        }
+        tiles = new Stack<>();
+        rowsCompleted = 0;
     }
 }

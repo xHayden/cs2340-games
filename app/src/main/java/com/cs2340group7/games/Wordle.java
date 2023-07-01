@@ -58,6 +58,7 @@ public class Wordle extends Fragment {
         wc.setTiles(tiles);
         wc.setScoreboard(scoreboard);
         wc.setKeyboard(wordleKeyboard);
+        wc.setPlayAgainButton(view.findViewById(R.id.playAgainButton));
     }
 
     @Override
