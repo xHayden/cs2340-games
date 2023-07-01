@@ -1,7 +1,6 @@
 package com.cs2340group7.games;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.Gravity;
 import android.widget.Button;
 import android.widget.LinearLayout;

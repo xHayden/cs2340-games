@@ -53,7 +53,6 @@ public class WordleTiles {
                 break;
         }
         Character[] tilesArray = tiles.toArray(new Character[tiles.size()]);
-        WordleController.getInstance().updateTiles(tilesArray);
         ArrayList<TextView> textView = getAllChildren();
         for(int i = 0; i < textView.size(); i++) {
             textView.get(i).setText("");
