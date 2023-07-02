@@ -19,7 +19,11 @@ public class WordleTiles {
     private int rowsCompleted = 0;
     private HashMap<Integer, Integer> colorsMap;
     public WordleTiles(LinearLayout ui) {
+        this();
         this.ui = ui;
+    }
+
+    public WordleTiles() {
         tiles = new Stack<>();
         colorsMap = new HashMap<Integer, Integer>() {{
             put(0, R.drawable.single_tile);
@@ -112,7 +116,7 @@ public class WordleTiles {
             textBox.setText(tilesArray[i].toString());
         }
     }
-    private ArrayList<TextView> getAllChildren() {
+    public ArrayList<TextView> getAllChildren() {
         ArrayList<TextView> textViews = new ArrayList<>();
         for (int i = 0; i < ui.getChildCount(); i++) {
             LinearLayout row = (LinearLayout) ui.getChildAt(i);
@@ -142,7 +146,19 @@ public class WordleTiles {
             tileUI.get(i).setText("");
             tileUI.get(i).setBackgroundResource(colorsMap.get(0));
         }
+        resetTilesNoUI();
+    }
+
+    public void resetTilesNoUI() {
         tiles = new Stack<>();
         rowsCompleted = 0;
+    }
+
+    public Stack<Character> getTiles() {
+        return tiles;
+    }
+
+    public int getRowsCompleted() {
+        return rowsCompleted;
     }
 }

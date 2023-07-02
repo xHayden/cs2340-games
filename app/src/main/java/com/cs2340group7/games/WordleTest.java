@@ -2,9 +2,12 @@ package com.cs2340group7.games;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Assert;
 import org.testng.annotations.Test;
+
+import java.sql.Wrapper;
 
 public class WordleTest {
     @Test
@@ -110,5 +113,17 @@ public class WordleTest {
         assertEquals(controller.scoreboard.getScore(), 0);
         controller.scoreboard.setScore(5);
         assertEquals(controller.scoreboard.getScore(), 5);
+    }
+
+    @Test
+    public void testResetTiles() {
+        WordleController controller = WordleController.getInstance();
+        controller.setTilesNoUI();
+        assertTrue(controller.getTiles().getTiles().empty());
+        assertEquals(controller.getTiles().getRowsCompleted(), 0);
+        controller.getTiles().getTiles().push('E');
+        controller.getTiles().resetTilesNoUI();
+        assertTrue(controller.getTiles().getTiles().empty());
+        assertEquals(controller.getTiles().getRowsCompleted(), 0);
     }
 }

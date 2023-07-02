@@ -49,7 +49,6 @@ public class Wordle extends Fragment {
 
         WordleController wc = WordleController.getInstance();
         LinearLayout healthBar = view.findViewById(R.id.healthbar);
-//        RecyclerView tiles = view.findViewById(R.id.wordleTiles);
         LinearLayout tiles = view.findViewById(R.id.wordleTiles);
         TextView scoreboard = view.findViewById(R.id.score);
         LinearLayout keyboardContainer = view.findViewById(R.id.keyboardContainer);
@@ -59,6 +58,7 @@ public class Wordle extends Fragment {
         wc.setScoreboard(scoreboard);
         wc.setKeyboard(wordleKeyboard);
         wc.setPlayAgainButton(view.findViewById(R.id.playAgainButton));
+        wc.setPlayAgain(view.findViewById(R.id.playAgain));
     }
 
     @Override

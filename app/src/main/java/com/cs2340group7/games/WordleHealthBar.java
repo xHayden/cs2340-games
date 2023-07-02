@@ -21,6 +21,9 @@ public class WordleHealthBar {
         heart3 = (ImageView) ui.getChildAt(2);
     }
 
+    public WordleHealthBar() {
+    }
+
     //    public void update(int value) {
 //        this.ui.setProgress(value);
 //    }

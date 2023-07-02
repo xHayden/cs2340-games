@@ -21,6 +21,7 @@ public class WordleController {
     private LinearLayout tilesUI;
     private TextView scoreboardUI;
     private Button playAgainButton;
+    private LinearLayout playAgain;
     Random rand = new Random();
     String key = WordleWordBank.wordleBank[rand.nextInt(WordleWordBank.wordleBank.length)];
 
@@ -75,17 +76,13 @@ public class WordleController {
         this.scoreboard = new WordleScoreboard();
     }
 
-//    public void setTilesNoUI() {
-//        this.tiles = new WordleTiles();
-//    }
-//
-//    public void setHealthBarNoUI() {
-//        this.healthBar = new WordleHealthBar();
-//    }
-//
-//    public void setTilesNoUI() {
-//        this.tiles = new WordleTiles();
-//    }
+    public void setTilesNoUI() {
+        this.tiles = new WordleTiles();
+    }
+
+    public void setHealthBarNoUI() {
+        this.healthBar = new WordleHealthBar();
+    }
 
     public WordleKeyboard getKeyboard() {
         return keyboard;
@@ -102,11 +99,15 @@ public class WordleController {
             public void onClick(View v) {
                 tiles.resetGame();
                 key = newKey();
-                playAgainButton.setVisibility(View.GONE);
+                playAgain.setVisibility(View.GONE);
                 keyboard.showKeyboard();
                 WordleController.getInstance().getHealthBar().reset();
             }
         });
+    }
+
+    public void setPlayAgain(LinearLayout playAgain) {
+        this.playAgain = playAgain;
     }
 
     public int[] checkWord(Character[] answer) {
@@ -163,7 +164,7 @@ public class WordleController {
     }
 
     public void displayPlayAgain() {
-        playAgainButton.setVisibility(View.VISIBLE);
+        playAgain.setVisibility(View.VISIBLE);
     }
 
     public void increaseScore() {
