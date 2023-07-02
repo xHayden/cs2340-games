@@ -47,6 +47,10 @@ public class WordleController {
         return instance;
     }
 
+    public WordleHealthBar getHealthBar() {
+        return healthBar;
+    }
+
 
     public void setHealthBar(LinearLayout healthBarUI) {
         this.healthBarUI = healthBarUI;
@@ -100,6 +104,7 @@ public class WordleController {
                 key = newKey();
                 playAgainButton.setVisibility(View.GONE);
                 keyboard.showKeyboard();
+                WordleController.getInstance().getHealthBar().reset();
             }
         });
     }

@@ -1,6 +1,7 @@
 package com.cs2340group7.games;
 
 
+import android.util.Log;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -82,6 +83,9 @@ public class WordleTiles {
                         Toast.makeText(ui.getContext(), String.format("You lost, the word was %s.", WordleController.getInstance().getKey()), Toast.LENGTH_LONG).show();
                         WordleController.getInstance().displayPlayAgain();
                     }
+                    Log.d("testsa", String.format("%d %d %d %d %d", answers[0], answers[1], answers[2], answers[3], answers[4]));
+                    WordleController.getInstance().getHealthBar().updateHealth(rowsCompleted, answers);
+                    //WordleController.getInstance().getKeyboard().updateKeyColors();
                 }
             case "DELETE":
                 if (tiles.size() > rowsCompleted * 5) {

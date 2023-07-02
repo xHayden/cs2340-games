@@ -94,4 +94,15 @@ public class WordleKeyboard {
         }
     }
 
+    private final Map<Integer, Integer> colorMapping = new HashMap<Integer, Integer>() {{
+        put(0, Color.GRAY);    // default
+        put(1, Color.YELLOW);  // wrong position
+        put(2, Color.GREEN);   // correct
+        put(3, Color.RED);     // wrong
+    }};
+
+    /*public void updateKeyColors() {
+        keys[0].setTextColor(colorMapping.get(0));
+    }*/
+
 }
