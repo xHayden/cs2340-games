@@ -63,7 +63,12 @@
         android:id="@+id/Wordle"
         android:name="com.cs2340group7.games.Wordle"
         android:label="Wordle"
-        tools:layout="@layout/wordle"/>
+        tools:layout="@layout/wordle">
+        <action
+            android:id="@+id/action_Wordle_to_SelectGame"
+            app:destination="@id/SelectGame">
+        </action>
+    </fragment>
     <fragment
         android:id="@+id/TicTacToe"
         android:name="com.cs2340group7.games.Tictactoe"
