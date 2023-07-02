@@ -1,13 +1,14 @@
 package com.cs2340group7.games;
 
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
 import java.util.Arrays;
 
-public class WordleHealthBar {
+public class WordleHealthBar implements UIComponent {
     private LinearLayout ui;
     private ImageView heart1;
     private ImageView heart2;
@@ -58,6 +59,16 @@ public class WordleHealthBar {
         heart1.setImageResource(R.drawable.fullheart);
         heart2.setImageResource(R.drawable.fullheart);
         heart3.setImageResource(R.drawable.fullheart);
+    }
+
+    @Override
+    public View getUI() {
+        return this.ui;
+    }
+
+    @Override
+    public void setUI(View ui) {
+        this.ui = (LinearLayout) ui;
     }
 }
 

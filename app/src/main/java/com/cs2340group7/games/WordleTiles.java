@@ -1,23 +1,22 @@
 package com.cs2340group7.games;
 
-
 import android.util.Log;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Stack;
 
-public class WordleTiles {
+public class WordleTiles implements UIComponent {
     private LinearLayout ui;
     private Stack<Character> tiles;
     private int rowsCompleted = 0;
     private HashMap<Integer, Integer> colorsMap;
+
     public WordleTiles(LinearLayout ui) {
         this();
         this.ui = ui;
@@ -41,7 +40,7 @@ public class WordleTiles {
         if (tiles.size() > getAllChildren().size()) {
             return;
         }
-        switch (key){
+        switch (key) {
             case "ENTER":
                 if (tiles.size() % 5 == 0 && rowsCompleted * 5 != tiles.size()) {
                     WordleController.getInstance().attempts++;
@@ -61,7 +60,7 @@ public class WordleTiles {
                         Toast.makeText(ui.getContext(), String.format("You won in %d %s!", rowsCompleted, rowsCompleted == 1 ? "attempt" : "attempts"), Toast.LENGTH_LONG).show();
                         WordleController.getInstance().increaseScore();
                         WordleController.getInstance().displayPlayAgain();
-                        switch(rowsCompleted) {
+                        switch (rowsCompleted) {
                             case (6):
                                 WordleController.getInstance().wonInSix++;
                                 break;
@@ -108,7 +107,7 @@ public class WordleTiles {
         if (tiles.size() > textView.size()) {
             return;
         }
-        for(int i = 0; i < textView.size(); i++) {
+        for (int i = 0; i < textView.size(); i++) {
             textView.get(i).setText("");
         }
         for (int i = 0; i < tiles.size(); i++) {
@@ -116,12 +115,13 @@ public class WordleTiles {
             textBox.setText(tilesArray[i].toString());
         }
     }
+
     public ArrayList<TextView> getAllChildren() {
         ArrayList<TextView> textViews = new ArrayList<>();
         for (int i = 0; i < ui.getChildCount(); i++) {
             LinearLayout row = (LinearLayout) ui.getChildAt(i);
             for (int j = 0; j < row.getChildCount(); j++) {
-               textViews.add((TextView) row.getChildAt(j));
+                textViews.add((TextView) row.getChildAt(j));
             }
         }
         return textViews;
@@ -160,5 +160,15 @@ public class WordleTiles {
 
     public int getRowsCompleted() {
         return rowsCompleted;
+    }
+
+    @Override
+    public View getUI() {
+        return this.ui;
+    }
+
+    @Override
+    public void setUI(View ui) {
+        this.ui = (LinearLayout) ui;
     }
 }

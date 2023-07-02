@@ -14,6 +14,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.cs2340group7.games.databinding.WordleBinding;
@@ -24,13 +25,16 @@ public class Wordle extends Fragment {
 
 
     @Override
-    public View onCreateView(
-            LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState
-    ) {
-
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = WordleBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
+        binding.exitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                NavHostFragment.findNavController(Wordle.this)
+                        .navigate(R.id.action_Wordle_to_SelectGame, savedInstanceState);
+            }
+        });
         return view;
 
     }
@@ -55,7 +59,7 @@ public class Wordle extends Fragment {
         WordleKeyboard wordleKeyboard = new WordleKeyboard(getContext(), keyboardContainer);
         wc.setHealthBar(healthBar);
         wc.setTiles(tiles);
-        wc.setScoreboard(scoreboard);
+        wc.setScoreboard(scoreboard, view.findViewById(R.id.scorePlayAgain));
         wc.setKeyboard(wordleKeyboard);
         wc.setPlayAgainButton(view.findViewById(R.id.playAgainButton));
         wc.setPlayAgain(view.findViewById(R.id.playAgain));

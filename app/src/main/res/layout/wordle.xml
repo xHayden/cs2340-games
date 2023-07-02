@@ -559,7 +559,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="150dp"
         android:background="@drawable/score_background"
         android:orientation="vertical"
         android:padding="20dp"
@@ -613,14 +612,31 @@
             android:textColor="@color/white"
             android:visibility="gone" />
 
+        <TextView
+            android:id="@+id/scorePlayAgain"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:gravity="center"
+            android:text="Score: 0"
+            android:textColor="@color/white"
+            android:textSize="20dp" />
+
         <Button
             android:id="@+id/playAgainButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:backgroundTint="#252420"
+            android:backgroundTint="#4C4A41"
             android:text="Play Again"
             android:visibility="visible" />
+
+        <Button
+            android:id="@+id/exitButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#201F1C"
+            android:text="Exit Game" />
     </LinearLayout>
 
 </FrameLayout>

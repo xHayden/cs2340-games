@@ -37,6 +37,7 @@ public class WordleController {
 
     private WordleController() {
     }
+
     public WordleTiles getTiles() {
         return tiles;
     }
@@ -63,9 +64,9 @@ public class WordleController {
         this.tiles = new WordleTiles(tilesUI);
     }
 
-    public void setScoreboard(TextView scoreboardUI) {
+    public void setScoreboard(TextView scoreboardUI, TextView playAgainScore) {
         this.scoreboardUI = scoreboardUI;
-        this.scoreboard = new WordleScoreboard(scoreboardUI);
+        this.scoreboard = new WordleScoreboard(scoreboardUI, playAgainScore);
     }
 
     public void setKeyboard(WordleKeyboard keyboard) {
@@ -170,5 +171,4 @@ public class WordleController {
     public void increaseScore() {
         scoreboard.increase();
     }
-
 }
