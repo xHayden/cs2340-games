@@ -48,7 +48,7 @@ public class Wordle extends Fragment {
         }
 
         WordleController wc = WordleController.getInstance();
-        ProgressBar healthBar = view.findViewById(R.id.healthBar);
+        LinearLayout healthBar = view.findViewById(R.id.healthbar);
 //        RecyclerView tiles = view.findViewById(R.id.wordleTiles);
         LinearLayout tiles = view.findViewById(R.id.wordleTiles);
         TextView scoreboard = view.findViewById(R.id.score);

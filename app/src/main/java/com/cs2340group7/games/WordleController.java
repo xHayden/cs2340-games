@@ -17,7 +17,7 @@ public class WordleController {
     private WordleTiles tiles;
     private WordleKeyboard keyboard;
     private WordleHealthBar healthBar;
-    private ProgressBar healthBarUI;
+    private LinearLayout healthBarUI;
     private LinearLayout tilesUI;
     private TextView scoreboardUI;
     private Button playAgainButton;
@@ -48,7 +48,7 @@ public class WordleController {
     }
 
 
-    public void setHealthBar(ProgressBar healthBarUI) {
+    public void setHealthBar(LinearLayout healthBarUI) {
         this.healthBarUI = healthBarUI;
         this.healthBar = new WordleHealthBar(healthBarUI);
     }

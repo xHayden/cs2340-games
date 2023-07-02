@@ -7,9 +7,7 @@
     tools:context=".Wordle">
 
     <!-- Existing layout content -->
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -47,11 +45,31 @@
                         android:layout_height="wrap_content"
                         android:text="Player Name" />
 
-                    <ProgressBar
-                        android:id="@+id/healthBar"
-                        style="?android:attr/progressBarStyleHorizontal"
-                        android:layout_width="100dp"
-                        android:layout_height="wrap_content" />
+                    <LinearLayout
+                        android:id="@+id/healthbar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="16dp">
+
+                        <ImageView
+                            android:id="@+id/heart1"
+                            android:layout_width="39dp"
+                            android:layout_height="23dp"
+                            android:src="@drawable/fullheart" />
+
+                        <ImageView
+                            android:id="@+id/heart2"
+                            android:layout_width="37dp"
+                            android:layout_height="23dp"
+                            android:src="@drawable/fullheart" />
+
+                        <ImageView
+                            android:id="@+id/heart3"
+                            android:layout_width="39dp"
+                            android:layout_height="23dp"
+                            android:src="@drawable/fullheart" />
+                    </LinearLayout>
 
                 </LinearLayout>
 
