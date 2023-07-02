@@ -1,9 +1,14 @@
 package com.cs2340group7.games;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.Gravity;
+import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class WordleKeyboard {
     private final Button[] keys;
@@ -76,4 +81,17 @@ public class WordleKeyboard {
             });
         }
     }
+
+    public void hideKeyboard() {
+        for (Button key : keys) {
+            key.setVisibility(View.GONE);
+        }
+    }
+
+    public void showKeyboard() {
+        for (Button key : keys) {
+            key.setVisibility(View.VISIBLE);
+        }
+    }
+
 }

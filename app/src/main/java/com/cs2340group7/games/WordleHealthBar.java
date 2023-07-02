@@ -10,4 +10,11 @@ public class WordleHealthBar {
     public void update(int value) {
         this.ui.setProgress(value);
     }
+
+    //^^ update(rowsCompleted && boolean completed)
+    // 6 images --> per each case // 3 full .. 0 empty
+    // start -> image 6
+    // switch(rowsCompleted)
+    // (1) && notCompleted -> image 5 -> 2 full 1/2
+    // . . .
 }

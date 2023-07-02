@@ -5,6 +5,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -12,11 +14,9 @@ import java.util.Stack;
 
 public class WordleTiles {
     private LinearLayout ui;
-    public Stack<Character> tiles;
-    public int rowsCompleted = 0;
+    private Stack<Character> tiles;
+    private int rowsCompleted = 0;
     private HashMap<Integer, Integer> colorsMap;
-
-
     public WordleTiles(LinearLayout ui) {
         this.ui = ui;
         tiles = new Stack<>();
@@ -28,7 +28,9 @@ public class WordleTiles {
         }};
     }
 
-
+    public HashMap<Integer, Integer> getColorsMap() {
+        return colorsMap;
+    }
 
     public void update(String key) {
         if (tiles.size() > getAllChildren().size()) {
@@ -50,6 +52,7 @@ public class WordleTiles {
                     changeRowTiles(rowsCompleted, answerColors);
                     rowsCompleted++;
                     if (Arrays.equals(answers, new int[]{2, 2, 2, 2, 2})) {
+                        WordleController.getInstance().getKeyboard().hideKeyboard();
                         Toast.makeText(ui.getContext(), String.format("You won in %d %s!", rowsCompleted, rowsCompleted == 1 ? "attempt" : "attempts"), Toast.LENGTH_LONG).show();
                         WordleController.getInstance().increaseScore();
                         WordleController.getInstance().displayPlayAgain();
@@ -74,8 +77,9 @@ public class WordleTiles {
                                 break;
                         }
                     } else if (rowsCompleted == 6) {
+                        WordleController.getInstance().getKeyboard().hideKeyboard();
                         WordleController.getInstance().fails++;
-                        Toast.makeText(ui.getContext(), String.format("You lost, the word was %s.", key), Toast.LENGTH_LONG).show();
+                        Toast.makeText(ui.getContext(), String.format("You lost, the word was %s.", WordleController.getInstance().getKey()), Toast.LENGTH_LONG).show();
                         WordleController.getInstance().displayPlayAgain();
                     }
                 }
@@ -137,5 +141,4 @@ public class WordleTiles {
         tiles = new Stack<>();
         rowsCompleted = 0;
     }
-
 }

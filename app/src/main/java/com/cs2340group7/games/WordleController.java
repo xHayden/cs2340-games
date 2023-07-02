@@ -25,16 +25,19 @@ public class WordleController {
     String key = WordleWordBank.wordleBank[rand.nextInt(WordleWordBank.wordleBank.length)];
 
 
-    static int wonInOne;
-    static int wonInTwo;
-    static int wonInThree;
-    static int wonInFour;
-    static int wonInFive;
-    static int wonInSix;
-    static int fails;
-    static int attempts;
+    int wonInOne;
+    int wonInTwo;
+    int wonInThree;
+    int wonInFour;
+    int wonInFive;
+    int wonInSix;
+    int fails;
+    int attempts;
 
     private WordleController() {
+    }
+    public WordleTiles getTiles() {
+        return tiles;
     }
 
     public static WordleController getInstance() {
@@ -64,6 +67,10 @@ public class WordleController {
         this.keyboard = keyboard;
     }
 
+    public WordleKeyboard getKeyboard() {
+        return keyboard;
+    }
+
     public void onKeyPress(String key) {
         tiles.update(key);
     }
@@ -74,7 +81,9 @@ public class WordleController {
             @Override
             public void onClick(View v) {
                 tiles.resetGame();
+                key = newKey();
                 playAgainButton.setVisibility(View.GONE);
+                keyboard.showKeyboard();
             }
         });
     }
@@ -119,9 +128,13 @@ public class WordleController {
 
     public String getKey() {
         if (key == null) {
-            key = WordleWordBank.wordleBank[rand.nextInt(WordleWordBank.wordleBank.length)];
+            key = newKey();
         }
         return key;
+    }
+
+    public String newKey() {
+        return WordleWordBank.wordleBank[rand.nextInt(WordleWordBank.wordleBank.length)];
     }
 
     public void setKey(String key) {
@@ -135,8 +148,5 @@ public class WordleController {
     public void increaseScore() {
         scoreboard.increase();
     }
-
-
-
 
 }
