@@ -2,22 +2,18 @@ package com.cs2340group7.games;
 
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
 import java.util.Random;
 
-import androidx.recyclerview.widget.RecyclerView;
-
-import java.util.Stack;
-
-    public class WordleController {
+public class WordleController {
     // When using WordleController, get it with
     // WorldeController wordleController = WordleController.getInstance();
     static WordleController instance;
 
-        private WordleScoreboard scoreboard;
+    WordleScoreboard scoreboard;
     private WordleTiles tiles;
     private WordleKeyboard keyboard;
     private WordleHealthBar healthBar;
@@ -29,7 +25,7 @@ import java.util.Stack;
     String key = WordleWordBank.wordleBank[rand.nextInt(WordleWordBank.wordleBank.length)];
 
 
-        static int wonInOne;
+    static int wonInOne;
     static int wonInTwo;
     static int wonInThree;
     static int wonInFour;
@@ -47,6 +43,7 @@ import java.util.Stack;
         }
         return instance;
     }
+
 
     public void setHealthBar(ProgressBar healthBarUI) {
         this.healthBarUI = healthBarUI;
@@ -83,6 +80,13 @@ import java.util.Stack;
     }
 
     public int[] checkWord(Character[] answer) {
+        if (answer == null) {
+            throw new NullPointerException("Answer array cannot be null");
+        }
+
+        if (answer.length == 0) {
+            return new int[]{}; // returns empty array if input array is empty
+        }
         char[] arrayKey = key.toCharArray();
         int[] color = new int[]{3, 3, 3, 3, 3};
         boolean[] keyUsed = new boolean[5];
@@ -113,6 +117,17 @@ import java.util.Stack;
         return color;
     }
 
+    public String getKey() {
+        if (key == null) {
+            key = WordleWordBank.wordleBank[rand.nextInt(WordleWordBank.wordleBank.length)];
+        }
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
+
     public void displayPlayAgain() {
         playAgainButton.setVisibility(View.VISIBLE);
     }
@@ -120,4 +135,8 @@ import java.util.Stack;
     public void increaseScore() {
         scoreboard.increase();
     }
+
+
+
+
 }

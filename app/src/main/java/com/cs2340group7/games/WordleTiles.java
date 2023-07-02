@@ -5,8 +5,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -14,9 +12,11 @@ import java.util.Stack;
 
 public class WordleTiles {
     private LinearLayout ui;
-    private Stack<Character> tiles;
-    private int rowsCompleted = 0;
+    public Stack<Character> tiles;
+    public int rowsCompleted = 0;
     private HashMap<Integer, Integer> colorsMap;
+
+
     public WordleTiles(LinearLayout ui) {
         this.ui = ui;
         tiles = new Stack<>();
@@ -27,6 +27,8 @@ public class WordleTiles {
             put(3, R.drawable.wrong_tile);
         }};
     }
+
+
 
     public void update(String key) {
         if (tiles.size() > getAllChildren().size()) {
@@ -135,4 +137,5 @@ public class WordleTiles {
         tiles = new Stack<>();
         rowsCompleted = 0;
     }
+
 }
