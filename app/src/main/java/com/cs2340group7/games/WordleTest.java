@@ -7,8 +7,6 @@ import org.junit.Assert;
 import org.testng.annotations.Test;
 
 public class WordleTest {
-
-
     @Test
     public void testCheckWordAllCorrect() {
         WordleController controller = WordleController.getInstance();
@@ -105,5 +103,12 @@ public class WordleTest {
         assertArrayEquals(expected, result);
     }
 
-
+    @Test
+    public void testScoreSet() {
+        WordleController controller = WordleController.getInstance();
+        controller.setScoreboardNoUI();
+        assertEquals(controller.scoreboard.getScore(), 0);
+        controller.scoreboard.setScore(5);
+        assertEquals(controller.scoreboard.getScore(), 5);
+    }
 }

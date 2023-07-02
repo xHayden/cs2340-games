@@ -67,6 +67,22 @@ public class WordleController {
         this.keyboard = keyboard;
     }
 
+    public void setScoreboardNoUI() {
+        this.scoreboard = new WordleScoreboard();
+    }
+
+//    public void setTilesNoUI() {
+//        this.tiles = new WordleTiles();
+//    }
+//
+//    public void setHealthBarNoUI() {
+//        this.healthBar = new WordleHealthBar();
+//    }
+//
+//    public void setTilesNoUI() {
+//        this.tiles = new WordleTiles();
+//    }
+
     public WordleKeyboard getKeyboard() {
         return keyboard;
     }

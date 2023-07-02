@@ -8,12 +8,16 @@ public class WordleScoreboard {
     int score;
 
     public WordleScoreboard(TextView ui) {
+        this();
         this.ui = ui;
+    }
+
+    public WordleScoreboard() {
+        score = 0;
     }
 
     @SuppressLint("DefaultLocale")
     public void update(int score) {
-
         ui.setText(String.format("Score: %d", score));
     }
 
