@@ -4,7 +4,7 @@ import android.annotation.SuppressLint;
 import android.view.View;
 import android.widget.TextView;
 
-public class WordleScoreboard implements UIComponent {
+public class WordleScoreboard implements UIComponent, IScoreboard {
     private TextView ui;
     private TextView playAgainScore;
     int score;

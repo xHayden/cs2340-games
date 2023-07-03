@@ -8,15 +8,14 @@ import android.widget.TextView;
 
 import java.util.Random;
 
-public class WordleController {
+public class WordleController implements IWordleController {
     // When using WordleController, get it with
     // WorldeController wordleController = WordleController.getInstance();
     static WordleController instance;
-
-    WordleScoreboard scoreboard;
-    private WordleTiles tiles;
-    private WordleKeyboard keyboard;
-    private WordleHealthBar healthBar;
+    IScoreboard scoreboard;
+    private ITiles tiles;
+    private IKeyboard keyboard;
+    private IHealthBar healthBar;
     private LinearLayout healthBarUI;
     private LinearLayout tilesUI;
     private TextView scoreboardUI;
@@ -24,8 +23,6 @@ public class WordleController {
     private LinearLayout playAgain;
     Random rand = new Random();
     String key = WordleWordBank.wordleBank[rand.nextInt(WordleWordBank.wordleBank.length)];
-
-
     int wonInOne;
     int wonInTwo;
     int wonInThree;
@@ -38,7 +35,7 @@ public class WordleController {
     private WordleController() {
     }
 
-    public WordleTiles getTiles() {
+    public ITiles getTiles() {
         return tiles;
     }
 
@@ -49,7 +46,7 @@ public class WordleController {
         return instance;
     }
 
-    public WordleHealthBar getHealthBar() {
+    public IHealthBar getHealthBar() {
         return healthBar;
     }
 
@@ -69,7 +66,7 @@ public class WordleController {
         this.scoreboard = new WordleScoreboard(scoreboardUI, playAgainScore);
     }
 
-    public void setKeyboard(WordleKeyboard keyboard) {
+    public void setKeyboard(IKeyboard keyboard) {
         this.keyboard = keyboard;
     }
 
@@ -85,7 +82,7 @@ public class WordleController {
         this.healthBar = new WordleHealthBar();
     }
 
-    public WordleKeyboard getKeyboard() {
+    public IKeyboard getKeyboard() {
         return keyboard;
     }
 

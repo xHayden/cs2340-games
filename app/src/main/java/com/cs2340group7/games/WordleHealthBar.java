@@ -8,7 +8,7 @@ import android.widget.ProgressBar;
 
 import java.util.Arrays;
 
-public class WordleHealthBar implements UIComponent {
+public class WordleHealthBar implements UIComponent, IHealthBar {
     private LinearLayout ui;
     private ImageView heart1;
     private ImageView heart2;

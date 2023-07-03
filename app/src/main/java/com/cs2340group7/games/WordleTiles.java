@@ -11,7 +11,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Stack;
 
-public class WordleTiles implements UIComponent {
+public class WordleTiles implements UIComponent, ITiles {
     private LinearLayout ui;
     private Stack<Character> tiles;
     private int rowsCompleted = 0;

@@ -1,6 +1,6 @@
 package com.cs2340group7.games;
 
-public class WordleWordBank {
+public class WordleWordBank implements IWordBank {
     static String[] wordleBank = new String[]{
             "TABLE", "CHAIR", "APPLE", "FRUIT", "JUICE",
             "QUICK", "BROWN", "FOXES", "JUMPS", "LAZER",

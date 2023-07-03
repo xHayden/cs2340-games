@@ -10,7 +10,7 @@ import android.widget.LinearLayout;
 import java.util.HashMap;
 import java.util.Map;
 
-public class WordleKeyboard {
+public class WordleKeyboard implements IKeyboard {
     private final Button[] keys;
 
     public WordleKeyboard(Context context, LinearLayout keyboardContainer) {
