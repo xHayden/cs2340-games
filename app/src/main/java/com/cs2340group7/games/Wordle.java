@@ -57,9 +57,9 @@ public class Wordle extends Fragment {
         TextView scoreboard = view.findViewById(R.id.score);
         LinearLayout keyboardContainer = view.findViewById(R.id.keyboardContainer);
         WordleKeyboard wordleKeyboard = new WordleKeyboard(getContext(), keyboardContainer);
-        wc.setHealthBar(healthBar);
-        wc.setTiles(tiles);
-        wc.setScoreboard(scoreboard, view.findViewById(R.id.scorePlayAgain));
+        wc.setHealthBar(healthBar, new WordleHealthBar(healthBar));
+        wc.setTiles(tiles, new WordleTiles(tiles));
+        wc.setScoreboard(scoreboard, new WordleScoreboard(scoreboard, view.findViewById(R.id.scorePlayAgain)));
         wc.setKeyboard(wordleKeyboard);
         wc.setPlayAgainButton(view.findViewById(R.id.playAgainButton));
         wc.setPlayAgain(view.findViewById(R.id.playAgain));

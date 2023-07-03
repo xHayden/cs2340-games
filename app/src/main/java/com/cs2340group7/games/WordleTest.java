@@ -109,7 +109,7 @@ public class WordleTest {
     @Test
     public void testScoreSet() {
         WordleController controller = WordleController.getInstance();
-        controller.setScoreboardNoUI();
+        controller.setScoreboardNoUI(new WordleScoreboard());
         assertEquals(controller.scoreboard.getScore(), 0);
         controller.scoreboard.setScore(5);
         assertEquals(controller.scoreboard.getScore(), 5);
@@ -118,7 +118,7 @@ public class WordleTest {
     @Test
     public void testResetTiles() {
         WordleController controller = WordleController.getInstance();
-        controller.setTilesNoUI();
+        controller.setTilesNoUI(new WordleTiles());
         assertTrue(controller.getTiles().getTiles().empty());
         assertEquals(controller.getTiles().getRowsCompleted(), 0);
         controller.getTiles().getTiles().push('E');

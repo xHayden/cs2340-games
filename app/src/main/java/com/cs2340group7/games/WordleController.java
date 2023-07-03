@@ -50,36 +50,35 @@ public class WordleController implements IWordleController {
         return healthBar;
     }
 
-
-    public void setHealthBar(LinearLayout healthBarUI) {
+    public void setHealthBar(LinearLayout healthBarUI, IHealthBar healthBar) {
         this.healthBarUI = healthBarUI;
-        this.healthBar = new WordleHealthBar(healthBarUI);
+        this.healthBar = healthBar;
     }
 
-    public void setTiles(LinearLayout tilesUI) {
+    public void setTiles(LinearLayout tilesUI, ITiles wordleTiles) {
         this.tilesUI = tilesUI;
-        this.tiles = new WordleTiles(tilesUI);
+        this.tiles = wordleTiles;
     }
 
-    public void setScoreboard(TextView scoreboardUI, TextView playAgainScore) {
+    public void setScoreboard(TextView scoreboardUI, IScoreboard wordleScoreboard) {
         this.scoreboardUI = scoreboardUI;
-        this.scoreboard = new WordleScoreboard(scoreboardUI, playAgainScore);
+        this.scoreboard = wordleScoreboard;
     }
 
     public void setKeyboard(IKeyboard keyboard) {
         this.keyboard = keyboard;
     }
 
-    public void setScoreboardNoUI() {
-        this.scoreboard = new WordleScoreboard();
+    public void setScoreboardNoUI(IScoreboard scoreboard) {
+        this.scoreboard = scoreboard;
     }
 
-    public void setTilesNoUI() {
-        this.tiles = new WordleTiles();
+    public void setTilesNoUI(ITiles tiles) {
+        this.tiles = tiles;
     }
 
-    public void setHealthBarNoUI() {
-        this.healthBar = new WordleHealthBar();
+    public void setHealthBarNoUI(IHealthBar wordleHealthBar) {
+        this.healthBar = wordleHealthBar;
     }
 
     public IKeyboard getKeyboard() {
