@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
-public class BlackjackPlayer extends Observable implements IPlayer, Observer, IGameSignalObservers, IPlayersObserver {
+public class BlackjackPlayer extends Observable implements IPlayer, Observer, IGameSignalObserver, IPlayersObserver {
     private int score;
     private List<IPlayersObserver> observers;
     private boolean standing;
