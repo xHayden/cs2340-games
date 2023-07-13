@@ -1,8 +1,12 @@
 package com.cs2340group7.games;
 
-public class LivesController implements ILivesController {
+import java.util.ArrayList;
+import java.util.Observable;
+
+public class LivesController extends Observable implements ILivesController, IGameSignalObservable {
     private static int lives;
     private static int bet;
+    private ArrayList<IGameSignalObservers> observers;
     private static ILivesController instance;
     private LivesController(int initialLives) {
         lives = initialLives;
@@ -17,8 +21,14 @@ public class LivesController implements ILivesController {
     }
 
     @Override
-    public void betLives(int lives) {
-        bet = lives;
+    public boolean betLives(int lives) {
+        if (lives <= bet) {
+            // cannot bet all your lives
+            return false;
+        } else {
+            bet = lives;
+            return true;
+        }
     }
 
     @Override
@@ -29,7 +39,25 @@ public class LivesController implements ILivesController {
     }
 
     @Override
+    public boolean lost() { // returns if you can continue
+        lives = lives - bet;
+        bet = 0;
+        if (lives <= 0) {
+            notifyObservers(GameSignals.OUT_OF_MONEY);
+            return false;
+        }
+        return true;
+    }
+
+
+    @Override
     public int getLives() {
         return lives;
+    }
+
+    public void notifyObservers(GameSignals signal) {
+        for (IGameSignalObservers observer : observers) {
+            observer.update(this, signal);
+        }
     }
 }
