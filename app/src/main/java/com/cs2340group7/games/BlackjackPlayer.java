@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
-public class BlackjackPlayer extends Observable implements IPlayer, Observer {
+public class BlackjackPlayer extends Observable implements IPlayer, Observer, IGameSignalObserver, IPlayersObserver {
     private int score;
     private List<IPlayersObserver> observers;
     private boolean standing;
@@ -33,11 +33,6 @@ public class BlackjackPlayer extends Observable implements IPlayer, Observer {
         notifyObservers();
     }
 
-    @Override
-    public void update(ScoreUpdate scoreUpdate) {
-
-    }
-
     public int getScore() {
         return this.score;
     }
@@ -49,8 +44,23 @@ public class BlackjackPlayer extends Observable implements IPlayer, Observer {
         }
     }
 
+    public void update(Observable o, GameSignals signal) {
+        if (signal == GameSignals.OUT_OF_MONEY) {
+
+        }
+    }
+
+    public void update(ScoreUpdate scoreUpdate) {
+        // score update from players
+    }
+
     @Override
     public void update(Observable o, Object arg) {
+        // general observer update method
+    }
 
+    @Override
+    public void update(IGameSignalObservable o, GameSignals signal) {
+        // game states go through here :) out of money from lives controller
     }
 }
