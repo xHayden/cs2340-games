@@ -6,7 +6,7 @@ import java.util.Observable;
 public class LivesController extends Observable implements ILivesController, IGameSignalObservable {
     private static int lives;
     private static int bet;
-    private ArrayList<IGameSignalObservers> observers;
+    private ArrayList<IGameSignalObserver> observers;
     private static ILivesController instance;
     private LivesController(int initialLives) {
         lives = initialLives;
@@ -56,8 +56,16 @@ public class LivesController extends Observable implements ILivesController, IGa
     }
 
     public void notifyObservers(GameSignals signal) {
-        for (IGameSignalObservers observer : observers) {
+        for (IGameSignalObserver observer : observers) {
             observer.update(this, signal);
         }
+    }
+
+    public void registerObserver(IGameSignalObserver o) {
+        this.observers.add(o);
+    }
+
+    public void deregisterObserver(IGameSignalObserver o) {
+        this.observers.remove(o);
     }
 }
