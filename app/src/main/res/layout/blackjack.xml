@@ -103,14 +103,29 @@
             android:layout_width="70dp"
             android:layout_height="90dp"
             app:srcCompat="@drawable/queen_of_diamonds" />
-
-
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/ai_number"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop ="10dp"
+        android:layout_marginStart ="35dp" >
+    </TextView>
+
+    <TextView
+        android:id="@+id/player_number"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="330dp"
+        android:layout_marginTop="30dp" >
+
+    </TextView>
 
     <LinearLayout
         android:id="@+id/player_cards"
         android:layout_width="350dp"
-        android:layout_marginTop="170dp"
+        android:layout_marginTop="10dp"
         android:layout_marginStart ="30dp"
         android:layout_marginEnd="50dp"
         android:orientation="horizontal"
@@ -144,6 +159,110 @@
             app:srcCompat="@drawable/queen_of_diamonds" />
 
     </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/coins"
+        android:layout_width="350dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart ="30dp"
+        android:layout_marginEnd="50dp"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_height="100dp"
+        app:layout_constraintStart_toStartOf="parent" >
+
+        <ImageButton
+            android:id="@+id/coin1"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:gravity="center"
+            android:scaleType="fitCenter"
+            android:scaleX="1.5"
+            android:scaleY="1.5"
+            android:contentDescription="coin"
+            android:background="transparent"
+            app:srcCompat="@drawable/five_coin" />
+        <ImageButton
+            android:id="@+id/coin2"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:gravity="center"
+            android:scaleType="fitCenter"
+            android:scaleX="1.5"
+            android:scaleY="1.5"
+            android:contentDescription="coin"
+            android:background="transparent"
+            app:srcCompat="@drawable/ten_coin"/>
+        <ImageButton
+            android:id="@+id/coin3"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:gravity="center"
+            android:scaleType="fitCenter"
+            android:scaleX="1.5"
+            android:scaleY="1.5"
+            android:contentDescription="coin"
+            android:background="transparent"
+            app:srcCompat="@drawable/twenty_coin"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/standAndHit"
+        android:layout_width="350dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart ="30dp"
+        android:layout_marginEnd="50dp"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_height="40dp"
+        app:layout_constraintStart_toStartOf="parent" >
+
+        <ImageButton
+            android:id="@+id/hit"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:scaleType="fitCenter"
+            android:contentDescription="coin"
+            android:background="transparent"
+            app:srcCompat="@drawable/hit" />
+        <ImageButton
+            android:id="@+id/stand"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_marginStart ="30dp"
+            android:gravity="center"
+            android:scaleType="fitCenter"
+            android:contentDescription="coin"
+            android:background="transparent"
+            app:srcCompat="@drawable/stand" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/dealContainer"
+        android:layout_width="350dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart ="30dp"
+        android:layout_marginEnd="50dp"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_height="40dp"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageButton
+            android:id="@+id/deal"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_marginStart ="30dp"
+            android:gravity="center"
+            android:scaleType="fitCenter"
+            android:contentDescription="coin"
+            android:background="transparent"
+            app:srcCompat="@drawable/deal" />
+    </LinearLayout>
+
+</LinearLayout>
+
+
 
 
 
