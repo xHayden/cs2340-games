@@ -144,6 +144,4 @@
             app:srcCompat="@drawable/queen_of_diamonds" />
 
     </LinearLayout>
-
-
-
+</LinearLayout>
