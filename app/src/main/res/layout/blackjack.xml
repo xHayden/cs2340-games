@@ -160,6 +160,7 @@
 
     </LinearLayout>
 
+
     <LinearLayout
         android:id="@+id/coins"
         android:layout_width="350dp"
@@ -261,8 +262,6 @@
     </LinearLayout>
 
 </LinearLayout>
-
-
 
 
 
