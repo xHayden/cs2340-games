@@ -5,29 +5,26 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class BlackjackDeck {
-    private final List<BlackjackCard> deck = new ArrayList<>();
+public class BlackjackDeck implements IBlackjackDeck {
+    private final List<IBlackjackCard> deck = new ArrayList<>();
     private Context context;
 
-    public BlackjackDeck(Context context) {
-        this.context = context;
-
-        for (BlackjackCard.Suit suit : BlackjackCard.Suit.values()) {
-            for (BlackjackCard.Rank rank : BlackjackCard.Rank.values()) {
+    public BlackjackDeck() {
+        for (Suit suit : Suit.values()) {
+            for (Rank rank : Rank.values()) {
                 int imageResource = getCardImageResource(rank, suit);
                 deck.add(new BlackjackCard(suit, rank, imageResource));
             }
         }
-
         Collections.shuffle(deck);
     }
 
-    private int getCardImageResource(BlackjackCard.Rank rank, BlackjackCard.Suit suit) {
+    private int getCardImageResource(Rank rank, Suit suit) {
         String resourceName = "card_" + suit.toString().toLowerCase() + "_" + rank.toString().toLowerCase();
-        return context.getResources().getIdentifier(resourceName, "drawable", context.getPackageName());
+        return BlackjackController.getInstance().getBlackjackContext().getResources().getIdentifier(resourceName, "drawable", context.getPackageName());
     }
 
-    public BlackjackCard dealCard() {
+    public IBlackjackCard dealCard() {
         if(deck.isEmpty()) {
             return null;
         }

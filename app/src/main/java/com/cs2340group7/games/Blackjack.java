@@ -40,6 +40,7 @@ public class Blackjack extends Fragment {
             playerName.setText(getArguments().get("playerName").toString());
             profileImage.setImageResource(selectedSpriteResId);
         }
+        BlackjackController.getInstance().setBlackjackContext(getContext());
         BlackjackController.getInstance().instantiateView(view);
     }
 

@@ -5,6 +5,5 @@ public interface IPlayer {
     int getScore();
     void hit(ICard card);
     void stand();
-
     void update(ScoreUpdate scoreUpdate);
 }

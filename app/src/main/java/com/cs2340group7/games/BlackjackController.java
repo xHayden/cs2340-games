@@ -1,8 +1,7 @@
 package com.cs2340group7.games;
 
-import android.media.Image;
+import android.content.Context;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -30,13 +29,22 @@ public class BlackjackController extends Observable implements IBlackjackControl
     // Game Control UI Component
     private ImageButton newGameButton;
     private ImageButton quitGameButton;
+    private Context blackjackContext;
+    private CardHandLayout playerCardHandLayout;
+    private CardHandLayout dealerCardHandLayout;
+    private BlackjackPlayer blackjackPlayer;
+    private BlackjackDealer blackjackDealer;
+    private IBlackjackDeck deck;
 
     private BlackjackController() {
         playerScore = 0;
         dealerScore = 0;
         this.players = new ArrayList<>();
-        addObserver(new BlackjackPlayer()); // this could be done programmatically
-        addObserver(new BlackjackDealer());
+        blackjackPlayer = new BlackjackPlayer();
+        blackjackDealer = new BlackjackDealer();
+        addObserver(blackjackPlayer);
+        addObserver(blackjackDealer);
+        deck = new BlackjackDeck();
     }
 
     public static IBlackjackController getInstance() {
@@ -64,13 +72,14 @@ public class BlackjackController extends Observable implements IBlackjackControl
         hitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //                BlackjackController.getInstance().playerHit(); have not made the method yet cause we don't know where it would be at
+                IBlackjackCard card = deck.dealCard();
+                blackjackPlayer.hit(card);
             }
         });
         standButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //                BlackjackController.getInstance().playerStand(); have not made the method yet cause we don't know where it would be at
+                blackjackPlayer.stand();
             }
         });
 //        newGameButton.setOnClickListener(new View.OnClickListener() {
@@ -85,6 +94,8 @@ public class BlackjackController extends Observable implements IBlackjackControl
 ////                BlackjackController.getInstance().quitGame(); have not made the method yet cause we don't know where it would be at
 //            }
 //        });
+        playerCardHandLayout = new CardHandLayout(playerHandLayout);
+        dealerCardHandLayout = new CardHandLayout(dealerHandLayout);
     }
 
     public void update(ScoreUpdate su) {
@@ -92,7 +103,7 @@ public class BlackjackController extends Observable implements IBlackjackControl
             playerScore = su.getScore();
             updatePlayerScoreUI(playerScore);
             if (su.getStanding()) {
-                // final move for dealer, maybe emit to dealer idk
+                // don't ask player again.
             }
         } else if (su.getPlayerType() == PlayerType.DEALER) {
             dealerScore = su.getScore();
@@ -122,6 +133,17 @@ public class BlackjackController extends Observable implements IBlackjackControl
         if (o instanceof IPlayer) {
             this.players.add((IPlayer) o);
         }
+    }
+
+    public Context getBlackjackContext() {
+        if (blackjackContext == null) {
+            throw new IllegalStateException("BlackjackContext has not been set yet!");
+        }
+        return blackjackContext;
+    }
+
+    public void setBlackjackContext(Context blackjackContext) {
+        this.blackjackContext = blackjackContext;
     }
 
 
