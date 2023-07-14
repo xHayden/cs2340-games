@@ -181,7 +181,7 @@
             android:scaleX="1.5"
             android:scaleY="1.5"
             android:contentDescription="coin"
-            android:background="transparent"
+            android:background="@android:color/transparent"
             app:srcCompat="@drawable/five_coin" />
         <ImageButton
             android:id="@+id/coin2"
@@ -192,7 +192,7 @@
             android:scaleX="1.5"
             android:scaleY="1.5"
             android:contentDescription="coin"
-            android:background="transparent"
+            android:background="@android:color/transparent"
             app:srcCompat="@drawable/ten_coin"/>
         <ImageButton
             android:id="@+id/coin3"
@@ -203,7 +203,7 @@
             android:scaleX="1.5"
             android:scaleY="1.5"
             android:contentDescription="coin"
-            android:background="transparent"
+            android:background="@android:color/transparent"
             app:srcCompat="@drawable/twenty_coin"/>
     </LinearLayout>
 
@@ -221,21 +221,21 @@
         <ImageButton
             android:id="@+id/hit"
             android:layout_width="100dp"
-            android:layout_height="40dp"
+            android:layout_height="48dp"
             android:gravity="center"
             android:scaleType="fitCenter"
             android:contentDescription="coin"
-            android:background="transparent"
+            android:background="@android:color/transparent"
             app:srcCompat="@drawable/hit" />
         <ImageButton
             android:id="@+id/stand"
             android:layout_width="100dp"
-            android:layout_height="40dp"
+            android:layout_height="48dp"
             android:layout_marginStart ="30dp"
             android:gravity="center"
             android:scaleType="fitCenter"
             android:contentDescription="coin"
-            android:background="transparent"
+            android:background="@android:color/transparent"
             app:srcCompat="@drawable/stand" />
     </LinearLayout>
     <LinearLayout
@@ -252,12 +252,12 @@
         <ImageButton
             android:id="@+id/deal"
             android:layout_width="100dp"
-            android:layout_height="40dp"
+            android:layout_height="48dp"
             android:layout_marginStart ="30dp"
             android:gravity="center"
             android:scaleType="fitCenter"
             android:contentDescription="coin"
-            android:background="transparent"
+            android:background="@android:color/transparent"
             app:srcCompat="@drawable/deal" />
     </LinearLayout>
 
