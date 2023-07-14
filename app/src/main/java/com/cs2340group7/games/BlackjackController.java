@@ -9,11 +9,13 @@ public class BlackjackController extends Observable implements IBlackjackControl
     private int playerScore;
     private int dealerScore;
     private List<IPlayer> players; // both human and dealer
+    private Blackjack blackjackFragment;
     private BlackjackController() {
         playerScore = 0;
         dealerScore = 0;
         addObserver(new BlackjackPlayer()); // this could be done programmatically
         addObserver(new BlackjackDealer());
+
     }
 
     public static IBlackjackController getInstance() {
@@ -26,14 +28,28 @@ public class BlackjackController extends Observable implements IBlackjackControl
     public void update(ScoreUpdate su) {
         if (su.getPlayerType() == PlayerType.HUMAN) { // not ideal but I can't think of a better way
             playerScore = su.getScore();
+            updatePlayerScore(playerScore);
             if (su.getStanding()) {
                 // final move for dealer, maybe emit to dealer idk
             }
         } else if (su.getPlayerType() == PlayerType.DEALER) {
             dealerScore = su.getScore();
+            updateDealerScore(dealerScore);
             if (su.getStanding()) {
                 // final move for player
             }
+        }
+    }
+
+    public void updatePlayerScore(int score) {
+        if (blackjackFragment != null) {
+            blackjackFragment.updatePlayerScore(score);
+        }
+    }
+
+    public void updateDealerScore(int score) {
+        if (blackjackFragment != null) {
+            blackjackFragment.updateDealerScore(score);
         }
     }
 
@@ -49,6 +65,7 @@ public class BlackjackController extends Observable implements IBlackjackControl
             this.players.add((IPlayer) o);
         }
     }
+
 
     // player.makeMove(new StandStrategy());
     //  player.makeMove(new HitStrategy(new BlackjackCard(6)));
