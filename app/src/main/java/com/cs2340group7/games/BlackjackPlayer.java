@@ -14,8 +14,6 @@ public class BlackjackPlayer extends Observable implements IPlayer, Observer, IG
         this.standing = false;
     }
 
-    private IBlackjackController blackjackController = BlackjackController.getInstance();
-
     public void playMove(IMoveStrategy strategy) {
         strategy.move(this);
     }

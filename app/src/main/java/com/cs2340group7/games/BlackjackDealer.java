@@ -14,8 +14,6 @@ public class BlackjackDealer extends Observable implements IPlayer, Observer {
         this.standing = false;
     }
 
-    private IBlackjackController blackjackController = BlackjackController.getInstance();
-
     public void playAIMove() {
         // decide what strategy to use
         IMoveStrategy aiMove = new StandStrategy(); // or hit strategy, whatever the AI thinks is best
