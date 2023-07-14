@@ -82,27 +82,27 @@
             android:id="@+id/ai_card1"
             android:layout_width="70dp"
             android:layout_height="90dp"
-            app:srcCompat="@drawable/jack_of_hearts" />
+            app:srcCompat="@drawable/card_hearts_jack" />
         <ImageView
             android:id="@+id/ai_card2"
             android:layout_width="70dp"
             android:layout_height="90dp"
-            app:srcCompat="@drawable/queen_of_clubs" />
+            app:srcCompat="@drawable/card_clubs_queen" />
         <ImageView
             android:id="@+id/ai_card3"
             android:layout_width="70dp"
             android:layout_height="90dp"
-            app:srcCompat="@drawable/king_of_diamonds" />
+            app:srcCompat="@drawable/card_diamonds_king" />
         <ImageView
             android:id="@+id/ai_card4"
             android:layout_width="70dp"
             android:layout_height="90dp"
-            app:srcCompat="@drawable/jack_of_spades" />
+            app:srcCompat="@drawable/card_spades_jack" />
         <ImageView
             android:id="@+id/ai_card5"
             android:layout_width="70dp"
             android:layout_height="90dp"
-            app:srcCompat="@drawable/queen_of_diamonds" />
+            app:srcCompat="@drawable/card_diamonds_queen" />
     </LinearLayout>
 
     <TextView
@@ -136,27 +136,27 @@
             android:id="@+id/player_card1"
             android:layout_width="70dp"
             android:layout_height="90dp"
-            app:srcCompat="@drawable/jack_of_hearts" />
+            app:srcCompat="@drawable/card_hearts_jack" />
         <ImageView
             android:id="@+id/player_card2"
             android:layout_width="70dp"
             android:layout_height="90dp"
-            app:srcCompat="@drawable/queen_of_clubs" />
+            app:srcCompat="@drawable/card_clubs_queen" />
         <ImageView
             android:id="@+id/player_card3"
             android:layout_width="70dp"
             android:layout_height="90dp"
-            app:srcCompat="@drawable/king_of_diamonds" />
+            app:srcCompat="@drawable/card_diamonds_king" />
         <ImageView
             android:id="@+id/player_card4"
             android:layout_width="70dp"
             android:layout_height="90dp"
-            app:srcCompat="@drawable/jack_of_spades" />
+            app:srcCompat="@drawable/card_spades_jack" />
         <ImageView
             android:id="@+id/player_card5"
             android:layout_width="70dp"
             android:layout_height="90dp"
-            app:srcCompat="@drawable/queen_of_diamonds" />
+            app:srcCompat="@drawable/card_diamonds_queen" />
 
     </LinearLayout>
 
