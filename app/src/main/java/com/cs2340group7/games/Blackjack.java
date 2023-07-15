@@ -42,6 +42,8 @@ public class Blackjack extends Fragment {
         }
         BlackjackController.getInstance().setBlackjackContext(getContext());
         BlackjackController.getInstance().instantiateView(view);
+        BlackjackBetting betting = new BlackjackBetting();
+        betting.instantiateView(view);
     }
 
     @Override
