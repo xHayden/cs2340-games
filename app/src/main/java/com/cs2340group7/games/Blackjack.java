@@ -43,6 +43,7 @@ public class Blackjack extends Fragment {
         }
         BlackjackController.getInstance().setBlackjackContext(getContext());
         BlackjackController.getInstance().instantiateView(view);
+        BlackjackController.getInstance().reset();
         Button exitButton = view.findViewById(R.id.exitButton);
         exitButton.setOnClickListener(new View.OnClickListener() {
             @Override

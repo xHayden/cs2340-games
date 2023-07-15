@@ -279,6 +279,13 @@
         android:padding="20dp"
         android:visibility="gone">
 
+        <TextView
+            android:id="@+id/winnerText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:textColor="#E3E8EB" />
+
         <Button
             android:id="@+id/playAgainButton"
             android:layout_width="wrap_content"
