@@ -129,8 +129,7 @@
         android:layout_marginStart ="30dp"
         android:layout_marginEnd="50dp"
         android:orientation="horizontal"
-        android:layout_height="90dp"
-        app:layout_constraintStart_toStartOf="parent" >
+        android:layout_height="90dp" >
 
         <ImageView
             android:id="@+id/player_card1"
@@ -222,20 +221,23 @@
             android:id="@+id/hit"
             android:layout_width="100dp"
             android:layout_height="48dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="coin"
             android:gravity="center"
             android:scaleType="fitCenter"
-            android:contentDescription="coin"
-            android:background="@android:color/transparent"
+            android:visibility="gone"
             app:srcCompat="@drawable/hit" />
+
         <ImageButton
             android:id="@+id/stand"
             android:layout_width="100dp"
             android:layout_height="48dp"
-            android:layout_marginStart ="30dp"
+            android:layout_marginStart="30dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="coin"
             android:gravity="center"
             android:scaleType="fitCenter"
-            android:contentDescription="coin"
-            android:background="@android:color/transparent"
+            android:visibility="gone"
             app:srcCompat="@drawable/stand" />
     </LinearLayout>
     <LinearLayout
