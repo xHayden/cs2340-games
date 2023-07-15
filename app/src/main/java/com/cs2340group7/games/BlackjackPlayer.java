@@ -24,6 +24,10 @@ public class BlackjackPlayer extends Observable implements IPlayer, Observer, IG
         strategy.move(this);
     }
 
+    public void setHitTimes(int hitTimes) {
+        this.hitTimes = hitTimes;
+    }
+
     public void hit(IBlackjackCard card) {
         if (hitTimes >= 5) {
             Toast.makeText(BlackjackController.getInstance().getBlackjackContext(), "You cannot hit more than 5 times!", Toast.LENGTH_LONG).show();
