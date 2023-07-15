@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#98DA9B"
-    android:orientation="vertical"
-    tools:context=".Wordle">
+    tools:context=".Blackjack">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/linearLayout3"
@@ -61,7 +65,7 @@
                     android:id="@+id/score"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Score: 0" />
+                    android:text="Lives: 0" />
             </LinearLayout>
 
         </LinearLayout>
@@ -105,7 +109,7 @@
             app:srcCompat="@drawable/card_diamonds_queen" />
     </LinearLayout>
 
-    <TextView
+        <TextView
         android:id="@+id/ai_number"
         android:layout_width="50dp"
         android:layout_height="50dp"
@@ -263,7 +267,35 @@
             app:srcCompat="@drawable/deal" />
     </LinearLayout>
 
-</LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/playAgain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/score_background"
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:visibility="gone">
+
+        <Button
+            android:id="@+id/playAgainButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#4C4A41"
+            android:text="Play Again"
+            android:visibility="visible" />
+
+        <Button
+            android:id="@+id/exitButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#201F1C"
+            android:text="Exit Game" />
+    </LinearLayout>
+
+</FrameLayout>
 
 
 

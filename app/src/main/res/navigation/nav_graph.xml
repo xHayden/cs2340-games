@@ -57,8 +57,12 @@
         android:id="@+id/Blackjack"
         android:name="com.cs2340group7.games.Blackjack"
         android:label="Blackjack"
-        tools:layout="@layout/blackjack"
-    />
+        tools:layout="@layout/blackjack">
+        <action
+            android:id="@+id/action_Blackjack_to_SelectGame"
+            app:destination="@id/SelectGame">
+        </action>
+    </fragment>
     <fragment
         android:id="@+id/Wordle"
         android:name="com.cs2340group7.games.Wordle"

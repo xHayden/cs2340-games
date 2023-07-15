@@ -10,4 +10,5 @@ public interface IBlackjackController extends IPlayersObserver {
     void setBlackjackContext(Context context);
     Context getBlackjackContext();;
     IBlackjackDeck getDeck();
+    void updateScoreText(int score);
 }

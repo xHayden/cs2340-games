@@ -11,6 +11,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.navigation.fragment.NavHostFragment;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
@@ -33,6 +35,10 @@ public class BlackjackController extends Observable implements IBlackjackControl
     // Game Control UI Component
     private ImageButton newGameButton;
     private ImageButton quitGameButton;
+    private ImageButton coin1;
+    private ImageButton coin2;
+    private ImageButton coin3;
+    private TextView scoreTextView;
     private Context blackjackContext;
     private CardHandLayout playerCardHandLayout;
     private CardHandLayout dealerCardHandLayout;
@@ -58,7 +64,7 @@ public class BlackjackController extends Observable implements IBlackjackControl
         addObserver(blackjackDealer);
         blackjackPlayer.registerObserver(this);
         blackjackDealer.registerObserver(this);
-        betting = new BlackjackBetting();
+        betting = BlackjackBetting.getInstance();
     }
 
     public static IBlackjackController getInstance() {
@@ -121,23 +127,47 @@ public class BlackjackController extends Observable implements IBlackjackControl
                 Log.d("aft", String.format("%s", betting.getBetAmount()));
             }
         });
-        // create coin event listener to place bet, signal LivesController.
 
-//        newGameButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                //                BlackjackController.getInstance().startNewGame(); have not made the method yet cause we don't know where it would be at
-//            }
-//        });
-//        quitGameButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-////                BlackjackController.getInstance().quitGame(); have not made the method yet cause we don't know where it would be at
-//            }
-//        });
+        coin1 = view.findViewById(R.id.coin1);
+        coin2 = view.findViewById(R.id.coin2);
+        coin3 = view.findViewById(R.id.coin3);
+        scoreTextView = view.findViewById(R.id.score);
+        updateScoreText(betting.getScore());
+
+        coin1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("before", String.format("%s", betting.getBetAmount()));
+                betting.setBetAmount(betting.getBetAmount() + 5);
+                Log.d("after", String.format("%s", betting.getBetAmount()));
+                betting.decreaseScore(5);
+                Log.d("afterds", String.format("%s", betting.getBetAmount()));
+            }
+        });
+
+        coin2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                betting.setBetAmount(betting.getBetAmount() + 10);
+                betting.decreaseScore(10);
+            }
+        });
+
+        coin3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                betting.setBetAmount(betting.getBetAmount() + 20);
+                betting.decreaseScore(20);
+            }
+        });
+
         playerCardHandLayout = new CardHandLayout(playerHandLayout);
         dealerCardHandLayout = new CardHandLayout(dealerHandLayout);
         deck = new BlackjackDeck();
+    }
+
+    public void updateScoreText(int score) {
+        scoreTextView.setText("Score: " + score);
     }
 
     public void update(ScoreUpdate su) {
