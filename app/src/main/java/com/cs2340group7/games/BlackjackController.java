@@ -39,6 +39,7 @@ public class BlackjackController extends Observable implements IBlackjackControl
     private BlackjackPlayer blackjackPlayer;
     private BlackjackDealer blackjackDealer;
     private IBlackjackCard hiddenCard;
+    private BlackjackBetting betting;
 
     public IBlackjackDeck getDeck() {
         return deck;
@@ -57,6 +58,7 @@ public class BlackjackController extends Observable implements IBlackjackControl
         addObserver(blackjackDealer);
         blackjackPlayer.registerObserver(this);
         blackjackDealer.registerObserver(this);
+        betting = new BlackjackBetting();
     }
 
     public static IBlackjackController getInstance() {
@@ -101,6 +103,7 @@ public class BlackjackController extends Observable implements IBlackjackControl
         dealButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d("super", String.format("%s", betting.getBetAmount()));
                 // start game
                 deck = new BlackjackDeck();
                 playerScore = 0;
@@ -113,6 +116,9 @@ public class BlackjackController extends Observable implements IBlackjackControl
                 hitButton.setVisibility(View.VISIBLE);
                 standButton.setVisibility(View.VISIBLE);
                 dealButton.setVisibility(View.GONE);
+                Log.d("be", String.format("%s", betting.getBetAmount()));
+                //betting.setBetAmount(betting);
+                Log.d("aft", String.format("%s", betting.getBetAmount()));
             }
         });
         // create coin event listener to place bet, signal LivesController.
@@ -201,18 +207,21 @@ public class BlackjackController extends Observable implements IBlackjackControl
 
         switch(winner) {
             case "player":
-                builder.setTitle("Player won, you gained {bet x2}");
+                betting.updateScore(true);
+                builder.setTitle(String.format("You won, you gained: %d coins", betting.getBetAmount() * 2));
                 break;
             case "dealer":
-                builder.setTitle("Dealer won, you lost {bet}");
+                builder.setTitle(String.format("Dealer won, you lost: %d coins", betting.getBetAmount()));
                 break;
             default:
-                builder.setTitle("Draw. You lost nothing.");
+                betting.updateScore(false);
+                builder.setTitle(String.format("Draw, you keep your bet of: %d coins", betting.getBetAmount()));
         }
 
         builder.setMessage("Play again?");
 
         builder.setPositiveButton("Yes", (dialog, id) -> {
+
             resetGame();
             playerCardHandLayout.resetCards(playerHandLayout);
             dealerCardHandLayout.resetCards(dealerHandLayout);
