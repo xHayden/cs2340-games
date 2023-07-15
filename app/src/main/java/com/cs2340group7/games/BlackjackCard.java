@@ -6,7 +6,7 @@ import android.widget.ImageView;
 public class BlackjackCard implements ICard, UIComponent, IBlackjackCard {
     private final Suit suit;
     private final Rank rank;
-    private final int imageResource;
+    private int imageResource;
     private ImageView ui;
 
     public BlackjackCard(Suit suit, Rank rank, int imageResource) {
@@ -26,6 +26,7 @@ public class BlackjackCard implements ICard, UIComponent, IBlackjackCard {
     public int getImageResource() {
         return this.imageResource;
     }
+    public void setImageResource(int res) { this.imageResource = res; }
 
     @Override
     public int getValue() {

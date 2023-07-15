@@ -7,6 +7,12 @@ import java.util.List;
 public class BlackjackDeck implements IBlackjackDeck {
     private final List<IBlackjackCard> deck = new ArrayList<>();
     public BlackjackDeck() {
+        this.reset();
+    }
+
+    @Override
+    public void reset() {
+        deck.clear();
         for (Suit suit : Suit.values()) {
             for (Rank rank : Rank.values()) {
                 int imageResource = getCardImageResource(rank, suit);

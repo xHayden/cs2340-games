@@ -11,6 +11,7 @@ public class BlackjackPlayer extends Observable implements IPlayer, Observer, IG
     private HashSet<IPlayersObserver> observers;
     private boolean standing;
     private int hitTimes;
+    private IBlackjackCard recentCard;
 
     public BlackjackPlayer() {
         this.score = 0;
@@ -23,27 +24,20 @@ public class BlackjackPlayer extends Observable implements IPlayer, Observer, IG
         strategy.move(this);
     }
 
-    public void hit(ICard card) {
+    public void hit(IBlackjackCard card) {
         if (hitTimes >= 5) {
             Toast.makeText(BlackjackController.getInstance().getBlackjackContext(), "You cannot hit more than 5 times!", Toast.LENGTH_LONG).show();
             return;
         }
         if (!standing) {
             score += card.getValue();
+            recentCard = card;
             setChanged();
             notifyObservers();
         } else {
             throw new IllegalStateException("Cannot hit after standing");
         }
         hitTimes++;
-    }
-
-    @Override
-    public void drawInitialCards(ICard[] cards) {
-        for (int i = 0; i < cards.length; i++) {
-            hit(cards[i]);
-            hitTimes = 0;
-        }
     }
 
     public void stand() {
@@ -60,7 +54,7 @@ public class BlackjackPlayer extends Observable implements IPlayer, Observer, IG
     @Override
     public void notifyObservers() {
         for (IPlayersObserver observer : observers) {
-            observer.update(new ScoreUpdate(PlayerType.HUMAN, score, standing, checkBust()));
+            observer.update(new ScoreUpdate(PlayerType.HUMAN, score, standing, checkBust(), recentCard));
         }
     }
 

@@ -4,5 +4,5 @@ import android.content.Context;
 
 public interface IBlackjackDeck {
     IBlackjackCard dealCard();
-
+    void reset();
 }
