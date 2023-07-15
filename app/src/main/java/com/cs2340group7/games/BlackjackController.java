@@ -37,6 +37,9 @@ public class BlackjackController extends Observable implements IBlackjackControl
     private BlackjackPlayer blackjackPlayer;
     private BlackjackDealer blackjackDealer;
     private IBlackjackCard hiddenCard;
+    private IHealthBar healthBar;
+    private LinearLayout healthBarUI;
+    private boolean dealerWin;
 
     public IBlackjackDeck getDeck() {
         return deck;
@@ -65,6 +68,8 @@ public class BlackjackController extends Observable implements IBlackjackControl
     }
 
     public void instantiateView(View view) {
+        BlackJackHealthBar healthBar = new BlackJackHealthBar(healthBarUI, dealerWin);
+        setHealthBar(healthBarUI, healthBar);
         playerHandLayout = view.findViewById(R.id.player_cards);
         playerScoreTextView = view.findViewById(R.id.player_number);
         dealerHandLayout = view.findViewById(R.id.aI_cards);
@@ -190,6 +195,7 @@ public class BlackjackController extends Observable implements IBlackjackControl
     private void displayDealerWin() {                 // temporary toasts
         Toast.makeText(BlackjackController.getInstance().getBlackjackContext(), "Dealer wins!", Toast.LENGTH_LONG).show();
         prepareReset();
+        dealerWin = true;
     }
     private void displayDraw() {
         Toast.makeText(BlackjackController.getInstance().getBlackjackContext(), "Draw!", Toast.LENGTH_LONG).show();
@@ -235,6 +241,15 @@ public class BlackjackController extends Observable implements IBlackjackControl
 
     public void setBlackjackContext(Context blackjackContext) {
         this.blackjackContext = blackjackContext;
+    }
+
+    public IHealthBar getHealthBar() {
+        return healthBar;
+    }
+
+    public void setHealthBar(LinearLayout healthBarUI, IHealthBar healthBar) {
+        this.healthBarUI = healthBarUI;
+        this.healthBar = healthBar;
     }
 
 

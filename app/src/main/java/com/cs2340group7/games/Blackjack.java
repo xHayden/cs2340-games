@@ -42,6 +42,12 @@ public class Blackjack extends Fragment {
         }
         BlackjackController.getInstance().setBlackjackContext(getContext());
         BlackjackController.getInstance().instantiateView(view);
+        BlackjackController bjc = (BlackjackController) BlackjackController.getInstance();
+        LinearLayout healthbar = view.findViewById(R.id.healthbar);
+        boolean dealerWin = false;
+        BlackJackHealthBar healthBarComponent = new BlackJackHealthBar(healthbar, dealerWin);
+        bjc.setHealthBar(healthbar, healthBarComponent);
+
     }
 
     @Override
