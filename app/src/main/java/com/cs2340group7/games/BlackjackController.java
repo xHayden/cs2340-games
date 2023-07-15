@@ -44,12 +44,11 @@ public class BlackjackController extends Observable implements IBlackjackControl
     private BlackjackDealer blackjackDealer;
     private IBlackjackCard hiddenCard;
     private BlackjackBetting betting;
+    private IBlackjackDeck deck;
 
     public IBlackjackDeck getDeck() {
         return deck;
     }
-
-    private IBlackjackDeck deck;
     private ImageButton dealButton;
 
     private BlackjackController() {
@@ -80,12 +79,9 @@ public class BlackjackController extends Observable implements IBlackjackControl
         playAgainButton = view.findViewById(R.id.playAgainButton);
         playAgain = view.findViewById(R.id.playAgain);
         winnerText = view.findViewById(R.id.winnerText);
-
-
         hitButton = view.findViewById(R.id.hit);
         standButton = view.findViewById(R.id.stand);
         dealButton = view.findViewById(R.id.deal);
-
         hitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -107,7 +103,7 @@ public class BlackjackController extends Observable implements IBlackjackControl
             public void onClick(View v) {
                 Log.d("super", String.format("%s", betting.getBetAmount()));
                 // start game
-                deck = new BlackjackDeck();
+                deck.reset();
                 playerScore = 0;
                 dealerScore = 0;
                 blackjackPlayer.playMove(new HitStrategy(deck.dealCard()));
@@ -120,13 +116,11 @@ public class BlackjackController extends Observable implements IBlackjackControl
                 dealButton.setVisibility(View.GONE);
             }
         });
-
         coin1 = view.findViewById(R.id.coin1);
         coin2 = view.findViewById(R.id.coin2);
         coin3 = view.findViewById(R.id.coin3);
         scoreTextView = view.findViewById(R.id.score);
         updateScoreText(betting.getScore());
-
         playAgainButton.setOnClickListener(v -> {
             playAgain.setVisibility(View.GONE);
             resetGame();
@@ -160,11 +154,12 @@ public class BlackjackController extends Observable implements IBlackjackControl
 
         playerCardHandLayout = new CardHandLayout(playerHandLayout);
         dealerCardHandLayout = new CardHandLayout(dealerHandLayout);
-        deck = new BlackjackDeck();
+        deck = BlackjackDeck.getInstance();
+        deck.reset();
     }
 
     public void updateScoreText(int score) {
-        scoreTextView.setText("Score: " + score);
+        scoreTextView.setText("$" + score);
     }
 
     @Override
@@ -244,14 +239,14 @@ public class BlackjackController extends Observable implements IBlackjackControl
         switch(winner) {
             case "Player":
                 betting.updateScore(true);
-                winnerText.setText(String.format("You won, you gained: %d coins", betting.getBetAmount() * 2));
+                winnerText.setText(String.format("You won! Here's your $%d!", betting.getBetAmount() * 2));
                 break;
             case "Dealer":
-                winnerText.setText(String.format("Dealer won, you lost: %d coins", betting.getBetAmount()));
+                winnerText.setText(String.format("Dealer won. You lost $%d.", betting.getBetAmount()));
                 break;
             default:
                 betting.updateScore(false);
-                winnerText.setText(String.format("Draw, you keep your bet of: %d coins", betting.getBetAmount()));
+                winnerText.setText(String.format("Draw, you keep your bet of $%d.", betting.getBetAmount()));
         }
 
         updateScoreText(betting.getScore());
