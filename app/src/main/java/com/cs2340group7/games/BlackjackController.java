@@ -226,9 +226,8 @@ public class BlackjackController extends Observable implements IBlackjackControl
     }
     private void resetGame() {
         dealButton.setVisibility(View.VISIBLE);
-        blackjackPlayer.setHitTimes(0);
-        playerScore = 0;
-        dealerScore = 0;
+        blackjackPlayer.reset();
+        blackjackDealer.reset();
         deck.reset();
     }
     public void updatePlayerScoreUI(int score) {

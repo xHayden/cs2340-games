@@ -97,7 +97,9 @@ public class BlackjackPlayer extends Observable implements IPlayer, Observer, IG
 
     @Override
     public void reset() {
+        hitTimes = 0;
         score = 0;
         hitTimes = 0;
+        standing = false;
     }
 }

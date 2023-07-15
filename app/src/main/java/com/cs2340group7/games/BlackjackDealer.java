@@ -88,6 +88,7 @@ public class BlackjackDealer extends Observable implements IPlayer, Observer, IP
     @Override
     public void reset() {
         score = 0;
+        standing = false;
     }
 
 }
