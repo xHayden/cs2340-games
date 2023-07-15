@@ -7,6 +7,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +36,7 @@ public class BlackjackController extends Observable implements IBlackjackControl
     private CardHandLayout dealerCardHandLayout;
     private BlackjackPlayer blackjackPlayer;
     private BlackjackDealer blackjackDealer;
+    private IBlackjackCard hiddenCard;
 
     public IBlackjackDeck getDeck() {
         return deck;
@@ -83,15 +85,14 @@ public class BlackjackController extends Observable implements IBlackjackControl
             public void onClick(View v) {
                 IBlackjackCard card = deck.dealCard();
                 blackjackPlayer.playMove(new HitStrategy(card));
-                // display card
-                playerCardHandLayout.addCard(card.getImageResource());
-                blackjackDealer.playAIMove();
             }
         });
         standButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 blackjackPlayer.playMove(new StandStrategy());
+                standButton.setVisibility(View.GONE);
+                hitButton.setVisibility(View.GONE);
                 blackjackDealer.playAIMove();
             }
         });
@@ -102,18 +103,11 @@ public class BlackjackController extends Observable implements IBlackjackControl
                 deck = new BlackjackDeck();
                 playerScore = 0;
                 dealerScore = 0;
-                IBlackjackCard card = deck.dealCard();
-                blackjackPlayer.playMove(new HitStrategy(card));
-                playerCardHandLayout.addCard(card.getImageResource());
-                card = deck.dealCard();
-                blackjackPlayer.playMove(new HitStrategy(card));
-                playerCardHandLayout.addCard(card.getImageResource());
-                deck.dealCard();
-                blackjackDealer.playMove(new HitStrategy(card));
-                dealerCardHandLayout.addCard(card.getImageResource()); // should be hidden card sprite
-                deck.dealCard();
-                blackjackDealer.playMove(new HitStrategy(card));
-                dealerCardHandLayout.addCard(card.getImageResource());
+                blackjackPlayer.playMove(new HitStrategy(deck.dealCard()));
+                blackjackPlayer.playMove(new HitStrategy(deck.dealCard()));
+                hiddenCard = deck.dealCard();
+                blackjackDealer.playMove(new HiddenHitStrategy(new BlackjackCard(hiddenCard.getSuit(), hiddenCard.getRank(), hiddenCard.getImageResource())));
+                blackjackDealer.playMove(new HitStrategy(deck.dealCard()));
                 hitButton.setVisibility(View.VISIBLE);
                 standButton.setVisibility(View.VISIBLE);
                 dealButton.setVisibility(View.GONE);
@@ -143,20 +137,80 @@ public class BlackjackController extends Observable implements IBlackjackControl
             playerScore = su.getScore();
             Log.d("Player score update: ", String.valueOf(playerScore));
             updatePlayerScoreUI(playerScore);
+            if (!su.getStanding()) {
+                playerCardHandLayout.addCard(su.getRecentCard().getImageResource());
+            }
+            if (su.getBusted()) {
+                showHiddenCard();
+                displayDealerWin();
+            }
+            if (su.getScore() == 21) {
+                showHiddenCard();
+                displayPlayerWin();
+            }
         } else if (su.getPlayerType() == PlayerType.DEALER) {
             dealerScore = su.getScore();
             Log.d("Dealer score update: ", String.valueOf(dealerScore));
             updateDealerScoreUI(dealerScore);
-            // end game, count score
+            if (!su.getStanding()) {
+                dealerCardHandLayout.addCard(su.getRecentCard().getImageResource());
+            } else {
+                showHiddenCard();
+                if (su.getBusted()) {
+                    displayPlayerWin();
+                } else {
+                    checkWinnerBasedOnScore();
+                }
+            }
         }
     }
 
+    private void showHiddenCard() {
+        if (dealerHandLayout.getChildCount() > 0) {
+            View card = dealerHandLayout.getChildAt(0);
+            if (card instanceof ImageView) {
+                ImageView imageView = (ImageView) card;
+                imageView.setImageResource(hiddenCard.getImageResource());
+            }
+        }
+    }
+    private void checkWinnerBasedOnScore() {
+        if (playerScore > dealerScore) {
+            displayPlayerWin();
+        } else if (dealerScore > playerScore) {
+            displayDealerWin();
+        } else {
+            displayDraw();
+        }
+    }
+    private void displayPlayerWin() {                // temporary toasts
+        Toast.makeText(BlackjackController.getInstance().getBlackjackContext(), "Player wins!", Toast.LENGTH_LONG).show();
+        prepareReset();
+    }
+    private void displayDealerWin() {                 // temporary toasts
+        Toast.makeText(BlackjackController.getInstance().getBlackjackContext(), "Dealer wins!", Toast.LENGTH_LONG).show();
+        prepareReset();
+    }
+    private void displayDraw() {
+        Toast.makeText(BlackjackController.getInstance().getBlackjackContext(), "Draw!", Toast.LENGTH_LONG).show();
+        prepareReset();
+    }
+    private void prepareReset() {
+        hitButton.setVisibility(View.GONE);
+        standButton.setVisibility(View.GONE);
+    }
+    private void resetGame() {
+        dealButton.setVisibility(View.VISIBLE);
+        playerScore = 0;
+        dealerScore = 0;
+        deck.reset();
+    }
     public void updatePlayerScoreUI(int score) {
 
     }
 
     public void updateDealerScoreUI(int score) {
-
+        // access ui element to update score
     }
 
     @Override

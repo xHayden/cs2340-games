@@ -4,4 +4,5 @@ public interface IBlackjackCard extends ICard {
     Rank getRank();
     Suit getSuit();
     int getImageResource();
+    void setImageResource(int res);
 }

@@ -8,6 +8,7 @@ public class BlackjackDealer extends Observable implements IPlayer, Observer, IP
     private int score;
     private HashSet<IPlayersObserver> observers;
     private boolean standing;
+    private IBlackjackCard recentCard;
 
     public BlackjackDealer() {
         this.score = 0;
@@ -26,14 +27,18 @@ public class BlackjackDealer extends Observable implements IPlayer, Observer, IP
             aiMove = new HitStrategy(card);
         }
         playMove(aiMove);
+        if (!standing) {
+            playAIMove();
+        }
     }
 
     public void playMove(IMoveStrategy strategy) {
         strategy.move(this);
     }
 
-    public void hit(ICard card) {
+    public void hit(IBlackjackCard card) {
         score += card.getValue();
+        recentCard = card;
         setChanged();
         notifyObservers();
     }
@@ -57,13 +62,12 @@ public class BlackjackDealer extends Observable implements IPlayer, Observer, IP
     @Override
     public void notifyObservers() {
         for (IPlayersObserver observer : observers) {
-            observer.update(new ScoreUpdate(PlayerType.DEALER, score, standing, checkBust()));
+            observer.update(new ScoreUpdate(PlayerType.DEALER, score, standing, checkBust(), recentCard));
         }
     }
 
     @Override
     public void update(Observable o, Object arg) {
-
     }
 
     @Override
@@ -79,13 +83,6 @@ public class BlackjackDealer extends Observable implements IPlayer, Observer, IP
     @Override
     public boolean checkBust() {
         return this.score > 21;
-    }
-
-    @Override
-    public void drawInitialCards(ICard[] cards) {
-        for (int i = 0; i < cards.length; i++) {
-            hit(cards[i]);
-        }
     }
 
     @Override
