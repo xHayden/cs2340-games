@@ -6,4 +6,7 @@ public interface IPlayer {
     void hit(ICard card);
     void stand();
     void update(ScoreUpdate scoreUpdate);
+    boolean checkBust();
+    void drawInitialCards(ICard[] cards);
+    void reset();
 }

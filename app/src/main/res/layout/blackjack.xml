@@ -221,20 +221,23 @@
             android:id="@+id/hit"
             android:layout_width="100dp"
             android:layout_height="48dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="coin"
             android:gravity="center"
             android:scaleType="fitCenter"
-            android:contentDescription="coin"
-            android:background="@android:color/transparent"
+            android:visibility="gone"
             app:srcCompat="@drawable/hit" />
+
         <ImageButton
             android:id="@+id/stand"
             android:layout_width="100dp"
             android:layout_height="48dp"
-            android:layout_marginStart ="30dp"
+            android:layout_marginStart="30dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="coin"
             android:gravity="center"
             android:scaleType="fitCenter"
-            android:contentDescription="coin"
-            android:background="@android:color/transparent"
+            android:visibility="gone"
             app:srcCompat="@drawable/stand" />
     </LinearLayout>
     <LinearLayout

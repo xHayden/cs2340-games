@@ -23,6 +23,10 @@ public class BlackjackCard implements ICard, UIComponent, IBlackjackCard {
         return rank;
     }
 
+    public int getImageResource() {
+        return this.imageResource;
+    }
+
     @Override
     public int getValue() {
         return rank.getValue();

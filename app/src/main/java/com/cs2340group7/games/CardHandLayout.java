@@ -1,5 +1,6 @@
 package com.cs2340group7.games;
 
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -30,6 +31,9 @@ public class CardHandLayout implements ICardHandLayout {
     }
 
     public void addCard(int resource) {
+        if (resource == 0) {
+            return;
+        }
         ImageView card = new ImageView(BlackjackController.getInstance().getBlackjackContext());
         card.setImageResource(resource);
         LinearLayout.LayoutParams cardLayoutParams = new LinearLayout.LayoutParams(

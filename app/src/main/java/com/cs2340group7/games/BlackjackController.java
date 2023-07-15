@@ -1,6 +1,7 @@
 package com.cs2340group7.games;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -34,7 +35,13 @@ public class BlackjackController extends Observable implements IBlackjackControl
     private CardHandLayout dealerCardHandLayout;
     private BlackjackPlayer blackjackPlayer;
     private BlackjackDealer blackjackDealer;
+
+    public IBlackjackDeck getDeck() {
+        return deck;
+    }
+
     private IBlackjackDeck deck;
+    private ImageButton dealButton;
 
     private BlackjackController() {
         playerScore = 0;
@@ -44,7 +51,8 @@ public class BlackjackController extends Observable implements IBlackjackControl
         blackjackDealer = new BlackjackDealer();
         addObserver(blackjackPlayer);
         addObserver(blackjackDealer);
-        deck = new BlackjackDeck();
+        blackjackPlayer.registerObserver(this);
+        blackjackDealer.registerObserver(this);
     }
 
     public static IBlackjackController getInstance() {
@@ -64,6 +72,7 @@ public class BlackjackController extends Observable implements IBlackjackControl
         // Initialize the Action UI Components
         hitButton = view.findViewById(R.id.hit);
         standButton = view.findViewById(R.id.stand);
+        dealButton = view.findViewById(R.id.deal);
 
         // Initialize the Game Status UI Component
 //      gameStatusTextView = view.findViewById(R.id.);
@@ -73,15 +82,45 @@ public class BlackjackController extends Observable implements IBlackjackControl
             @Override
             public void onClick(View v) {
                 IBlackjackCard card = deck.dealCard();
-                blackjackPlayer.hit(card);
+                blackjackPlayer.playMove(new HitStrategy(card));
+                // display card
+                playerCardHandLayout.addCard(card.getImageResource());
+                blackjackDealer.playAIMove();
             }
         });
         standButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                blackjackPlayer.stand();
+                blackjackPlayer.playMove(new StandStrategy());
+                blackjackDealer.playAIMove();
             }
         });
+        dealButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // start game
+                deck = new BlackjackDeck();
+                playerScore = 0;
+                dealerScore = 0;
+                IBlackjackCard card = deck.dealCard();
+                blackjackPlayer.playMove(new HitStrategy(card));
+                playerCardHandLayout.addCard(card.getImageResource());
+                card = deck.dealCard();
+                blackjackPlayer.playMove(new HitStrategy(card));
+                playerCardHandLayout.addCard(card.getImageResource());
+                deck.dealCard();
+                blackjackDealer.playMove(new HitStrategy(card));
+                dealerCardHandLayout.addCard(card.getImageResource()); // should be hidden card sprite
+                deck.dealCard();
+                blackjackDealer.playMove(new HitStrategy(card));
+                dealerCardHandLayout.addCard(card.getImageResource());
+                hitButton.setVisibility(View.VISIBLE);
+                standButton.setVisibility(View.VISIBLE);
+                dealButton.setVisibility(View.GONE);
+            }
+        });
+        // create coin event listener to place bet, signal LivesController.
+
 //        newGameButton.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
@@ -96,21 +135,19 @@ public class BlackjackController extends Observable implements IBlackjackControl
 //        });
         playerCardHandLayout = new CardHandLayout(playerHandLayout);
         dealerCardHandLayout = new CardHandLayout(dealerHandLayout);
+        deck = new BlackjackDeck();
     }
 
     public void update(ScoreUpdate su) {
         if (su.getPlayerType() == PlayerType.HUMAN) { // not ideal but I can't think of a better way
             playerScore = su.getScore();
+            Log.d("Player score update: ", String.valueOf(playerScore));
             updatePlayerScoreUI(playerScore);
-            if (su.getStanding()) {
-                // don't ask player again.
-            }
         } else if (su.getPlayerType() == PlayerType.DEALER) {
             dealerScore = su.getScore();
+            Log.d("Dealer score update: ", String.valueOf(dealerScore));
             updateDealerScoreUI(dealerScore);
-            if (su.getStanding()) {
-                // final move for player
-            }
+            // end game, count score
         }
     }
 
