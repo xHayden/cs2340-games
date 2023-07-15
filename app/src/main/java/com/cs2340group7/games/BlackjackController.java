@@ -1,6 +1,8 @@
 package com.cs2340group7.games;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
@@ -183,26 +185,49 @@ public class BlackjackController extends Observable implements IBlackjackControl
             displayDraw();
         }
     }
-    private void displayPlayerWin() {                // temporary toasts
-        Toast.makeText(BlackjackController.getInstance().getBlackjackContext(), "Player wins!", Toast.LENGTH_LONG).show();
-        prepareReset();
+    private void displayPlayerWin() {
+        prepareReset("player");
     }
-    private void displayDealerWin() {                 // temporary toasts
-        Toast.makeText(BlackjackController.getInstance().getBlackjackContext(), "Dealer wins!", Toast.LENGTH_LONG).show();
-        prepareReset();
+    private void displayDealerWin() {
+        prepareReset("dealer");
     }
     private void displayDraw() {
-        Toast.makeText(BlackjackController.getInstance().getBlackjackContext(), "Draw!", Toast.LENGTH_LONG).show();
-        prepareReset();
+        prepareReset("draw");
     }
-    private void prepareReset() {
+    private void prepareReset(String winner) {
         hitButton.setVisibility(View.GONE);
         standButton.setVisibility(View.GONE);
+        AlertDialog.Builder builder = new AlertDialog.Builder(getBlackjackContext());
+
+        switch(winner) {
+            case "player":
+                builder.setTitle("Player won, you gained {bet x2}");
+                break;
+            case "dealer":
+                builder.setTitle("Dealer won, you lost {bet}");
+                break;
+            default:
+                builder.setTitle("Draw. You lost nothing.");
+        }
+
+        builder.setMessage("Play again?");
+
+        builder.setPositiveButton("Yes", (dialog, id) -> {
+            resetGame();
+            playerCardHandLayout.resetCards(playerHandLayout);
+            dealerCardHandLayout.resetCards(dealerHandLayout);
+        });
+
+        builder.setNegativeButton("No", (dialog, id) -> {
+            //back to main menu
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
     private void resetGame() {
         dealButton.setVisibility(View.VISIBLE);
-        playerScore = 0;
-        dealerScore = 0;
+        blackjackPlayer.reset();
+        blackjackDealer.reset();
         deck.reset();
     }
     public void updatePlayerScoreUI(int score) {
