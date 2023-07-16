@@ -55,6 +55,14 @@ public class BlackjackTesting {
         player.playMove(new StandStrategy());
         player.playMove(new HitStrategy(new BlackjackCard(Suit.HEARTS, Rank.TWO, 2)));
     }
+    @Test
+    public void playerReset() {
+        player.playMove(new HitStrategy(new BlackjackCard(Suit.HEARTS, Rank.KING, 10)));
+        player.reset();
+        assertEquals(0, player.getScore());
+        assertFalse(player.checkBust());
+    }
+
 
 
 }
