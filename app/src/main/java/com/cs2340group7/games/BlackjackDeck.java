@@ -7,7 +7,7 @@ import java.util.List;
 public class BlackjackDeck implements IBlackjackDeck {
     private final List<IBlackjackCard> deck = new ArrayList<>();
     private static BlackjackDeck instance;
-    private BlackjackDeck() {
+    BlackjackDeck() {
         this.reset();
     }
     public static BlackjackDeck getInstance() {
