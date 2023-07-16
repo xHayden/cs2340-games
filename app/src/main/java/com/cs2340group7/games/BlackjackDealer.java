@@ -21,14 +21,12 @@ public class BlackjackDealer extends Observable implements IPlayer, Observer, IP
         IMoveStrategy aiMove;
         if (score >= 17) {
             aiMove = new StandStrategy();
+            playMove(aiMove);
         } else {
             IBlackjackCard card = BlackjackController.getInstance().getDeck().dealCard();
-            score += card.getValue();
             aiMove = new HitStrategy(card);
-        }
-        playMove(aiMove);
-        if (!standing) {
-            playAIMove();
+            score += card.getValue();
+            playMove(aiMove);
         }
     }
 

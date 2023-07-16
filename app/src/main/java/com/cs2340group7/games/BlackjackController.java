@@ -206,16 +206,14 @@ public class BlackjackController extends Observable implements IBlackjackControl
             dealerScore = su.getScore();
             Log.d("Dealer score update: ", String.valueOf(dealerScore));
             updateDealerScoreUI(-1);
-            if (su.getScore() == 21) {
-                showHiddenCard();
-                displayDealerWin();
-            }
             if (!su.getStanding()) {
                 dealerCardHandLayout.addCard(su.getRecentCard().getImageResource());
             } else {
                 showHiddenCard();
                 if (su.getBusted()) {
                     displayPlayerWin();
+                } else if (su.getScore() == 21) {
+                    displayDealerWin();
                 } else {
                     checkWinnerBasedOnScore();
                 }
