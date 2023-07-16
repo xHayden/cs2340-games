@@ -240,13 +240,19 @@ public class BlackjackController extends Observable implements IBlackjackControl
             case "Player":
                 betting.updateScore(true);
                 winnerText.setText(String.format("You won! Here's your $%d!", betting.getBetAmount() * 2));
+                updateDealerScoreUI(dealerScore);
+
                 break;
             case "Dealer":
                 winnerText.setText(String.format("Dealer won. You lost $%d.", betting.getBetAmount()));
+                updateDealerScoreUI(dealerScore);
+
                 break;
             default:
                 betting.updateScore(false);
                 winnerText.setText(String.format("Draw, you keep your bet of $%d.", betting.getBetAmount()));
+                updateDealerScoreUI(dealerScore);
+
         }
 
         updateScoreText(betting.getScore());
@@ -259,10 +265,11 @@ public class BlackjackController extends Observable implements IBlackjackControl
         betting.clearBetAmount();
     }
     public void updatePlayerScoreUI(int score) {
-
+        playerScoreTextView.setText("Your total: " + score);
     }
 
     public void updateDealerScoreUI(int score) {
+        dealerScoreTextView.setText("Dealer total: " + score);
         // access ui element to update score
     }
 

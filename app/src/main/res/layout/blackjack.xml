@@ -105,23 +105,26 @@
     </LinearLayout>
 
         <TextView
-        android:id="@+id/ai_number"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginTop ="10dp"
-        android:layout_marginStart ="35dp" >
-    </TextView>
+            android:id="@+id/ai_number"
+            android:layout_width="169dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="35dp"
+            android:layout_marginTop="10dp"
+            android:text="Dealer total: ?"
+            android:textSize="20sp"></TextView>
 
-    <TextView
-        android:id="@+id/player_number"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="330dp"
-        android:layout_marginTop="30dp" >
+        <TextView
+            android:id="@+id/player_number"
+            android:layout_width="171dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="35dp"
+            android:layout_marginTop="30dp"
+            android:text="You total: "
+            android:textSize="20sp">
 
-    </TextView>
+        </TextView>
 
-    <LinearLayout
+        <LinearLayout
         android:id="@+id/player_cards"
         android:layout_width="350dp"
         android:layout_marginTop="10dp"
