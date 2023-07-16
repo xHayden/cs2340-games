@@ -62,6 +62,13 @@ public class BlackjackTesting {
         assertEquals(0, player.getScore());
         assertFalse(player.checkBust());
     }
+    @Test
+    public void dealerReset() {
+        dealer.playMove(new HitStrategy(new BlackjackCard(Suit.HEARTS, Rank.KING, 10)));
+        dealer.reset();
+        assertEquals(0, dealer.getScore());
+        assertFalse(dealer.checkBust());
+    }
 
 
 
