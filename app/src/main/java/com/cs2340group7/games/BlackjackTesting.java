@@ -50,6 +50,11 @@ public class BlackjackTesting {
         assertEquals(22, player.getScore());
         assertTrue(player.checkBust());
     }
+    @Test(expected = IllegalStateException.class)
+    public void playerCannotHitAfterStanding() {
+        player.playMove(new StandStrategy());
+        player.playMove(new HitStrategy(new BlackjackCard(Suit.HEARTS, Rank.TWO, 2)));
+    }
 
 
 }
