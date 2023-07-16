@@ -107,4 +107,17 @@ public class BlackjackTesting {
     }
 
 
+    @Test
+    public void testDealerHitUntil17() {
+        IBlackjackCard card1 = new BlackjackCard(Suit.CLUBS, Rank.EIGHT, 0);
+        IBlackjackCard card2 = new BlackjackCard(Suit.HEARTS, Rank.SEVEN, 0);
+        IBlackjackCard card3 = new BlackjackCard(Suit.DIAMONDS, Rank.TWO, 0);
+        dealer.hit(card1);
+        dealer.hit(card2);
+        dealer.hit(card3);
+        // Assuming the dealer hits until their score is 17 or more
+        assertEquals(17, dealer.getScore());
+    }
+
+
 }
