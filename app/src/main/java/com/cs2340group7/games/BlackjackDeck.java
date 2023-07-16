@@ -6,8 +6,15 @@ import java.util.List;
 
 public class BlackjackDeck implements IBlackjackDeck {
     private final List<IBlackjackCard> deck = new ArrayList<>();
-    public BlackjackDeck() {
+    private static BlackjackDeck instance;
+    private BlackjackDeck() {
         this.reset();
+    }
+    public static BlackjackDeck getInstance() {
+        if (instance == null) {
+            instance = new BlackjackDeck();
+        }
+        return instance;
     }
 
     @Override

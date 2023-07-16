@@ -12,6 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.cs2340group7.games.databinding.BlackjackBinding;
 
@@ -42,8 +43,15 @@ public class Blackjack extends Fragment {
         }
         BlackjackController.getInstance().setBlackjackContext(getContext());
         BlackjackController.getInstance().instantiateView(view);
-        BlackjackBetting betting = new BlackjackBetting();
-        betting.instantiateView(view);
+        BlackjackController.getInstance().reset();
+        Button exitButton = view.findViewById(R.id.exitButton);
+        exitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                NavHostFragment.findNavController(Blackjack.this)
+                        .navigate(R.id.action_Blackjack_to_SelectGame, savedInstanceState);
+            }
+        });
     }
 
     @Override
