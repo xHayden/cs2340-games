@@ -2,6 +2,7 @@ package com.cs2340group7.games;
 
 import android.util.Log;
 
+
 public class BlackjackBetting {
     private int score;
     private int betAmount;
