@@ -22,6 +22,7 @@ import java.util.Observer;
 public class BlackjackController extends Observable implements IBlackjackController, IPlayersObserver {
     private static IBlackjackController instance;
     private Button playAgainButton;
+    private Button exitGameButton;
     private TextView winnerText;
     private LinearLayout playAgain;
     private int playerScore;
@@ -37,6 +38,7 @@ public class BlackjackController extends Observable implements IBlackjackControl
     private ImageButton coin2;
     private ImageButton coin3;
     private TextView scoreTextView;
+    private TextView finalScoreTextView;
     private Context blackjackContext;
     private CardHandLayout playerCardHandLayout;
     private CardHandLayout dealerCardHandLayout;
@@ -84,6 +86,8 @@ public class BlackjackController extends Observable implements IBlackjackControl
         hitButton = view.findViewById(R.id.hit);
         standButton = view.findViewById(R.id.stand);
         dealButton = view.findViewById(R.id.deal);
+        finalScoreTextView = view.findViewById(R.id.finalScore);
+        exitGameButton = view.findViewById(R.id.exitButton);
         hitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -103,24 +107,27 @@ public class BlackjackController extends Observable implements IBlackjackControl
         dealButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("super", String.format("%s", betting.getBetAmount()));
                 // start game
-                deck.reset();
-                playerScore = 0;
-                dealerScore = 0;
-                blackjackPlayer.playMove(new HitStrategy(deck.dealCard()));
-                blackjackPlayer.playMove(new HitStrategy(deck.dealCard()));
-                hiddenCard = deck.dealCard();
-                blackjackDealer.playMove(new HiddenHitStrategy(new BlackjackCard(hiddenCard.getSuit(), hiddenCard.getRank(), hiddenCard.getImageResource())));
-                blackjackDealer.playMove(new HitStrategy(deck.dealCard()));
-                hitButton.setVisibility(View.VISIBLE);
-                standButton.setVisibility(View.VISIBLE);
-                dealButton.setVisibility(View.GONE);
-                playerScoreTextView.setVisibility(View.VISIBLE);
-                dealerScoreTextView.setVisibility(View.VISIBLE);
-                coin1.setVisibility(View.GONE);
-                coin2.setVisibility(View.GONE);
-                coin3.setVisibility(View.GONE);
+                if (betting.getBetAmount() >= 5) {
+                    deck.reset();
+                    playerScore = 0;
+                    dealerScore = 0;
+                    blackjackPlayer.playMove(new HitStrategy(deck.dealCard()));
+                    blackjackPlayer.playMove(new HitStrategy(deck.dealCard()));
+                    hiddenCard = deck.dealCard();
+                    blackjackDealer.playMove(new HiddenHitStrategy(new BlackjackCard(hiddenCard.getSuit(), hiddenCard.getRank(), hiddenCard.getImageResource())));
+                    blackjackDealer.playMove(new HitStrategy(deck.dealCard()));
+                    hitButton.setVisibility(View.VISIBLE);
+                    standButton.setVisibility(View.VISIBLE);
+                    dealButton.setVisibility(View.GONE);
+                    playerScoreTextView.setVisibility(View.VISIBLE);
+                    dealerScoreTextView.setVisibility(View.VISIBLE);
+                    coin1.setVisibility(View.GONE);
+                    coin2.setVisibility(View.GONE);
+                    coin3.setVisibility(View.GONE);
+                } else {
+                    Toast.makeText(getBlackjackContext(), "You cannot play without betting lives!", Toast.LENGTH_SHORT).show();
+                }
             }
         });
         coin1 = view.findViewById(R.id.coin1);
@@ -251,8 +258,15 @@ public class BlackjackController extends Observable implements IBlackjackControl
     private void prepareReset(String winner) {
         hitButton.setVisibility(View.GONE);
         standButton.setVisibility(View.GONE);
+        finalScoreTextView.setText(String.format("You: %d | Dealer: %s", playerScore, dealerScore == 0 ? "?" : String.valueOf(dealerScore)));
+        if (betting.getScore() <= 0) {
+            playAgainButton.setVisibility(View.GONE);
+            exitGameButton.setVisibility(View.VISIBLE);
+        } else {
+            playAgainButton.setVisibility(View.VISIBLE);
+            exitGameButton.setVisibility(View.GONE);
+        }
         playAgain.setVisibility(View.VISIBLE);
-
         switch(winner) {
             case "Player":
                 betting.updateScore(true);
@@ -318,12 +332,4 @@ public class BlackjackController extends Observable implements IBlackjackControl
     public void setBlackjackContext(Context blackjackContext) {
         this.blackjackContext = blackjackContext;
     }
-
-
-    // player.makeMove(new StandStrategy());
-    //  player.makeMove(new HitStrategy(new BlackjackCard(6)));
-    // ScoreboardController.getInstance().setScore(2);
-    // ScoreboardController.getInstance().getScore();
-    // LivesController.getInstance().betLives(2);
-    // LivesController.getInstance().won();
 }
