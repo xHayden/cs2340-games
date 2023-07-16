@@ -280,6 +280,14 @@
         android:visibility="gone">
 
         <TextView
+            android:id="@+id/finalScore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:text="Player: 0 | Dealer: 0"
+            android:textColor="#E3E8EB" />
+
+        <TextView
             android:id="@+id/winnerText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -293,7 +301,7 @@
             android:layout_height="wrap_content"
             android:backgroundTint="#4C4A41"
             android:text="Play Again"
-            android:visibility="visible" />
+            android:visibility="gone" />
 
         <Button
             android:id="@+id/exitButton"
@@ -301,8 +309,8 @@
             android:layout_height="wrap_content"
             android:backgroundTint="#201F1C"
             android:text="Exit Game" />
-    </LinearLayout>
 
+    </LinearLayout>
 </FrameLayout>
 
 
