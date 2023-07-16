@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#98DA9B"
-    android:orientation="vertical"
-    tools:context=".Wordle">
+    tools:context=".Blackjack">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/linearLayout3"
@@ -41,12 +45,6 @@
                     android:layout_height="wrap_content"
                     android:text="Player Name" />
 
-                <ProgressBar
-                    android:id="@+id/healthBar"
-                    style="?android:attr/progressBarStyleHorizontal"
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content" />
-
             </LinearLayout>
 
             <LinearLayout
@@ -61,7 +59,8 @@
                     android:id="@+id/score"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Score: 0" />
+                    android:text="0 Lives"
+                    android:textSize="20sp" />
             </LinearLayout>
 
         </LinearLayout>
@@ -82,81 +81,85 @@
             android:id="@+id/ai_card1"
             android:layout_width="70dp"
             android:layout_height="90dp"
-            app:srcCompat="@drawable/jack_of_hearts" />
+            app:srcCompat="@drawable/card_hearts_jack" />
         <ImageView
             android:id="@+id/ai_card2"
             android:layout_width="70dp"
             android:layout_height="90dp"
-            app:srcCompat="@drawable/queen_of_clubs" />
+            app:srcCompat="@drawable/card_clubs_queen" />
         <ImageView
             android:id="@+id/ai_card3"
             android:layout_width="70dp"
             android:layout_height="90dp"
-            app:srcCompat="@drawable/king_of_diamonds" />
+            app:srcCompat="@drawable/card_diamonds_king" />
         <ImageView
             android:id="@+id/ai_card4"
             android:layout_width="70dp"
             android:layout_height="90dp"
-            app:srcCompat="@drawable/jack_of_spades" />
+            app:srcCompat="@drawable/card_spades_jack" />
         <ImageView
             android:id="@+id/ai_card5"
             android:layout_width="70dp"
             android:layout_height="90dp"
-            app:srcCompat="@drawable/queen_of_diamonds" />
+            app:srcCompat="@drawable/card_diamonds_queen" />
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/ai_number"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginTop ="10dp"
-        android:layout_marginStart ="35dp" >
-    </TextView>
+        <TextView
+            android:id="@+id/ai_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="35dp"
+            android:layout_marginTop="10dp"
+            android:text="Dealer Score: ?"
+            android:textSize="20sp"
+            android:visibility="invisible"></TextView>
 
-    <TextView
-        android:id="@+id/player_number"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="330dp"
-        android:layout_marginTop="30dp" >
+        <TextView
+            android:id="@+id/player_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="35dp"
+            android:layout_marginTop="30dp"
+            android:text="Player Score: "
+            android:textSize="20sp"
+            android:visibility="invisible">
 
-    </TextView>
+        </TextView>
 
-    <LinearLayout
+        <LinearLayout
         android:id="@+id/player_cards"
         android:layout_width="350dp"
         android:layout_marginTop="10dp"
         android:layout_marginStart ="30dp"
         android:layout_marginEnd="50dp"
         android:orientation="horizontal"
-        android:layout_height="90dp"
-        app:layout_constraintStart_toStartOf="parent" >
+        android:layout_height="90dp" >
 
         <ImageView
             android:id="@+id/player_card1"
             android:layout_width="70dp"
             android:layout_height="90dp"
-            app:srcCompat="@drawable/jack_of_hearts" />
+            app:srcCompat="@drawable/card_hearts_jack" />
         <ImageView
             android:id="@+id/player_card2"
             android:layout_width="70dp"
             android:layout_height="90dp"
-            app:srcCompat="@drawable/queen_of_clubs" />
+            app:srcCompat="@drawable/card_clubs_queen" />
         <ImageView
             android:id="@+id/player_card3"
             android:layout_width="70dp"
             android:layout_height="90dp"
-            app:srcCompat="@drawable/king_of_diamonds" />
+            app:srcCompat="@drawable/card_diamonds_king" />
         <ImageView
             android:id="@+id/player_card4"
             android:layout_width="70dp"
             android:layout_height="90dp"
-            app:srcCompat="@drawable/jack_of_spades" />
+            app:srcCompat="@drawable/card_spades_jack" />
         <ImageView
             android:id="@+id/player_card5"
             android:layout_width="70dp"
             android:layout_height="90dp"
-            app:srcCompat="@drawable/queen_of_diamonds" />
+            app:srcCompat="@drawable/card_diamonds_queen" />
 
     </LinearLayout>
 
@@ -222,20 +225,23 @@
             android:id="@+id/hit"
             android:layout_width="100dp"
             android:layout_height="48dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="coin"
             android:gravity="center"
             android:scaleType="fitCenter"
-            android:contentDescription="coin"
-            android:background="@android:color/transparent"
+            android:visibility="gone"
             app:srcCompat="@drawable/hit" />
+
         <ImageButton
             android:id="@+id/stand"
             android:layout_width="100dp"
             android:layout_height="48dp"
-            android:layout_marginStart ="30dp"
+            android:layout_marginStart="30dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="coin"
             android:gravity="center"
             android:scaleType="fitCenter"
-            android:contentDescription="coin"
-            android:background="@android:color/transparent"
+            android:visibility="gone"
             app:srcCompat="@drawable/stand" />
     </LinearLayout>
     <LinearLayout
@@ -251,17 +257,53 @@
 
         <ImageButton
             android:id="@+id/deal"
-            android:layout_width="100dp"
-            android:layout_height="48dp"
-            android:layout_marginStart ="30dp"
+            android:layout_width="250dp"
+            android:layout_height="80dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="coin"
             android:gravity="center"
             android:scaleType="fitCenter"
-            android:contentDescription="coin"
-            android:background="@android:color/transparent"
             app:srcCompat="@drawable/deal" />
     </LinearLayout>
 
-</LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/playAgain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="150dp"
+        android:background="@drawable/score_background"
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/winnerText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:text="You won, you gained: 0 coins"
+            android:textColor="#E3E8EB" />
+
+        <Button
+            android:id="@+id/playAgainButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#4C4A41"
+            android:text="Play Again"
+            android:visibility="visible" />
+
+        <Button
+            android:id="@+id/exitButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#201F1C"
+            android:text="Exit Game" />
+    </LinearLayout>
+
+</FrameLayout>
 
 
 

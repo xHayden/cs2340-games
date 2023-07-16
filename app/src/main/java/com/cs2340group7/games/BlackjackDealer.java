@@ -1,33 +1,44 @@
 package com.cs2340group7.games;
 
-import java.util.List;
+import java.util.HashSet;
 import java.util.Observable;
 import java.util.Observer;
 
-public class BlackjackDealer extends Observable implements IPlayer, Observer {
+public class BlackjackDealer extends Observable implements IPlayer, Observer, IPlayersObservable {
     private int score;
-    private List<IPlayersObserver> observers;
+    private HashSet<IPlayersObserver> observers;
     private boolean standing;
+    private IBlackjackCard recentCard;
 
     public BlackjackDealer() {
         this.score = 0;
         this.standing = false;
+        observers = new HashSet<>();
     }
-
-    private IBlackjackController blackjackController = BlackjackController.getInstance();
 
     public void playAIMove() {
         // decide what strategy to use
-        IMoveStrategy aiMove = new StandStrategy(); // or hit strategy, whatever the AI thinks is best
+        IMoveStrategy aiMove;
+        if (score >= 17) {
+            aiMove = new StandStrategy();
+        } else {
+            IBlackjackCard card = BlackjackController.getInstance().getDeck().dealCard();
+            score += card.getValue();
+            aiMove = new HitStrategy(card);
+        }
         playMove(aiMove);
+        if (!standing) {
+            playAIMove();
+        }
     }
 
     public void playMove(IMoveStrategy strategy) {
         strategy.move(this);
     }
 
-    public void hit(ICard card) {
+    public void hit(IBlackjackCard card) {
         score += card.getValue();
+        recentCard = card;
         setChanged();
         notifyObservers();
     }
@@ -51,12 +62,33 @@ public class BlackjackDealer extends Observable implements IPlayer, Observer {
     @Override
     public void notifyObservers() {
         for (IPlayersObserver observer : observers) {
-            observer.update(new ScoreUpdate(PlayerType.DEALER, score, standing));
+            observer.update(new ScoreUpdate(PlayerType.DEALER, score, standing, checkBust(), recentCard));
         }
     }
 
     @Override
     public void update(Observable o, Object arg) {
-
     }
+
+    @Override
+    public void registerObserver(IPlayersObserver observer) {
+        this.observers.add(observer);
+    }
+
+    @Override
+    public void deregisterObserver(IPlayersObserver observer) {
+        this.observers.remove(observer);
+    }
+
+    @Override
+    public boolean checkBust() {
+        return this.score > 21;
+    }
+
+    @Override
+    public void reset() {
+        score = 0;
+        standing = false;
+    }
+
 }
