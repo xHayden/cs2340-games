@@ -69,7 +69,23 @@ public class BlackjackTesting {
         assertEquals(0, dealer.getScore());
         assertFalse(dealer.checkBust());
     }
+    @Test
+    public void testPlayerHit() {
+        IBlackjackCard card = new BlackjackCard(Suit.CLUBS, Rank.FIVE, 0);
+        player.hit(card);
+        assertEquals(5, player.getScore());
+    }
 
+    @Test
+    public void testPlayerBust() {
+        IBlackjackCard card1 = new BlackjackCard(Suit.CLUBS, Rank.TEN, 0);
+        IBlackjackCard card2 = new BlackjackCard(Suit.HEARTS, Rank.TEN, 0);
+        IBlackjackCard card3 = new BlackjackCard(Suit.DIAMONDS, Rank.FIVE, 0);
+        player.hit(card1);
+        player.hit(card2);
+        player.hit(card3);
+        assertTrue(player.checkBust());
+    }
 
 
 }
