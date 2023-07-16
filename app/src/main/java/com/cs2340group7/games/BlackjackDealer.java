@@ -1,5 +1,7 @@
 package com.cs2340group7.games;
 
+import android.util.Log;
+
 import java.util.HashSet;
 import java.util.Observable;
 import java.util.Observer;
@@ -25,8 +27,8 @@ public class BlackjackDealer extends Observable implements IPlayer, Observer, IP
         } else {
             IBlackjackCard card = BlackjackController.getInstance().getDeck().dealCard();
             aiMove = new HitStrategy(card);
-            score += card.getValue();
             playMove(aiMove);
+            playAIMove();
         }
     }
 
@@ -39,6 +41,9 @@ public class BlackjackDealer extends Observable implements IPlayer, Observer, IP
         recentCard = card;
         setChanged();
         notifyObservers();
+        if (score > 21) {
+            playMove(new StandStrategy());
+        }
     }
 
     public void stand() {
