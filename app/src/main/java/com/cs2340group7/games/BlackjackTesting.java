@@ -128,6 +128,36 @@ public class BlackjackTesting {
         player.stand();
         assertEquals(11, player.getScore());
     }
+    @Test
+    public void testDealerHitUntilScoreExceeds19() {
+        IBlackjackCard card1 = new BlackjackCard(Suit.CLUBS, Rank.FIVE, 0);
+        IBlackjackCard card2 = new BlackjackCard(Suit.HEARTS, Rank.SIX, 0);
+        IBlackjackCard card3 = new BlackjackCard(Suit.DIAMONDS, Rank.FOUR, 0);
+
+        dealer.hit(card1);
+        assertEquals(5, dealer.getScore());
+        assertFalse(dealer.checkBust());
+
+        dealer.hit(card2);
+        assertEquals(11, dealer.getScore());
+        assertFalse(dealer.checkBust());
+
+        dealer.hit(card3);
+        assertEquals(15, dealer.getScore());
+        assertFalse(dealer.checkBust());
+
+        dealer.hit(card2);
+        assertEquals(21, dealer.getScore());
+        assertFalse(dealer.checkBust());
+
+        dealer.hit(card1);
+        assertEquals(26, dealer.getScore());
+        assertTrue(dealer.checkBust());
+    }
+
+
+
+
 
 
 
