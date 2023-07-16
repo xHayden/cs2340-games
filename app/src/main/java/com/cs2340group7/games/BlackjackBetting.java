@@ -1,9 +1,7 @@
 package com.cs2340group7.games;
 
 import android.util.Log;
-import android.view.View;
-import android.widget.ImageButton;
-import android.widget.TextView;
+
 
 public class BlackjackBetting {
     private int score;
