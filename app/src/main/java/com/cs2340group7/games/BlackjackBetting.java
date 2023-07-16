@@ -30,6 +30,10 @@ public class BlackjackBetting {
         return score;
     }
 
+    public void setScore(int score) {
+        this.score = score;
+    }
+
     public static BlackjackBetting getInstance() {
         if (instance == null) {
             instance = new BlackjackBetting();

@@ -59,7 +59,7 @@
                     android:id="@+id/score"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="$0"
+                    android:text="0 Lives"
                     android:textSize="20sp" />
             </LinearLayout>
 
@@ -106,21 +106,23 @@
 
         <TextView
             android:id="@+id/ai_number"
-            android:layout_width="169dp"
-            android:layout_height="50dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginStart="35dp"
             android:layout_marginTop="10dp"
-            android:text="Dealer total: ?"
-            android:textSize="20sp"></TextView>
+            android:text="Dealer Score: ?"
+            android:textSize="20sp"
+            android:visibility="invisible"></TextView>
 
         <TextView
             android:id="@+id/player_number"
-            android:layout_width="171dp"
-            android:layout_height="50dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginStart="35dp"
             android:layout_marginTop="30dp"
-            android:text="You total: "
-            android:textSize="20sp">
+            android:text="Player Score: "
+            android:textSize="20sp"
+            android:visibility="invisible">
 
         </TextView>
 
@@ -255,13 +257,12 @@
 
         <ImageButton
             android:id="@+id/deal"
-            android:layout_width="100dp"
-            android:layout_height="48dp"
-            android:layout_marginStart ="30dp"
+            android:layout_width="250dp"
+            android:layout_height="80dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="coin"
             android:gravity="center"
             android:scaleType="fitCenter"
-            android:contentDescription="coin"
-            android:background="@android:color/transparent"
             app:srcCompat="@drawable/deal" />
     </LinearLayout>
 
@@ -272,6 +273,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginTop="150dp"
         android:background="@drawable/score_background"
         android:orientation="vertical"
         android:padding="20dp"

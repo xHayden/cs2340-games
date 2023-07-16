@@ -72,6 +72,8 @@ public class BlackjackController extends Observable implements IBlackjackControl
     }
 
     public void instantiateView(View view) {
+        BlackjackBetting.getInstance().setScore(50);
+
         playerHandLayout = view.findViewById(R.id.player_cards);
         playerScoreTextView = view.findViewById(R.id.player_number);
         dealerHandLayout = view.findViewById(R.id.aI_cards);
@@ -114,6 +116,11 @@ public class BlackjackController extends Observable implements IBlackjackControl
                 hitButton.setVisibility(View.VISIBLE);
                 standButton.setVisibility(View.VISIBLE);
                 dealButton.setVisibility(View.GONE);
+                playerScoreTextView.setVisibility(View.VISIBLE);
+                dealerScoreTextView.setVisibility(View.VISIBLE);
+                coin1.setVisibility(View.GONE);
+                coin2.setVisibility(View.GONE);
+                coin3.setVisibility(View.GONE);
             }
         });
         coin1 = view.findViewById(R.id.coin1);
@@ -131,24 +138,36 @@ public class BlackjackController extends Observable implements IBlackjackControl
         coin1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                betting.setBetAmount(betting.getBetAmount() + 5);
-                betting.decreaseScore(5);
+                if (betting.getScore() >= 5) {
+                    betting.setBetAmount(betting.getBetAmount() + 5);
+                    betting.decreaseScore(5); // these should be done in the same function in BlackjackBetting for SRP
+                } else {
+                    Toast.makeText(getBlackjackContext(), "You do not have enough lives to make this bet!", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
         coin2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                betting.setBetAmount(betting.getBetAmount() + 10);
-                betting.decreaseScore(10);
+                if (betting.getScore() >= 10) {
+                    betting.setBetAmount(betting.getBetAmount() + 10);
+                    betting.decreaseScore(10);
+                } else {
+                    Toast.makeText(getBlackjackContext(), "You do not have enough lives to make this bet!", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
         coin3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                betting.setBetAmount(betting.getBetAmount() + 20);
-                betting.decreaseScore(20);
+                if (betting.getScore() >= 20) {
+                    betting.setBetAmount(betting.getBetAmount() + 20);
+                    betting.decreaseScore(20);
+                } else {
+                    Toast.makeText(getBlackjackContext(), "You do not have enough lives to make this bet!", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -159,7 +178,7 @@ public class BlackjackController extends Observable implements IBlackjackControl
     }
 
     public void updateScoreText(int score) {
-        scoreTextView.setText("$" + score);
+        scoreTextView.setText(score + " lives");
     }
 
     @Override
@@ -186,7 +205,7 @@ public class BlackjackController extends Observable implements IBlackjackControl
         } else if (su.getPlayerType() == PlayerType.DEALER) {
             dealerScore = su.getScore();
             Log.d("Dealer score update: ", String.valueOf(dealerScore));
-            updateDealerScoreUI(dealerScore);
+            updateDealerScoreUI(-1);
             if (su.getScore() == 21) {
                 showHiddenCard();
                 displayDealerWin();
@@ -239,18 +258,18 @@ public class BlackjackController extends Observable implements IBlackjackControl
         switch(winner) {
             case "Player":
                 betting.updateScore(true);
-                winnerText.setText(String.format("You won! Here's your $%d!", betting.getBetAmount() * 2));
+                winnerText.setText(String.format("You won! Here's your %d lives!", betting.getBetAmount() * 2));
                 updateDealerScoreUI(dealerScore);
 
                 break;
             case "Dealer":
-                winnerText.setText(String.format("Dealer won. You lost $%d.", betting.getBetAmount()));
+                winnerText.setText(String.format("Dealer won. You lost %d lives.", betting.getBetAmount()));
                 updateDealerScoreUI(dealerScore);
 
                 break;
             default:
                 betting.updateScore(false);
-                winnerText.setText(String.format("Draw, you keep your bet of $%d.", betting.getBetAmount()));
+                winnerText.setText(String.format("Draw, you keep your bet of %d lives.", betting.getBetAmount()));
                 updateDealerScoreUI(dealerScore);
 
         }
@@ -263,13 +282,18 @@ public class BlackjackController extends Observable implements IBlackjackControl
         blackjackDealer.reset();
         deck.reset();
         betting.clearBetAmount();
+        playerScoreTextView.setVisibility(View.INVISIBLE);
+        dealerScoreTextView.setVisibility(View.INVISIBLE);
+        coin1.setVisibility(View.VISIBLE);
+        coin2.setVisibility(View.VISIBLE);
+        coin3.setVisibility(View.VISIBLE);
     }
     public void updatePlayerScoreUI(int score) {
-        playerScoreTextView.setText("Your total: " + score);
+        playerScoreTextView.setText("Player Score: " + score);
     }
 
     public void updateDealerScoreUI(int score) {
-        dealerScoreTextView.setText("Dealer total: " + score);
+        dealerScoreTextView.setText("Dealer Score: " + ((score == -1) ? "?" : score));
         // access ui element to update score
     }
 
