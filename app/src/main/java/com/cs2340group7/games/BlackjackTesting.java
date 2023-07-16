@@ -154,11 +154,4 @@ public class BlackjackTesting {
         assertEquals(26, dealer.getScore());
         assertTrue(dealer.checkBust());
     }
-
-
-
-
-
-
-
 }
