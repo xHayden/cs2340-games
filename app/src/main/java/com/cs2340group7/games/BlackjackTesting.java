@@ -119,5 +119,16 @@ public class BlackjackTesting {
         assertEquals(17, dealer.getScore());
     }
 
+    @Test
+    public void testPlayerStand() {
+        IBlackjackCard card1 = new BlackjackCard(Suit.CLUBS, Rank.EIGHT, 0);
+        IBlackjackCard card2 = new BlackjackCard(Suit.HEARTS, Rank.THREE, 0);
+        player.hit(card1);
+        player.hit(card2);
+        player.stand();
+        assertEquals(11, player.getScore());
+    }
+
+
 
 }
