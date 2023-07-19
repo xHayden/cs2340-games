@@ -18,6 +18,15 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import com.cs2340group7.games.databinding.WordleBinding;
 
+import java.util.concurrent.TimeUnit;
+
+import nl.dionsegijn.konfetti.core.Party;
+import nl.dionsegijn.konfetti.core.PartyFactory;
+import nl.dionsegijn.konfetti.core.emitter.Emitter;
+import nl.dionsegijn.konfetti.core.emitter.EmitterConfig;
+import nl.dionsegijn.konfetti.xml.KonfettiView;
+import nl.dionsegijn.konfetti.core.models.Size;
+
 public class Wordle extends Fragment {
     private WordleBinding binding;
     private LinearLayout keyboardContainer;
@@ -50,6 +59,23 @@ public class Wordle extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         ImageView profileImage = view.findViewById(R.id.player_profile);
         TextView playerName = view.findViewById(R.id.player_name);
+
+        KonfettiView konfettiView = view.findViewById(R.id.konfettiView);
+
+
+
+        EmitterConfig emitterConfig = new Emitter(5L, TimeUnit.SECONDS).perSecond(50);
+        Party party = new PartyFactory(emitterConfig)
+                .angle(270)
+                .spread(90)
+                .setSpeedBetween(1f, 5f)
+                .timeToLive(2000L)
+                .sizes(new Size(12, 5f, 0.2f))
+                .position(0.0, 0.0, 1.0, 0.0)
+                .build();
+        konfettiView.setOnClickListener(viewK ->
+                konfettiView.start(party)
+        );
 
         SelectedSpriteViewModel viewModel = new ViewModelProvider(requireActivity()).get(SelectedSpriteViewModel.class);
         int selectedSpriteResId = viewModel.getSelectedSpriteResId();
