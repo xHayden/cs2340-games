@@ -36,6 +36,7 @@ public class Blackjack extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         ImageView profileImage = view.findViewById(R.id.player_profile);
         TextView playerName = view.findViewById(R.id.player_name);
+        TextView score = view.findViewById(R.id.score);
         SelectedSpriteViewModel viewModel = new ViewModelProvider(requireActivity()).get(SelectedSpriteViewModel.class);
         int selectedSpriteResId = viewModel.getSelectedSpriteResId();
         if (selectedSpriteResId != -1) {
@@ -48,6 +49,7 @@ public class Blackjack extends Fragment {
         // Apply the animation to the ImageView and TextView
         profileImage.startAnimation(fadeInAnimation);
         playerName.startAnimation(fadeInAnimation);
+        score.startAnimation(fadeInAnimation);
         BlackjackController.getInstance().setBlackjackContext(getContext());
         BlackjackController.getInstance().instantiateView(view);
         BlackjackController.getInstance().reset();
