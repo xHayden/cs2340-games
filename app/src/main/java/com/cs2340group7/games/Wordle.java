@@ -5,17 +5,16 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.cs2340group7.games.databinding.WordleBinding;
 
@@ -28,6 +27,14 @@ public class Wordle extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = WordleBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
+        ImageView profileImage = view.findViewById(R.id.player_profile);
+        TextView playerName = view.findViewById(R.id.player_name);
+        // Load the animation from the XML resource
+        Animation fadeInAnimation = AnimationUtils.loadAnimation(getContext(), R.anim.fade_in);
+
+        // Apply the animation to the ImageView and TextView
+        profileImage.startAnimation(fadeInAnimation);
+        playerName.startAnimation(fadeInAnimation);
         binding.exitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
