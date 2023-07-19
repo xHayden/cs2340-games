@@ -8,6 +8,12 @@
     android:background="#98DA9B"
     tools:context=".Blackjack">
 
+    <nl.dionsegijn.konfetti.xml.KonfettiView
+        android:id= "@+id/konfettiView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
