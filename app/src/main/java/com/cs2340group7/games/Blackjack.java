@@ -16,6 +16,15 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import com.cs2340group7.games.databinding.BlackjackBinding;
 
+import java.util.concurrent.TimeUnit;
+
+import nl.dionsegijn.konfetti.core.Party;
+import nl.dionsegijn.konfetti.core.PartyFactory;
+import nl.dionsegijn.konfetti.core.emitter.Emitter;
+import nl.dionsegijn.konfetti.core.emitter.EmitterConfig;
+import nl.dionsegijn.konfetti.xml.KonfettiView;
+import nl.dionsegijn.konfetti.core.models.Size;
+
 public class Blackjack extends Fragment {
     private BlackjackBinding binding;
 
@@ -52,6 +61,20 @@ public class Blackjack extends Fragment {
                         .navigate(R.id.action_Blackjack_to_SelectGame, savedInstanceState);
             }
         });
+        KonfettiView konfettiView = view.findViewById(R.id.konfettiView);
+
+        EmitterConfig emitterConfig = new Emitter(5L, TimeUnit.SECONDS).perSecond(50);
+        Party party = new PartyFactory(emitterConfig)
+                .angle(270)
+                .spread(90)
+                .setSpeedBetween(1f, 5f)
+                .timeToLive(2000L)
+                .sizes(new Size(12, 5f, 0.2f))
+                .position(0.0, 0.0, 1.0, 0.0)
+                .build();
+        konfettiView.setOnClickListener(viewK ->
+                konfettiView.start(party)
+        );
     }
 
     @Override
