@@ -1,12 +1,15 @@
 package com.cs2340group7.games;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -23,6 +26,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
+
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        int selectedTheme = prefs.getInt("selected_theme", AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+        AppCompatDelegate.setDefaultNightMode(selectedTheme);
+
         setContentView(binding.getRoot());
 
         // Load the animation from the XML resource
@@ -71,5 +79,19 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         return NavigationUI.navigateUp(navController, appBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+    private void switchTheme(int selectedTheme) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        prefs.edit().putInt("selected_theme", selectedTheme).apply();
+        recreate();
+    }
+
+    private void enableDarkMode() {
+        switchTheme(AppCompatDelegate.MODE_NIGHT_YES);
+    }
+
+    private void enableLightMode() {
+        switchTheme(AppCompatDelegate.MODE_NIGHT_NO);
     }
 }
