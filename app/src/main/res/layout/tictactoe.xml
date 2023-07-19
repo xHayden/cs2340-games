@@ -7,44 +7,44 @@
     android:layout_height="match_parent"
     android:background="@color/button"
     tools:context=".Tictactoe">
-
-
-    <TextView
-        android:id="@+id/player_name"
-        android:layout_width="0dp"
+    <LinearLayout
+        android:id="@+id/profile_container"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="120dp"
-        android:fontFamily="serif-monospace"
-        android:shadowColor="#780A0A"
-        android:shadowDx="0"
-        android:shadowDy="0"
-        android:shadowRadius="15"
-        android:text="@string/monkey"
-        android:textAlignment="center"
-        android:textAllCaps="false"
-        android:textColor="#D60D1F"
-        android:textSize="34sp"
-        android:textStyle="bold"
-        android:typeface="normal"
-        app:layout_constraintEnd_toEndOf="@+id/tictactoeBoard"
-        app:layout_constraintHorizontal_bias="0.72"
-        app:layout_constraintStart_toEndOf="@+id/player_profile"
-        app:layout_constraintTop_toTopOf="@+id/player_profile" />
-
-    <ImageView
-        android:id="@+id/player_profile"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_gravity="center"
-        android:background="@drawable/untitled_artwork"
-        android:contentDescription="@string/img2"
-        app:layout_constraintDimensionRatio="H,3:4"
-        app:layout_constraintEnd_toStartOf="@+id/player_name"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintHorizontal_chainStyle="packed"
+        android:orientation="horizontal"
+        android:background="@drawable/border"
+        android:padding="20dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/duck" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/player_profile"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center_vertical"
+            android:contentDescription="@string/img2"
+            app:srcCompat="@drawable/duck" />
+
+        <TextView
+            android:id="@+id/player_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="7dp"
+            android:fontFamily="serif-monospace"
+            android:shadowColor="#780A0A"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="15"
+            android:text="@string/monkey"
+            android:textAllCaps="false"
+            android:textColor="#D60D1F"
+            android:textSize="34sp"
+            android:textStyle="bold"
+            android:typeface="normal" />
+
+    </LinearLayout>
+
 
 
     <TextView
@@ -95,22 +95,21 @@
             android:text="Play Again"
             android:textSize="24dp"
             android:visibility="gone" />
-    </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tictactoeText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal|top"
-            android:layout_marginTop="24dp"
-            android:textSize="28sp" />
+            <TextView
+                android:id="@+id/tictactoeText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|top"
+                android:layout_marginTop="24dp"
+                android:textSize="28sp" />
 
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout

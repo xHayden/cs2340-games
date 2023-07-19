@@ -1,23 +1,18 @@
 package com.cs2340group7.games;
 
 import android.os.Bundle;
-
-import com.google.android.material.snackbar.Snackbar;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.util.Log;
-import android.view.View;
-
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.cs2340group7.games.databinding.ActivityMainBinding;
-
-import android.view.Menu;
-import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,9 +22,19 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        // Load the animation from the XML resource
+        Animation fadeInAnimation = AnimationUtils.loadAnimation(this, R.anim.fade_in);
+
+//        // Get the ImageView and TextView from the layout
+//        ImageView playerProfile = findViewById(R.id.player_profile);
+//        TextView playerName = findViewById(R.id.player_name);
+//
+//        // Apply the animation to the ImageView and TextView
+//        playerProfile.startAnimation(fadeInAnimation);
+//        playerName.startAnimation(fadeInAnimation);
 
         setSupportActionBar(binding.toolbar);
 
