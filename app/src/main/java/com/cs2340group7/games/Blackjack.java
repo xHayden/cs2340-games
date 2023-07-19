@@ -4,9 +4,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -41,6 +42,12 @@ public class Blackjack extends Fragment {
             playerName.setText(getArguments().get("playerName").toString());
             profileImage.setImageResource(selectedSpriteResId);
         }
+        // Load the animation from the XML resource
+        Animation fadeInAnimation = AnimationUtils.loadAnimation(getContext(), R.anim.fade_in);
+
+        // Apply the animation to the ImageView and TextView
+        profileImage.startAnimation(fadeInAnimation);
+        playerName.startAnimation(fadeInAnimation);
         BlackjackController.getInstance().setBlackjackContext(getContext());
         BlackjackController.getInstance().instantiateView(view);
         BlackjackController.getInstance().reset();
