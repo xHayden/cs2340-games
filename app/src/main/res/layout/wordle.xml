@@ -36,6 +36,8 @@
                     android:id="@+id/player_profile"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
+                    android:scaleX="2"
+                    android:scaleY="2"
                     app:srcCompat="@drawable/duck" />
 
                 <LinearLayout
@@ -49,7 +51,9 @@
                         android:id="@+id/player_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Player Name" />
+                        android:text="Player Name"
+                        android:textColor="#B50E0E"
+                        android:textStyle="bold" />
 
                     <LinearLayout
                         android:id="@+id/healthbar"
@@ -91,7 +95,9 @@
                         android:id="@+id/score"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Score: 0" />
+                        android:text="Score: 0"
+                        android:textColor="#B50E0E"
+                        android:textStyle="bold" />
                 </LinearLayout>
 
             </LinearLayout>
