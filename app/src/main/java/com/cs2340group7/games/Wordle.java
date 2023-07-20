@@ -29,12 +29,14 @@ public class Wordle extends Fragment {
         View view = binding.getRoot();
         ImageView profileImage = view.findViewById(R.id.player_profile);
         TextView playerName = view.findViewById(R.id.player_name);
+        TextView score = view.findViewById(R.id.score);
         // Load the animation from the XML resource
         Animation fadeInAnimation = AnimationUtils.loadAnimation(getContext(), R.anim.fade_in);
 
         // Apply the animation to the ImageView and TextView
         profileImage.startAnimation(fadeInAnimation);
         playerName.startAnimation(fadeInAnimation);
+        score.startAnimation(fadeInAnimation);
         binding.exitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
