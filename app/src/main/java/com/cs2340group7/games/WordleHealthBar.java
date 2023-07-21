@@ -1,19 +1,18 @@
 package com.cs2340group7.games;
 
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
-
-import java.util.Arrays;
 
 public class WordleHealthBar implements UIComponent, IHealthBar {
+    private static final int FULL_HEART = 6;
+    private static final int HALF_HEART = 3;
+    private static final int EMPTY_HEART = 0;
+
     private LinearLayout ui;
     private ImageView heart1;
     private ImageView heart2;
     private ImageView heart3;
-
 
     public WordleHealthBar(LinearLayout ui) {
         this.ui = ui;
@@ -25,14 +24,8 @@ public class WordleHealthBar implements UIComponent, IHealthBar {
     public WordleHealthBar() {
     }
 
-    //    public void update(int value) {
-//        this.ui.setProgress(value);
-//    }
     public void updateHealth(int health, int[] color) {
-        if (!(Arrays.equals(color, new int[]{2, 2, 2, 2, 2}))) {
-            if (health <= 0 || health > 6) {
-                throw new IllegalArgumentException("Cannot have this many health");
-            }
+        if (hasCustomColor(color)) {
             switch (health) {
                 case 1:
                     heart3.setImageResource(R.drawable.halfheart);
@@ -51,8 +44,20 @@ public class WordleHealthBar implements UIComponent, IHealthBar {
                     break;
                 case 6:
                     heart1.setImageResource(R.drawable.emptyheart);
+                    break;
+                default:
+                    throw new IllegalArgumentException("Invalid health value: " + health);
             }
         }
+    }
+
+    private boolean hasCustomColor(int[] color) {
+        for (int c : color) {
+            if (c != 2) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public void reset() {
@@ -71,4 +76,3 @@ public class WordleHealthBar implements UIComponent, IHealthBar {
         this.ui = (LinearLayout) ui;
     }
 }
-
