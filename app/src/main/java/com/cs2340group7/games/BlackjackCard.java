@@ -1,6 +1,8 @@
 package com.cs2340group7.games;
 
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
 public class BlackjackCard implements ICard, UIComponent, IBlackjackCard {
@@ -38,6 +40,8 @@ public class BlackjackCard implements ICard, UIComponent, IBlackjackCard {
         if (view instanceof ImageView) {
             this.ui = (ImageView) view;
             this.update();
+            Animation animation = AnimationUtils.loadAnimation(BlackjackController.getInstance().getBlackjackContext(), R.anim.deal_card);
+            this.ui.startAnimation(animation);
         }
     }
 
