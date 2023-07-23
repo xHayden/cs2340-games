@@ -275,7 +275,7 @@ public class TictactoeManager {
                 playerScore++;
                 playerScoreUI.setText("Player: " + playerScore);
             } else {
-                text.setText("Player Y wins!");
+                text.setText("Player O wins!");
             }
             timer.cancel();
             playAgainButton.setVisibility(View.VISIBLE);
