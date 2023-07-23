@@ -6,6 +6,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.Timer;
+
 public class TictactoeManager {
     static char[][] board;
     static boolean playingGame;
@@ -37,6 +39,7 @@ public class TictactoeManager {
 
     public static void restart() {
         restartNoUI();
+        timer.cancel();
         timer.start();
         ui.resetUI();
         ui.invalidate();
@@ -262,5 +265,9 @@ public class TictactoeManager {
 
     public static void setBoardUI(TictactoeBoard tictactoeBoard) {
         ui = tictactoeBoard;
+    }
+
+    public CountDownTimer getTimer() {
+        return timer;
     }
 }

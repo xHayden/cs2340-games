@@ -51,6 +51,14 @@
                 android:name="playerName"
                 app:argType="string"
                 android:defaultValue="Anonymous" />
+            <argument
+                android:name="aiMode"
+                app:argType="boolean"
+                android:defaultValue="false"/>
+            <argument
+                android:name="aiDifficulty"
+                app:argType="string"
+                android:defaultValue="None"/>
         </action>
     </fragment>
     <fragment
