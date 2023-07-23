@@ -169,4 +169,5 @@ public class TictactoeTest {
 
         assertEquals(TictactoeManager.board[0][0], 'y');
     }
+
 }
