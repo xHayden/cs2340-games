@@ -2,11 +2,11 @@ package com.cs2340group7.games;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.CountDownTimer;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -16,7 +16,6 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.cs2340group7.games.databinding.GamePlayScreenBinding;
 import com.cs2340group7.games.databinding.TictactoeBinding;
 
 import org.w3c.dom.Text;
@@ -92,6 +91,13 @@ public class Tictactoe extends Fragment {
         konfettiView.setOnClickListener(viewK ->
                 konfettiView.start(party)
         );
+
+        // Load the animation from the XML resource
+        Animation fadeInAnimation = AnimationUtils.loadAnimation(getContext(), R.anim.fade_in);
+
+        // Apply the animation to the ImageView and TextView
+        profileImage.startAnimation(fadeInAnimation);
+        playerName.startAnimation(fadeInAnimation);
 
         playAgainButton.setOnClickListener(new View.OnClickListener() {
             @Override
