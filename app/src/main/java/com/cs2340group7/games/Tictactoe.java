@@ -81,7 +81,13 @@ public class Tictactoe extends Fragment {
             if (getArguments().getBoolean("aiMode")) {
                 Log.d("TicTacToe", "AI Mode enabled");
                 Log.d("Difficulty", getArguments().getString("aiDifficulty"));
+                TictactoeManager.aiMode = true;
+                TictactoeManager.aiDifficulty = getArguments().getString("aiDifficulty");
+            } else {
+                TictactoeManager.aiMode = false;
+                TictactoeManager.aiDifficulty = null;
             }
+            Log.d("test", String.format("%s", TictactoeManager.aiMode));
         }
         EmitterConfig emitterConfig = new Emitter(5L, TimeUnit.SECONDS).perSecond(50);
         Party party = new PartyFactory(emitterConfig)
