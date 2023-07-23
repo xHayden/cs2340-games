@@ -98,6 +98,8 @@ public class Tictactoe extends Fragment {
         // Apply the animation to the ImageView and TextView
         profileImage.startAnimation(fadeInAnimation);
         playerName.startAnimation(fadeInAnimation);
+        playerScore.startAnimation(fadeInAnimation);
+        aiScore.startAnimation(fadeInAnimation);
 
         playAgainButton.setOnClickListener(new View.OnClickListener() {
             @Override
