@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- This alpha animation changes the alpha value of the card from 0 (completely transparent) to 1 (completely opaque) -->
+    <alpha
+        android:fromAlpha="0.0"
+        android:toAlpha="1.0"
+        android:duration="1000" />
+
+    <!-- This translate animation moves the card along the X and Y axis.
+         The fromXDelta and fromYDelta values represent the starting position of the card,
+         and the toXDelta and toYDelta values represent the ending position of the card. -->
+    <translate
+        android:fromXDelta="0%"
+        android:toXDelta="50%p"
+        android:fromYDelta="0%"
+        android:toYDelta="50%p"
+        android:duration="1000" />
+</set>
