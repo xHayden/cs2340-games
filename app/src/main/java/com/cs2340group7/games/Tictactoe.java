@@ -2,6 +2,7 @@ package com.cs2340group7.games;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -76,9 +77,12 @@ public class Tictactoe extends Fragment {
         TextView playerScore = view.findViewById(R.id.playerScore);
         Button playAgainButton = view.findViewById(R.id.playAgainButton);
         KonfettiView konfettiView = view.findViewById(R.id.konfettiView);
-
-
-
+        if (getArguments().get("aiMode") != null) {
+            if (getArguments().getBoolean("aiMode")) {
+                Log.d("TicTacToe", "AI Mode enabled");
+                Log.d("Difficulty", getArguments().getString("aiDifficulty"));
+            }
+        }
         EmitterConfig emitterConfig = new Emitter(5L, TimeUnit.SECONDS).perSecond(50);
         Party party = new PartyFactory(emitterConfig)
                 .angle(270)
@@ -116,6 +120,14 @@ public class Tictactoe extends Fragment {
             profileImage.setImageResource(selectedSpriteResId);
         }
         tm = new TictactoeManager(gameTime, text, playerScore, aiScore, playAgainButton);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (TictactoeManager.timer != null) {
+            TictactoeManager.timer.cancel();
+        }
     }
 
     @Override

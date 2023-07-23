@@ -51,6 +51,18 @@
 
         </RelativeLayout>
 
+        <Switch
+            android:id="@+id/aiMode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Play against AI"
+            android:visibility="gone" />
+
+        <Spinner
+            android:id="@+id/aiDifficulty"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
         <Button
             android:id="@+id/start_game_button"
             android:layout_width="match_parent"

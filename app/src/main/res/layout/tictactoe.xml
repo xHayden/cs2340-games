@@ -7,15 +7,20 @@
     android:layout_height="match_parent"
     android:background="@color/button"
     tools:context=".Tictactoe">
+
     <LinearLayout
         android:id="@+id/profile_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:background="@drawable/border"
-        android:padding="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
+        <nl.dionsegijn.konfetti.xml.KonfettiView
+            android:id="@+id/konfettiView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone" />
 
         <ImageView
             android:id="@+id/player_profile"
@@ -107,7 +112,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal|top"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="90dp"
                 android:textSize="28sp" />
 
         </LinearLayout>
