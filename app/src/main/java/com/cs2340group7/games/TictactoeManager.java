@@ -62,7 +62,11 @@ public class TictactoeManager {
             }
             public void onFinish() {
                 text.setText("Your turn was skipped");
-                aiMove();
+                if (aiMode) {
+                    aiMove();
+                } else {
+                    turn++;
+                }
                 ui.invalidate();
                 this.start();
             }
