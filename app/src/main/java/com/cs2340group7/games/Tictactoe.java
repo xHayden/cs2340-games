@@ -1,5 +1,6 @@
 package com.cs2340group7.games;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,11 +11,44 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.cs2340group7.games.databinding.TictactoeBinding;
+
+import org.w3c.dom.Text;
+
+import java.util.concurrent.TimeUnit;
+
+import nl.dionsegijn.konfetti.core.Party;
+import nl.dionsegijn.konfetti.core.PartyFactory;
+import nl.dionsegijn.konfetti.core.emitter.Emitter;
+import nl.dionsegijn.konfetti.core.emitter.EmitterConfig;
+import nl.dionsegijn.konfetti.core.models.Shape;
+import nl.dionsegijn.konfetti.xml.KonfettiView;
+
+import static nl.dionsegijn.konfetti.core.Position.Relative;
+
+import android.graphics.drawable.Drawable;
+import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+
+import java.util.Arrays;
+import java.util.concurrent.TimeUnit;
+
+import nl.dionsegijn.konfetti.core.Angle;
+import nl.dionsegijn.konfetti.core.Party;
+import nl.dionsegijn.konfetti.core.PartyFactory;
+import nl.dionsegijn.konfetti.core.Spread;
+import nl.dionsegijn.konfetti.core.emitter.Emitter;
+import nl.dionsegijn.konfetti.core.emitter.EmitterConfig;
+import nl.dionsegijn.konfetti.core.models.Shape;
+import nl.dionsegijn.konfetti.core.models.Size;
+import nl.dionsegijn.konfetti.xml.KonfettiView;
 
 public class Tictactoe extends Fragment {
     private @NonNull TictactoeBinding binding;
@@ -41,6 +75,22 @@ public class Tictactoe extends Fragment {
         TextView aiScore = view.findViewById(R.id.aiScore);
         TextView playerScore = view.findViewById(R.id.playerScore);
         Button playAgainButton = view.findViewById(R.id.playAgainButton);
+        KonfettiView konfettiView = view.findViewById(R.id.konfettiView);
+
+
+
+        EmitterConfig emitterConfig = new Emitter(5L, TimeUnit.SECONDS).perSecond(50);
+        Party party = new PartyFactory(emitterConfig)
+                .angle(270)
+                .spread(90)
+                .setSpeedBetween(1f, 5f)
+                .timeToLive(2000L)
+                .sizes(new Size(12, 5f, 0.2f))
+                .position(0.0, 0.0, 1.0, 0.0)
+                .build();
+        konfettiView.setOnClickListener(viewK ->
+                konfettiView.start(party)
+        );
 
         // Load the animation from the XML resource
         Animation fadeInAnimation = AnimationUtils.loadAnimation(getContext(), R.anim.fade_in);
