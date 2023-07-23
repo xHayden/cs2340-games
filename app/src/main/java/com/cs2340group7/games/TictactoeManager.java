@@ -21,6 +21,10 @@ public class TictactoeManager {
     static CountDownTimer timer;
     static TextView text;
     private static Button playAgainButton;
+    static boolean aiMode;
+    static String aiDifficulty;
+    static int turn;
+
 
     public TictactoeManager(TextView gameTime, TextView textView, TextView playerScore, TextView aiScore, Button playAgain) {
         playingGame = true;
@@ -30,6 +34,7 @@ public class TictactoeManager {
         playerScoreUI = playerScore;
         aiScoreUI = aiScore;
         playAgainButton = playAgain;
+        turn = 0;
     }
 
     public static void startNoUI() {
@@ -73,11 +78,12 @@ public class TictactoeManager {
         }
     }
 
-    static void printBoard() {
-        System.out.printf(
-                "|%s|%s|%s|\n|%s|%s|%s|\n|%s|%s|%s|\n"
-                , board[0][0], board[1][0], board[2][0], board[0][1], board[1][1], board[2][1], board[0][2], board[1][2], board[2][2]);
-    }
+//
+//    static void printBoard() {
+//        System.out.printf(
+//                "|%s|%s|%s|\n|%s|%s|%s|\n|%s|%s|%s|\n"
+//                , board[0][0], board[1][0], board[2][0], board[0][1], board[1][1], board[2][1], board[0][2], board[1][2], board[2][2]);
+//    }
 
     static void putAtSpot(int position, char player) {
         int x = position % board[0].length;
@@ -186,15 +192,31 @@ public class TictactoeManager {
     }
 
     private static void updateWinnerAndScore(int position) {
-        updateUI(position, 'x');
+        if (!aiMode) {
+            switch (turn % 2) {
+                case 0:
+                    updateUI(position, 'x');
+                    break;
+                default:
+                    updateUI(position, 'y');
+                    break;
+            }
+            turn++;
+        } else {
+            updateUI(position, 'x');
+        }
+
         if (checkWinner(position, 'x') != ' ' && checkWinner(position, 'x') != 'd') {
             // PLAYER PLAYS WINNING MOVE
             updateUI(position, 'x');
-            text.setText("Player wins!");
+            if (aiMode) {
+                text.setText("Player wins!");
+                playerScore++;
+                playerScoreUI.setText("Player: " + playerScore);
+            } else {
+                text.setText("Player Y wins!");
+            }
             timer.cancel();
-            Log.d("Tic", "The winner is: x");
-            playerScore++;
-            playerScoreUI.setText("Player: " + playerScore);
             playAgainButton.setVisibility(View.VISIBLE);
             playingGame = false;
         } else if (checkWinner(position, 'y') == 'd') {
@@ -202,39 +224,73 @@ public class TictactoeManager {
             updateUI(position, 'x');
             text.setText("Draw!");
             timer.cancel();
-            Log.d("Tic", "It is a draw.");
             drawCount++;
             playAgainButton.setVisibility(View.VISIBLE);
             playingGame = false;
         } else {
-            if (playingGame) {
+            if (playingGame && aiMode) {
                 aiMove();
+            }
+        }
+        if (!aiMode) {
+            if (checkWinner(position, 'y') != ' ' && checkWinner(position, 'y') != 'd') {
+                updateUI(position, 'y');
+                text.setText("Player X wins!");
+                timer.cancel();
+                playAgainButton.setVisibility(View.VISIBLE);
+                playingGame = false;
+            } else if (checkWinner(position, 'y') == 'd') {
+                // PLAYER PLAYS MOVE THAT CAUSES DRAWING MOVE
+                updateUI(position, 'y');
+                text.setText("Draw!");
+                timer.cancel();
+                playAgainButton.setVisibility(View.VISIBLE);
+                playingGame = false;
             }
         }
     }
 
     private static void aiMove() {
-        //AI next move
         int position = findWinningMove('y');
-        if (position == -1) {
-            position = findWinningMove('x');
-            if (position == -1) {
-                if (isPositionFree(4)) {
-                    position = 4;
-                } else if (isPositionFree(0) && isFirstMove) {
-                    position = 0;
-                } else if (isPositionFree(2) && isFirstMove) {
-                    position = 2;
-                } else if (isPositionFree(6) && isFirstMove) {
-                    position = 6;
-                } else if (isPositionFree(8) && isFirstMove) {
-                    position = 8;
-                } else {
-                    do {
-                        position = (int) (Math.random() * 9);
-                    } while (!isPositionFree(position));
+        //AI next move
+        switch (aiDifficulty) {
+            case ("Hard"):
+                if (position == -1) {
+                    position = findWinningMove('x');
+                    if (position == -1) {
+                        if (isPositionFree(4)) {
+                            position = 4;
+                        } else if (isPositionFree(0) && isFirstMove) {
+                            position = 0;
+                        } else if (isPositionFree(2) && isFirstMove) {
+                            position = 2;
+                        } else if (isPositionFree(6) && isFirstMove) {
+                            position = 6;
+                        } else if (isPositionFree(8) && isFirstMove) {
+                            position = 8;
+                        } else {
+                            do {
+                                position = (int) (Math.random() * 9);
+                            } while (!isPositionFree(position));
+                        }
+                    }
                 }
-            }
+                break;
+            case ("Easy"):
+                do {
+                    position = (int) (Math.random() * 9);
+                } while (!isPositionFree(position));
+                break;
+            default:
+                if (position == -1) {
+                    position = findWinningMove('x');
+                    if (position == -1) {
+                        do {
+                            position = (int) (Math.random() * 9);
+                        } while (!isPositionFree(position));
+                    }
+                }
+                break;
         }
 
         updateUI(position, 'y');
@@ -262,6 +318,7 @@ public class TictactoeManager {
             }
         }
     }
+
 
     public static void setBoardUI(TictactoeBoard tictactoeBoard) {
         ui = tictactoeBoard;
