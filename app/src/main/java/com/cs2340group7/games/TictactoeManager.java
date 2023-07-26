@@ -113,6 +113,7 @@ public class TictactoeManager {
         }
         return -1;
     }
+
     static char checkWinner(int position, char player) {
         int x = position % board[0].length;
         int y = position / board[0].length;
@@ -137,7 +138,7 @@ public class TictactoeManager {
             }
         }
 
-        // check diagonal if applicable
+        // check diagonal
         if(x == y) {
             for(int i = 0; i < 3; i++) {
                 if(board[i][i] != player) {
@@ -149,7 +150,7 @@ public class TictactoeManager {
             }
         }
 
-        // check anti-diagonal if applicable
+        // check anti-diagonal
         if(x + y == 2) {
             for(int i = 0; i < 3; i++) {
                 if(board[i][2-i] != player) {
@@ -161,77 +162,19 @@ public class TictactoeManager {
             }
         }
 
-        // check for a draw
-        if(turn == 9 && isBoardFull()) {
-            return 'd';
+        // check draw
+        int counter = 0;
+        for (int i = 0; i < 9; i++) {
+            if (isPositionFree(i)) {
+                counter++;
+            }
         }
 
+        if (counter == 0) {
+            return 'd';
+        }
         return ' ';
     }
-
-
-//    static char checkWinner(int position, char player) {
-//        int x = position % board[0].length;
-//        int y = position / board[0].length;
-//
-//        // check column
-//        for(int i = 0; i < 3; i++) {
-//            if(board[i][y] != player) {
-//                break;
-//            }
-//            if(i == 2) {
-//                return player;
-//            }
-//        }
-//
-//        // check row
-//        for(int i = 0; i < 3; i++) {
-//            if(board[x][i] != player) {
-//                break;
-//            }
-//            if(i == 2) {
-//                return player;
-//            }
-//        }
-//
-//        // check diagonal
-//        if(x == y) {
-//            for(int i = 0; i < 3; i++) {
-//                if(board[i][i] != player) {
-//                    break;
-//                }
-//                if(i == 2) {
-//                    return player;
-//                }
-//            }
-//        }
-//
-//        // check anti-diagonal
-//        if(x + y == 2) {
-//            for(int i = 0; i < 3; i++) {
-//                if(board[i][2-i] != player) {
-//                    break;
-//                }
-//                if(i == 2) {
-//                    return player;
-//                }
-//            }
-//        }
-//
-//        // check draw
-//        int counter = 0;
-//        for (int i = 0; i < 9; i++) {
-//            if (isPositionFree(i)) {
-//                counter++;
-//            }
-//        }
-//
-//        if (counter == 0) {
-//            return 'd';
-//        }
-//
-//        return ' ';
-//    }
 
     public static void playerMove(int position) {
         text.setText("");
@@ -249,58 +192,6 @@ public class TictactoeManager {
         putAtSpot(position, player);
         ui.updateCell(position, (player == 'x') ? 2 : 1);
     }
-    private static void updateWinnerAndScore(int position) {
-        if (!aiMode) {
-            switch (turn % 2) {
-                case 0:
-                    updateUI(position, 'x');
-                    break;
-                default:
-                    updateUI(position, 'y');
-                    break;
-            }
-            turn++;
-        } else {
-            updateUI(position, 'x');
-        }
-
-        char winnerX = checkWinner(position, 'x');
-        char winnerY = checkWinner(position, 'y');
-
-        if (winnerX == 'x') {  // check for player 'x' win
-            // PLAYER PLAYS WINNING MOVE
-            updateUI(position, 'x');
-            if (aiMode) {
-                text.setText("Player wins!");
-                playerScore++;
-                playerScoreUI.setText("Player: " + playerScore);
-            } else {
-                text.setText("Player O wins!");
-            }
-            timer.cancel();
-            playAgainButton.setVisibility(View.VISIBLE);
-            playingGame = false;
-        } else if (winnerY == 'y') {  // check for player 'y' win
-            updateUI(position, 'y');
-            text.setText("Player X wins!");
-            timer.cancel();
-            playAgainButton.setVisibility(View.VISIBLE);
-            playingGame = false;
-        } else if (winnerX == 'd' || winnerY == 'd') {  // only then check for draw
-            // PLAYER PLAYS MOVE THAT CAUSES DRAWING MOVE
-            updateUI(position, 'x');
-            text.setText("Draw!");
-            timer.cancel();
-            drawCount++;
-            playAgainButton.setVisibility(View.VISIBLE);
-            playingGame = false;
-        } else {
-            if (playingGame && aiMode) {
-                aiMove();
-            }
-        }
-    }
-
 
 //    private static void updateWinnerAndScore(int position) {
 //        if (!aiMode) {
@@ -317,7 +208,10 @@ public class TictactoeManager {
 //            updateUI(position, 'x');
 //        }
 //
-//        if (checkWinner(position, 'x') != ' ' && checkWinner(position, 'x') != 'd') {
+//        char winnerX = checkWinner(position, 'x');
+//        char winnerY = checkWinner(position, 'y');
+//
+//        if (winnerX == 'x') {  // check for player 'x' win
 //            // PLAYER PLAYS WINNING MOVE
 //            updateUI(position, 'x');
 //            if (aiMode) {
@@ -325,13 +219,20 @@ public class TictactoeManager {
 //                playerScore++;
 //                playerScoreUI.setText("Player: " + playerScore);
 //            } else {
-//                text.setText("Player Y wins!");
+//                text.setText("Player O wins!");
 //            }
 //            timer.cancel();
 //            playAgainButton.setVisibility(View.VISIBLE);
 //            playingGame = false;
-//        } else if (checkWinner(position, 'y') == 'd') {
+//        } else if (winnerY == 'y') {  // check for player 'y' win
+//            updateUI(position, 'y');
+//            text.setText("Player X wins!");
+//            timer.cancel();
+//            playAgainButton.setVisibility(View.VISIBLE);
+//            playingGame = false;
+//        } else if (winnerX == 'd' || winnerY == 'd') {  // only then check for draw
 //            // PLAYER PLAYS MOVE THAT CAUSES DRAWING MOVE
+//            Log.d("draw", "I am here");
 //            updateUI(position, 'x');
 //            text.setText("Draw!");
 //            timer.cancel();
@@ -343,23 +244,59 @@ public class TictactoeManager {
 //                aiMove();
 //            }
 //        }
-//        if (!aiMode) {
-//            if (checkWinner(position, 'y') != ' ' && checkWinner(position, 'y') != 'd') {
-//                updateUI(position, 'y');
-//                text.setText("Player X wins!");
-//                timer.cancel();
-//                playAgainButton.setVisibility(View.VISIBLE);
-//                playingGame = false;
-//            } else if (checkWinner(position, 'y') == 'd') {
-//                // PLAYER PLAYS MOVE THAT CAUSES DRAWING MOVE
-//                updateUI(position, 'y');
-//                text.setText("Draw!");
-//                timer.cancel();
-//                playAgainButton.setVisibility(View.VISIBLE);
-//                playingGame = false;
-//            }
-//        }
 //    }
+
+
+    private static void updateWinnerAndScore(int position) {
+        char currentTurn = ' ';
+        if (!aiMode) {
+            switch (turn % 2) {
+                case 0:
+                    currentTurn = 'x';
+                    updateUI(position, currentTurn);
+                    break;
+                default:
+                    currentTurn = 'y';
+                    updateUI(position, currentTurn);
+                    break;
+            }
+            turn++;
+        } else {
+            currentTurn = 'x';
+            updateUI(position, currentTurn);
+        }
+
+        char result = checkWinner(position, currentTurn);
+
+        if (result == currentTurn) {
+            // PLAYER PLAYS WINNING MOVE
+            if (aiMode) {
+                text.setText("Player wins!");
+                playerScore++;
+                playerScoreUI.setText("Player: " + playerScore);
+            } else {
+                char winner = currentTurn == 'x' ? 'O' : 'X';
+                text.setText("Player " + winner + " wins!");
+            }
+            timer.cancel();
+            playAgainButton.setVisibility(View.VISIBLE);
+            playingGame = false;
+        } else if (result == 'd') {
+            // PLAYER PLAYS MOVE THAT CAUSES DRAWING MOVE
+            text.setText("Draw!");
+            timer.cancel();
+            drawCount++;
+            playAgainButton.setVisibility(View.VISIBLE);
+            playingGame = false;
+        } else {
+            if (playingGame && aiMode) {
+                aiMove();
+            }
+        }
+    }
+
+
+
 
     private static void aiMove() {
         int position = findWinningMove('y');
@@ -393,6 +330,9 @@ public class TictactoeManager {
                 } while (!isPositionFree(position));
                 break;
             default:
+                if (isPositionFree(4)) {
+                    position = 4;
+                }
                 if (position == -1) {
                     position = findWinningMove('x');
                     if (position == -1) {
